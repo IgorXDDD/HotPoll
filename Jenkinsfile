@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '/bin/sh -c \'./mvnw spring-boot:run\''
+        sh './mvnw spring-boot:run &'
       }
     }
 
