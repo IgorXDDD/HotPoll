@@ -18,7 +18,7 @@ pipeline {
         echo 'deploy'
         sh '''ls
 docker build -t hotpoll .
-docker run --rm --publish localhost:4444:4444 -d hotpoll'''
+docker run --rm --publish 4444:4444 -t hotpoll'''
       }
     }
 
