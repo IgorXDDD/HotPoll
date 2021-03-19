@@ -16,7 +16,7 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploy'
-        sh '''pkill hotpoll
+        sh '''kill `pidof hotpoll`
 java -jar target/hotpoll-0.0.1-SNAPSHOT.jar &'''
       }
     }
