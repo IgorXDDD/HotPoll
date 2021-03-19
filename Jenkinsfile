@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh './mvnw spring-boot:run'
+        sh './mvn clean install'
       }
     }
 
@@ -16,6 +16,8 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploy'
+        sh '''docker build -t hotpoll .
+docker run -p 4444:4444 -d hotpoll'''
       }
     }
 
