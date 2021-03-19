@@ -16,8 +16,8 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploy'
-        sh '''docker build -t hotpoll .
-docker run --rm --publish 0.0.0.0:4444:4444 -d hotpoll'''
+        sh '''pkill hotpoll
+java -jar target/hotpoll-0.0.1-SNAPSHOT.jar &'''
       }
     }
 
