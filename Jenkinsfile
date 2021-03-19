@@ -16,7 +16,8 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploy'
-        sh '''docker build -t hotpoll .
+        sh '''ls
+docker build -t hotpoll .
 docker run -p 4444:4444 -d hotpoll'''
       }
     }
