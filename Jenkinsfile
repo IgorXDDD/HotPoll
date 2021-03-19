@@ -17,7 +17,6 @@ pipeline {
       steps {
         echo 'deploy'
         sh '''docker build -t hotpoll .
-cd /home/jgalat
 docker run --rm --publish 4444:4444 --network host -d hotpoll'''
       }
     }
