@@ -18,7 +18,7 @@ pipeline {
         echo 'deploy'
         sh '''ls
 docker build -t hotpoll .
-docker run -p 4444:4444 -d hotpoll'''
+docker run -p 4444:4444 --bind 0.0.0.0 -d hotpoll'''
       }
     }
 
