@@ -17,7 +17,7 @@ pipeline {
       steps {
         echo 'deploy'
         sh '''docker build -t hotpoll .
-docker run --rm -d hotpoll'''
+docker run --rm --network host -d hotpoll'''
       }
     }
 
