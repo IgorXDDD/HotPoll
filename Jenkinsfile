@@ -18,7 +18,7 @@ pipeline {
         echo 'deploy'
         sh '''ls
 docker build -t hotpoll .
-docker run --rm --publish 4444:4444 --network host -d hotpoll'''
+docker run --rm --publish 4444:4444 --network bridge -d hotpoll'''
       }
     }
 
