@@ -16,8 +16,8 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploy'
-        sh '''ls
-docker build -t hotpoll .
+        sh '''docker build -t hotpoll .
+cd /home/jgalat
 docker run --rm --publish 4444:4444 --network host -d hotpoll'''
       }
     }
