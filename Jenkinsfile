@@ -18,7 +18,15 @@ pipeline {
         stage('Deploy') {
           steps {
             echo 'deploy'
-            sh '''fuser -k 4444 || true
+            sh '''PID_SELF=$$
+for PID in $(ps -eo pid,command -u ${USER} | grep -v grep | tail -n+2 | awk \'{print $1}\' | grep -v ${PID_SELF}); do
+  cat /proc/${PID}/environ 2>/dev/null | \\
+    grep "BUILD_ID=" | \\
+    grep -v "BUILD_ID=dontKillMe" | \\
+    grep -v "BUILD_ID=${BUILD_ID}" -q && \\
+    echo "Killing $(ps -p ${PID} | tail -1)" && \\
+    kill -9 ${PID}
+done || true
 JENKINS_NODE_COOKIE=dontKillMe nohup java -jar target/hotpoll-0.0.1-SNAPSHOT.jar  &'''
           }
         }
