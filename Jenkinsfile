@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
           steps {
             echo 'deploy'
-            sh '''if pgrep hotpoll; then pkill hotpoll; fi
+            sh '''
 JENKINS_NODE_COOKIE=dontKillMe nohup java -jar target/hotpoll-0.0.1-SNAPSHOT.jar  &'''
           }
         }
