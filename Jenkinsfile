@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
           steps {
             echo 'deploy'
-            sh '''ps -Af | grep "jenkins" | grep -v grep | awk \'{print$2}\' | xargs kill || true
+            sh '''kill `pidof hotpoll` || true
 JENKINS_NODE_COOKIE=dontKillMe nohup java -jar target/hotpoll-0.0.1-SNAPSHOT.jar  &'''
           }
         }
