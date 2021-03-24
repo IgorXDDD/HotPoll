@@ -1,0 +1,318 @@
+/* 
+====== 
+Variables 
+======
+*/
+:root {
+  /* --primaryLightColor: #d4e6a5;
+  --primaryColor: #476a2e;
+  --primaryDarkColor: #c02c03; */
+
+  --mainTransition: all 0.3s linear;
+  --lightShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  --mainBorderRadius: 0.5rem;
+
+  --mainGradient: linear-gradient(
+    45deg,
+    #54007c,
+    #70007b,
+    #8a0077,
+    #a00071,
+    #b5006a,
+    #c70061,
+    #d70057,
+    #e5004c,
+    #ef053f,
+    #f73031,
+    #fd4a20,
+    #ff6100
+  );
+
+  --lightGradient: linear-gradient(
+    210deg,
+    #ffdce0,
+    #fcd7e1,
+    #f7d2e3,
+    #f1cee6,
+    #e8cae9,
+    #ddc7ec,
+    #cfc5ef
+  );
+}
+/* 
+====== 
+Global Styles 
+======
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Corbel light", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--mainBlack);
+  background: var(--mainBackground);
+  line-height: 1.4;
+  font-size: 1rem;
+  font-weight: 300;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 1.25rem;
+}
+p {
+  margin-bottom: 1.25rem;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  /* color: var(--mainBlack); */
+}
+img {
+  width: 100%;
+  display: block;
+}
+
+footer {
+  height: 4rem;
+  text-align: center;
+  font-size: 2rem;
+  background-color: white;
+}
+
+button {
+  cursor: pointer;
+}
+
+.dark-btn {
+  color: white;
+  font-family: inherit;
+  font-weight: bold;
+  padding: 0.5rem;
+  border: none;
+  background-image: var(--mainGradient);
+  border-radius: var(--mainBorderRadius);
+  background-size: 500%;
+  transition: all 0.3s;
+}
+
+.light-btn {
+  font-family: inherit;
+  font-weight: bold;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  background-image: var(--lightGradient);
+  border-radius: var(--mainBorderRadius);
+  margin-bottom: 1rem;
+  background-size: 200%;
+  transition: all 0.3s;
+}
+
+.dark-btn:hover,
+.dark-btn:focus,
+.light-btn:hover,
+.light-btn:focus {
+  background-position: 100%;
+  box-shadow: var(--lightShadow);
+}
+/* 
+====== 
+HOME 
+======
+*/
+.homescreen {
+  background-image: var(--lightGradient);
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.homescreen-content {
+  display: grid;
+  gap: 2rem;
+  padding-top: 10vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "welcome loginOrCreateAccount";
+  justify-items: center;
+  min-height: 60vh;
+}
+
+.welcome {
+  grid-area: "welcome";
+  padding: 1rem;
+  /* background-color: white; */
+  border-radius: var(--mainBorderRadius);
+}
+
+.welcome h1 {
+  font-family: "Corbel";
+  font-size: 10rem;
+  text-align: center;
+  background-image: var(--mainGradient);
+  background-clip: text;
+  color: transparent;
+  background-size: 500%;
+  animation: bg-animation 10s infinite;
+}
+.welcome h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.login-or-create-account {
+  grid-area: "loginOrCreateAccount";
+  padding: 1rem 3rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.455);
+  box-shadow: var(--lightShadow);
+  border-radius: var(--mainBorderRadius);
+}
+
+.login-or-create-account h1 {
+  text-align: center;
+}
+
+.loginForm {
+  height: auto;
+  margin-bottom: 3rem;
+}
+
+.loginForm input {
+  font-family: inherit;
+  font-weight: bold;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  background-image: var(--lightGradient);
+  border-radius: var(--mainBorderRadius);
+  margin-bottom: 1rem;
+}
+
+.loginForm button {
+  width: 100%;
+}
+
+.create-acc-or-guest {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  grid-template-areas: "register or enterAsGuest";
+  justify-items: center;
+}
+
+.create-acc-or-guest h2 {
+  grid-area: "or";
+}
+.register-btn {
+  grid-area: "register";
+}
+
+.enter-as-guest-btn {
+  grid-area: "enterAsGuest";
+}
+
+/* .register-btn:hover,
+.register-btn:focus,
+.enter-as-guest-btn:hover,
+.enter-as-guest-btn:focus {
+  background-position: 100%;
+  box-shadow: var(--lightShadow);
+} */
+
+/* 
+====== 
+ABOUT 
+======
+*/
+
+.about {
+  min-height: 100vh;
+  padding: 3rem;
+  background-image: var(--lightGradient);
+}
+.about h1 {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.about p {
+  margin: auto;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+  font-size: 1.2rem;
+  max-width: 75ch;
+}
+.about button {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  color: white;
+  font-family: inherit;
+  font-weight: bold;
+  width: 20%;
+  padding: 0.5rem;
+  border: none;
+  background-image: var(--mainGradient);
+  border-radius: var(--mainBorderRadius);
+  background-size: 500%;
+  transition: all 0.3s;
+}
+
+/* 
+====== 
+ERROR 
+======
+*/
+
+.error-page {
+  height: 100vh;
+  background-image: var(--lightGradient);
+  padding: 3rem;
+}
+
+/* 
+====== 
+MEDIA QUERIES
+======
+*/
+
+@media (max-width: 1100px) {
+  .homescreen-content {
+    padding-top: 0;
+    grid-template-columns: auto;
+    grid-template-rows: 2fr 3fr;
+    grid-template-areas:
+      "welcome"
+      "loginOrCreateAccount";
+  }
+  .loginOrCreateAccount {
+    margin-bottom: 2rem;
+  }
+  .welcome h1 {
+    font-size: 7.5rem;
+  }
+  .welcome h2 {
+    font-size: 1.5rem;
+  }
+}
