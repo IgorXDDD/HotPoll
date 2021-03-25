@@ -35,6 +35,7 @@ public class HotpollApplication {
 			System.out.println("Incorrect test param!: " + text);
 		}
 		return String.format("Testing %s!", text);
+
 	}
 
 }
