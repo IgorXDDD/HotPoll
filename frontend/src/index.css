@@ -92,31 +92,26 @@ footer {
 
 button {
   cursor: pointer;
+  font-family: "Corbel light";
+  font-weight: bold;
+  border-radius: var(--mainBorderRadius);
+  border: none;
+  transition: all 0.3s;
 }
 
 .dark-btn {
   color: white;
-  font-family: inherit;
-  font-weight: bold;
   padding: 0.5rem;
-  border: none;
   background-image: var(--mainGradient);
-  border-radius: var(--mainBorderRadius);
-  background-size: 500%;
-  transition: all 0.3s;
+  background-size: 400%;
 }
 
 .light-btn {
-  font-family: inherit;
-  font-weight: bold;
   width: 100%;
   padding: 0.5rem;
-  border: none;
   background-image: var(--lightGradient);
-  border-radius: var(--mainBorderRadius);
   margin-bottom: 1rem;
   background-size: 200%;
-  transition: all 0.3s;
 }
 
 .dark-btn:hover,
@@ -232,14 +227,6 @@ HOME
 .enter-as-guest-btn {
   grid-area: "enterAsGuest";
 }
-
-/* .register-btn:hover,
-.register-btn:focus,
-.enter-as-guest-btn:hover,
-.enter-as-guest-btn:focus {
-  background-position: 100%;
-  box-shadow: var(--lightShadow);
-} */
 
 /* 
 ====== 
