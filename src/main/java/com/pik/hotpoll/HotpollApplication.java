@@ -27,6 +27,14 @@ public class HotpollApplication {
 		return new ModelAndView("forward:/frontend/index.html", model);
 	}
 
-	// public ModelAndView redirectWithUsingForwardPrefix(ModelMap model) {
-    //     model.addAttribute("attribute", "forwardWithForwardPrefix");
+	@GetMapping("/test")
+	public String testString(@RequestParam(value = "text", defaultValue = "test") String text) {
+		if(text.equals("OK")){
+			System.out.println("Correct test param!");
+		}else {
+			System.out.println("Incorrect test param!: " + text);
+		}
+		return String.format("Testing %s!", text);
+	}
+
 }
