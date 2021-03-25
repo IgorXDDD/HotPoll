@@ -6,7 +6,7 @@ const testUrl = "localhost:4444/test";
 const LoginOrCreateAccount = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [testData, setTestData] = useState(null);
+  const [testData, setTestData] = useState("Enter as a Guest");
 
   const fetchData = async () => {
     try {
@@ -26,7 +26,8 @@ const LoginOrCreateAccount = () => {
 
   const handleEnterAsGuest = () => {
     console.log("clicked enter as a guest button");
-    fetchData();
+    setTestData("OK");
+    //fetchData();
   };
 
   return (
@@ -57,7 +58,7 @@ const LoginOrCreateAccount = () => {
           className="enter-as-guest-btn light-btn"
           onClick={handleEnterAsGuest}
         >
-          Enter as a Guest
+          {testData}
         </button>
       </div>
     </div>
