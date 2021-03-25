@@ -16,11 +16,10 @@ pipeline {
     stage('Deploy') {
       parallel {
         stage('Deploy') {
-          steps {
-            echo 'deploy'
-            sh '''kill `pidof hotpoll` || true
-JENKINS_NODE_COOKIE=dontKillMe nohup java -jar target/hotpoll-0.0.1-SNAPSHOT.jar  &'''
-          }
+            steps {
+                sh "chmod +x ./scripts/deliver.sh"
+                sh './scripts/deliver.sh'
+            }
         }
 
         stage('Nexus') {
