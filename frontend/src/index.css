@@ -4,14 +4,14 @@ Variables
 ======
 */
 :root {
-  /* --primaryLightColor: #d4e6a5;
-  --primaryColor: #476a2e;
-  --primaryDarkColor: #c02c03; */
-
   --mainTransition: all 0.3s linear;
   --lightShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.2);
   --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
-  --mainBorderRadius: 0.5rem;
+  --mainBorderRadius: 0.5em;
+
+  --sansSerifFont: "Montserrat", sans-serif;
+  --serifFont: "Roboto Slab", serif;
+  --logoFont: "Lobster", cursive;
 
   --mainGradient: linear-gradient(
     45deg,
@@ -50,16 +50,17 @@ Global Styles
   padding: 0;
   box-sizing: border-box;
 }
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ef053f;
+}
 
 body {
-  font-family: "Corbel light", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: var(--mainBlack);
-  background: var(--mainBackground);
+  font-family: var(--sansSerifFont);
   line-height: 1.4;
   font-size: 1rem;
-  font-weight: 300;
 }
+
 h1,
 h2,
 h3,
@@ -70,13 +71,13 @@ h6 {
 }
 p {
   margin-bottom: 1.25rem;
+  max-width: 60ch;
 }
 ul {
   list-style-type: none;
 }
 a {
   text-decoration: none;
-  /* color: var(--mainBlack); */
 }
 img {
   width: 100%;
@@ -91,9 +92,9 @@ footer {
 }
 
 button {
+  font-family: var(--sansSerifFont);
+  text-transform: uppercase;
   cursor: pointer;
-  font-family: "Corbel light";
-  font-weight: bold;
   border-radius: var(--mainBorderRadius);
   border: none;
   transition: all 0.3s;
@@ -129,7 +130,7 @@ HOME
 .homescreen {
   background-image: var(--lightGradient);
   min-height: 100vh;
-  padding: 2rem;
+  padding: 0 4rem;
 }
 
 .homescreen-content {
@@ -138,21 +139,20 @@ HOME
   padding-top: 10vh;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "welcome loginOrCreateAccount";
-  justify-items: center;
+  justify-items: stretch;
   min-height: 60vh;
 }
 
 .welcome {
   grid-area: "welcome";
-  padding: 1rem;
-  /* background-color: white; */
   border-radius: var(--mainBorderRadius);
 }
 
 .welcome h1 {
-  font-family: "Corbel";
-  font-size: 10rem;
+  font-family: var(--logoFont);
+  font-size: 8rem;
   text-align: center;
+  margin-bottom: 0;
   background-image: var(--mainGradient);
   background-clip: text;
   color: transparent;
@@ -160,7 +160,8 @@ HOME
   animation: bg-animation 10s infinite;
 }
 .welcome h2 {
-  font-size: 2rem;
+  font-size: 1.6rem;
+  font-weight: 300;
   text-align: center;
 }
 
@@ -178,7 +179,9 @@ HOME
 
 .login-or-create-account {
   grid-area: "loginOrCreateAccount";
+  place-self: end;
   padding: 1rem 3rem;
+  max-width: 60ch;
   margin-bottom: 2rem;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.455);
@@ -188,6 +191,9 @@ HOME
 
 .login-or-create-account h1 {
   text-align: center;
+  font-size: 1.4rem;
+  font-family: var(--serifFont);
+  font-weight: 300;
 }
 
 .loginForm {
@@ -196,8 +202,6 @@ HOME
 }
 
 .loginForm input {
-  font-family: inherit;
-  font-weight: bold;
   width: 100%;
   padding: 0.5rem;
   border: none;
@@ -217,7 +221,7 @@ HOME
   justify-items: center;
 }
 
-.create-acc-or-guest h2 {
+.create-acc-or-guest h1 {
   grid-area: "or";
 }
 .register-btn {
@@ -240,23 +244,21 @@ ABOUT
   background-image: var(--lightGradient);
 }
 .about h1 {
+  font-family: var(--serifFont);
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 .about p {
   margin: auto;
   margin-bottom: 1.5rem;
   text-align: justify;
   font-size: 1.2rem;
-  max-width: 75ch;
 }
 .about button {
   display: flex;
   justify-content: center;
   margin: auto;
   color: white;
-  font-family: inherit;
-  font-weight: bold;
   width: 20%;
   padding: 0.5rem;
   border: none;
@@ -288,18 +290,19 @@ MEDIA QUERIES
   .homescreen-content {
     padding-top: 0;
     grid-template-columns: auto;
-    grid-template-rows: 2fr 3fr;
+    grid-template-rows: auto auto;
     grid-template-areas:
       "welcome"
       "loginOrCreateAccount";
   }
-  .loginOrCreateAccount {
+  .login-or-create-account {
     margin-bottom: 2rem;
+    place-self: center;
   }
   .welcome h1 {
-    font-size: 7.5rem;
+    font-size: 6rem;
   }
   .welcome h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }

@@ -53,7 +53,7 @@ const LoginOrCreateAccount = () => {
       <h1>Don't Have an Account?</h1>
       <div className="create-acc-or-guest">
         <button className="register-btn light-btn">Register</button>
-        <h2>or</h2>
+        <h1>or</h1>
         <button
           className="enter-as-guest-btn light-btn"
           onClick={handleEnterAsGuest}
