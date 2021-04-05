@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh './mvnw clean install'
+        sh '''./mvnw release:clean release:prepare
+./mvnw release:perform'''
       }
     }
 
@@ -16,10 +17,10 @@ pipeline {
     stage('Deploy') {
       parallel {
         stage('Deploy') {
-            steps {
-                sh "chmod +x ./scripts/deliver.sh"
-                sh './scripts/deliver.sh'
-            }
+          steps {
+            sh 'chmod +x ./scripts/deliver.sh'
+            sh './scripts/deliver.sh'
+          }
         }
 
         stage('Nexus') {
