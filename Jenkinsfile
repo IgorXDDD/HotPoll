@@ -5,6 +5,10 @@ pipeline {
       steps {
         sh '''./mvnw release:clean release:prepare
 ./mvnw release:perform'''
+        script {
+          publishHTML( target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './target/site/jacoco', reportFiles: 'index.html', reportName: 'Jacoco report', reportTitles: 'Jacoco report'])
+        }
+
       }
     }
 
