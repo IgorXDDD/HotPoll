@@ -168,22 +168,13 @@
                 </executions>
             </plugin>
 
-		<plugin>
-                <artifactId>maven-scm-plugin</artifactId>
-                <version>1.9.5</version>
-                <configuration>
-                   <tag>${project.artifactId}-${project.version}</tag>
-			    <localCheckout>true</localCheckout>
-   				 <pushChanges>false</pushChanges>
-                </configuration>
-		</plugin>
 			<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
   			<artifactId>maven-release-plugin</artifactId>
                 	<version>2.5.3</version>
  			 <configuration>
 
-   				 <localCheckout>false</localCheckout>
+   				 <localCheckout>true</localCheckout>
    				 <pushChanges>false</pushChanges>
 
  			 </configuration>
