@@ -183,7 +183,7 @@
                 	<version>2.5.3</version>
  			 <configuration>
 
-   				 <localCheckout>true</localCheckout>
+   				 <localCheckout>false</localCheckout>
    				 <pushChanges>false</pushChanges>
 
  			 </configuration>
