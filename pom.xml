@@ -9,13 +9,13 @@
 	</parent>
 	<groupId>com.pik</groupId>
 	<artifactId>hotpoll</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>hotpoll</name>
 	<description>HotPoll</description>
 	<scm>
  		   <connection>scm:git:https://github.com/IgorXDDD/HotPoll</connection>
   		  <developerConnection>scm:git:https://github.com/IgorXDDD/HotPoll</developerConnection>
-		<tag>0.0.2-SNAPSHOT</tag>
+		<tag>${project.version}</tag>
  	</scm>
 
 	<properties>
