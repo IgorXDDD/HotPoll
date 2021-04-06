@@ -13,6 +13,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hotpoll</name>
 	<description>HotPoll</description>
+	  <scm>
+ 		   <connection>scm:svn:https://github.com/IgorXDDD/HotPoll</connection>
+  		  <developerConnection>scm:svn:https://github.com/IgorXDDD/HotPoll</developerConnection>
+ 	 </scm>
 
 	<properties>
 		<java.version>11</java.version>
