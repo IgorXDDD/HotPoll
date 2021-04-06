@@ -14,8 +14,8 @@
 	<name>hotpoll</name>
 	<description>HotPoll</description>
 	  <scm>
- 		   <connection>scm:svn:https://github.com/IgorXDDD/HotPoll</connection>
-  		  <developerConnection>scm:svn:https://github.com/IgorXDDD/HotPoll</developerConnection>
+ 		   <connection>scm:git:https://github.com/IgorXDDD/HotPoll</connection>
+  		  <developerConnection>scm:git:https://github.com/IgorXDDD/HotPoll</developerConnection>
  	 </scm>
 
 	<properties>
@@ -65,14 +65,6 @@
     </dependencies>
 	<build>
 		<plugins>
-			<plugin>
-                   		 <groupId>org.apache.maven.plugins</groupId>
-                   		 <artifactId>maven-release-plugin</artifactId>
-                   		 <version>2.5.2</version>
-                   		 <configuration>
-                       			 <releaseProfiles>release</releaseProfiles>
-                    		</configuration>
-                	</plugin> 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -177,6 +169,21 @@
 
 
 		</plugins>
+		
+     	   <pluginManagement>
+         	   <plugins>
+          	      <plugin>
+            	        <groupId>org.apache.maven.plugins</groupId>
+             	       <artifactId>maven-release-plugin</artifactId>
+             	       <version>2.5.2</version>
+            	        <configuration>
+             	           <tagBase>https://github.com/IgorXDDD/HotPoll</tagBase>
+            	            <releaseProfiles>release</releaseProfiles>
+            	        </configuration>
+           	     </plugin>               
+           	 </plugins>
+       	 </pluginManagement>
+  
 	</build>
 
 </project>
