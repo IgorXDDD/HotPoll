@@ -13,10 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hotpoll</name>
 	<description>HotPoll</description>
-	  <scm>
- 		   <connection>scm:git:https://github.com/IgorXDDD/HotPoll</connection>
-  		  <developerConnection>scm:git:https://github.com/IgorXDDD/HotPoll</developerConnection>
- 	 </scm>
+
 
 	<properties>
 		<java.version>11</java.version>
@@ -24,6 +21,10 @@
         <node.version>v15.11.0</node.version>
         <npm.version>7.6.0</npm.version>
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+	 <scm>
+ 		   <connection>scm:git:https://github.com/IgorXDDD/HotPoll</connection>
+  		  <developerConnection>scm:git:https://github.com/IgorXDDD/HotPoll</developerConnection>
+ 	 </scm>
 	</properties>
 
 	<dependencies>
