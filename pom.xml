@@ -10,12 +10,13 @@
 	</parent>
 	<groupId>com.pik</groupId>
 	<artifactId>hotpoll</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>hotpoll</name>
 	<description>HotPoll</description>
 	<scm>
  		   <connection>scm:git:https://github.com/IgorXDDD/HotPoll</connection>
   		  <developerConnection>scm:git:https://github.com/IgorXDDD/HotPoll</developerConnection>
+		<tag>${project.version}</tag>
  	</scm>
 
 	<properties>
@@ -189,6 +190,10 @@
 			        <preparationGoals>clean install</preparationGoals>
    				 <localCheckout>true</localCheckout>
    				 <pushChanges>false</pushChanges>
+				 <tagNameFormat>${project.version}</tagNameFormat>
+                        		<checkModificationExcludes>
+                            		<checkModificationExclude>pom.xml</checkModificationExclude>
+                        	</checkModificationExcludes>
 
  			 </configuration>
 		</plugin>
