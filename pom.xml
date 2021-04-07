@@ -9,13 +9,13 @@
 	</parent>
 	<groupId>com.pik</groupId>
 	<artifactId>hotpoll</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>hotpoll</name>
 	<description>HotPoll</description>
 	<scm>
  		   <connection>scm:git:https://github.com/IgorXDDD/HotPoll</connection>
   		  <developerConnection>scm:git:https://github.com/IgorXDDD/HotPoll</developerConnection>
-        <tag>${project.version}</tag>
+        <tag>0.0.1-SNAPSHOT</tag>
  	</scm>
 
 	<properties>
@@ -31,7 +31,7 @@
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
-            <url>http://localhost:8081/nexus/content/repositories/maven-releases</url>
+            <url>http://localhost:8081/nexus/content/repositories/maven-nexus-repo</url>
         </repository>
     </distributionManagement>
 
