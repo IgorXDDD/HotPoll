@@ -20,10 +20,10 @@ pipeline {
     stage('Deploy') {
       parallel {
         stage('Deploy') {
-           environment {
+           script {
                pom = readMavenPom file: "pom.xml";
                filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-               ARTIFACT_PATH = filesByGlob[0].path;
+               ARTIFACT_PATH = "${filesByGlob[0].path}"
            }
           steps {
             sh 'chmod +x ./scripts/deliver.sh'
