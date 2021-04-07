@@ -20,13 +20,14 @@ pipeline {
     stage('Deploy') {
       parallel {
         stage('Deploy') {
+           environment {
+               pom = readMavenPom file: "pom.xml";
+               filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+               ARTIFACT_PATH = filesByGlob[0].path;
+           }
           steps {
-            pom = readMavenPom file: "pom.xml";
-            filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-            echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-            artifactPath = filesByGlob[0].path;
             sh 'chmod +x ./scripts/deliver.sh'
-            sh './scripts/deliver.sh ${artifactPath}'
+            sh './scripts/deliver.sh ${ARTIFACT_PATH}'
           }
         }
 
