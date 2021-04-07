@@ -3,9 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''./mvnw release:clean 
-./mvnw release:prepare
-./mvnw release:perform'''
+        sh './mvnw clean install'
         script {
           publishHTML( target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './target/site/jacoco', reportFiles: 'index.html', reportName: 'Jacoco report', reportTitles: 'Jacoco report'])
         }
@@ -43,27 +41,30 @@ pipeline {
               artifactExists = fileExists artifactPath;
               if(artifactExists) {
                 echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-//                 nexusArtifactUploader(
-//                   nexusVersion: NEXUS_VERSION,
-//                   protocol: NEXUS_PROTOCOL,
-//                   nexusUrl: NEXUS_URL,
-//                   groupId: pom.groupId,
-//                   version: pom.version,
-//                   repository: NEXUS_REPOSITORY,
-//                   credentialsId: NEXUS_CREDENTIAL_ID,
-//                   artifacts: [
-//                     [artifactId: pom.artifactId,
-//                     classifier: '',
-//                     file: artifactPath,
-//                     type: pom.packaging],
-//                     [artifactId: pom.artifactId,
-//                     classifier: '',
-//                     file: "pom.xml",
-//                     type: "pom"]
-//                   ]
-//                 );
-              } else {
-                error "*** File: ${artifactPath}, could not be found";
+                //                 nexusArtifactUploader(
+                  //                   nexusVersion: NEXUS_VERSION,
+                  //                   protocol: NEXUS_PROTOCOL,
+                  //                   nexusUrl: NEXUS_URL,
+                  //                   groupId: pom.groupId,
+                  //                   version: pom.version,
+                  //                   repository: NEXUS_REPOSITORY,
+                  //                   credentialsId: NEXUS_CREDENTIAL_ID,
+                  //                   artifacts: [
+                    //                     [artifactId: pom.artifactId,
+                    //                     classifier: '',
+                    //                     file: artifactPath,
+                    //                     type: pom.packaging],
+                    //                     [artifactId: pom.artifactId,
+                    //                     classifier: '',
+                    //                     file: "pom.xml",
+                    //                     type: "pom"]
+                    //                   ]
+                    //                 );
+                  } else {
+                    error "*** File: ${artifactPath}, could not be found";
+                  }
+                }
+
               }
             }
 
@@ -72,6 +73,3 @@ pipeline {
 
       }
     }
-
-  }
-}
