@@ -16,7 +16,7 @@ class HotpollApplicationTests {
 	void getTestParam(){
 		HotpollApplication hotpollApplication = new HotpollApplication();
 		String result = hotpollApplication.testString("OK");
-		assertEquals(result, "Testing OK!");
+		assertEquals(result, "{\"string\": \"Testing OK!\"}");
 	}
 
 }

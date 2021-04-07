@@ -1,22 +1,16 @@
 import React from "react";
 import { useState } from "react";
 
-const testUrl = "localhost:4444/test";
+const testUrl = "http://localhost:4444/test?text=OK";
 
 const LoginOrCreateAccount = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [testData, setTestData] = useState("Enter as a Guest");
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(testUrl);
-      const data = await response.json();
-      setTestData(data);
-      console.log(testData);
-    } catch (error) {
-      console.log("Error with fetching test data: " + error);
-    }
+  const fetchData = () => {
+    fetch(testUrl)
+      .then((response) => response.json())
+      .then((data) => console.log(JSON.stringify(data)));
   };
 
   const handleSubmit = (event) => {
@@ -26,8 +20,8 @@ const LoginOrCreateAccount = () => {
 
   const handleEnterAsGuest = () => {
     console.log("clicked enter as a guest button");
-    setTestData("OK");
-    //fetchData();
+    // setTestData("OK");
+    fetchData();
   };
 
   return (
@@ -58,7 +52,7 @@ const LoginOrCreateAccount = () => {
           className="enter-as-guest-btn light-btn"
           onClick={handleEnterAsGuest}
         >
-          {testData}
+          Enter as a Guest
         </button>
       </div>
     </div>
