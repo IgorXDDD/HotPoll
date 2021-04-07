@@ -20,7 +20,7 @@ pipeline {
     stage('Deploy') {
       parallel {
         stage('Deploy') {
-           script {
+           environment {
                pom = readMavenPom file: "pom.xml";
                filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                ARTIFACT_PATH = "${filesByGlob[0].path}"
