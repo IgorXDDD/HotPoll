@@ -26,7 +26,7 @@ const LoginOrCreateAccount = () => {
 
   return (
     <div className="login-or-create-account">
-      <h1>Login Or Create Account Component</h1>
+      <h1>Login or Create Account for Free!</h1>
       <form onSubmit={handleSubmit} className="loginForm">
         <input
           type="text"
@@ -40,18 +40,13 @@ const LoginOrCreateAccount = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="dark-btn" type="submit">
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
       <h1>Don't Have an Account?</h1>
       <div className="create-acc-or-guest">
-        <button className="register-btn light-btn">Register</button>
+        <button id="register-btn">Register</button>
         <h1>or</h1>
-        <button
-          className="enter-as-guest-btn light-btn"
-          onClick={handleEnterAsGuest}
-        >
+        <button id="enter-as-guest-btn" onClick={handleEnterAsGuest}>
           Enter as a Guest
         </button>
       </div>

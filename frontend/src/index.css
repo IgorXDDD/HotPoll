@@ -4,9 +4,21 @@ Variables
 ======
 */
 :root {
+  --bgColorMain: #1c1c1c;
+  --bgColorLight: #2e2e2e;
+  --bgColorLighter: #424242;
+  --textColorMain: #eee;
+  --textColorLight: #aaa;
+  --buttonTextColor: #080808;
+  /* --accentColor1: #f35f98;
+  --accentColor2: #fe916f; */
+  --accentColor1: #ff9c74;
+  --accentColor2: #ffdb65;
+
   --mainTransition: all 0.3s linear;
   --lightShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.2);
   --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  --buttonGlow: 0px 0px 10px -5px var(--accentColor2);
   --mainBorderRadius: 0.5em;
 
   --sansSerifFont: "Montserrat", sans-serif;
@@ -15,29 +27,9 @@ Variables
 
   --mainGradient: linear-gradient(
     45deg,
-    #54007c,
-    #70007b,
-    #8a0077,
-    #a00071,
-    #b5006a,
-    #c70061,
-    #d70057,
-    #e5004c,
-    #ef053f,
-    #f73031,
-    #fd4a20,
-    #ff6100
-  );
-
-  --lightGradient: linear-gradient(
-    210deg,
-    #ffdce0,
-    #fcd7e1,
-    #f7d2e3,
-    #f1cee6,
-    #e8cae9,
-    #ddc7ec,
-    #cfc5ef
+    var(--accentColor1),
+    #ffba68,
+    var(--accentColor2)
   );
 }
 /* 
@@ -52,10 +44,11 @@ Global Styles
 }
 *:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #ef053f;
 }
 
 body {
+  background-color: var(--bgColorMain);
+  color: var(--textColorMain);
   font-family: var(--sansSerifFont);
   line-height: 1.4;
   font-size: 1rem;
@@ -77,7 +70,15 @@ ul {
   list-style-type: none;
 }
 a {
+  opacity: 50%;
   text-decoration: none;
+  color: var(--accentColor1);
+  transition: var(--mainTransition);
+}
+a:hover,
+a:focus {
+  opacity: 100%;
+  color: var(--accentColor2);
 }
 img {
   width: 100%;
@@ -88,39 +89,26 @@ footer {
   height: 4rem;
   text-align: center;
   font-size: 2rem;
-  background-color: white;
+  background-color: var(--bgColorLight);
 }
 
 button {
   font-family: var(--sansSerifFont);
+  background-color: var(--accentColor1);
+  color: var(--buttonTextColor);
   text-transform: uppercase;
+  /* font-weight: 600; */
   cursor: pointer;
   border-radius: var(--mainBorderRadius);
   border: none;
   transition: all 0.3s;
+  padding: 0.5em;
 }
 
-.dark-btn {
-  color: white;
-  padding: 0.5rem;
-  background-image: var(--mainGradient);
-  background-size: 400%;
-}
-
-.light-btn {
-  width: 100%;
-  padding: 0.5rem;
-  background-image: var(--lightGradient);
-  margin-bottom: 1rem;
-  background-size: 200%;
-}
-
-.dark-btn:hover,
-.dark-btn:focus,
-.light-btn:hover,
-.light-btn:focus {
-  background-position: 100%;
-  box-shadow: var(--lightShadow);
+button:hover,
+button:focus {
+  background-color: var(--accentColor2);
+  box-shadow: var(--buttonGlow);
 }
 /* 
 ====== 
@@ -128,7 +116,6 @@ HOME
 ======
 */
 .homescreen {
-  background-image: var(--lightGradient);
   min-height: 100vh;
   padding: 0 4rem;
 }
@@ -146,6 +133,7 @@ HOME
 .welcome {
   grid-area: "welcome";
   border-radius: var(--mainBorderRadius);
+  text-align: center;
 }
 
 .welcome h1 {
@@ -157,12 +145,16 @@ HOME
   background-clip: text;
   color: transparent;
   background-size: 500%;
-  animation: bg-animation 10s infinite;
+  animation: bg-animation 5s infinite;
 }
 .welcome h2 {
+  color: var(--textColorLight);
   font-size: 1.6rem;
   font-weight: 300;
   text-align: center;
+}
+
+.link-to-about {
 }
 
 @keyframes bg-animation {
@@ -180,16 +172,17 @@ HOME
 .login-or-create-account {
   grid-area: "loginOrCreateAccount";
   place-self: end;
-  padding: 1rem 3rem;
+  padding: 1rem 3rem 2rem 3rem;
   max-width: 60ch;
   margin-bottom: 2rem;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.455);
+  background-color: var(--bgColorLight);
   box-shadow: var(--lightShadow);
   border-radius: var(--mainBorderRadius);
 }
 
 .login-or-create-account h1 {
+  color: var(--textColorMain);
   text-align: center;
   font-size: 1.4rem;
   font-family: var(--serifFont);
@@ -205,7 +198,8 @@ HOME
   width: 100%;
   padding: 0.5rem;
   border: none;
-  background-image: var(--lightGradient);
+  background-color: var(--bgColorLighter);
+  color: var(--textColorLight);
   border-radius: var(--mainBorderRadius);
   margin-bottom: 1rem;
 }
@@ -224,12 +218,17 @@ HOME
 .create-acc-or-guest h1 {
   grid-area: "or";
 }
-.register-btn {
+.create-acc-or-guest button {
+  height: 2rem;
+}
+#register-btn {
   grid-area: "register";
+  width: 100%;
 }
 
-.enter-as-guest-btn {
+#enter-as-guest-btn {
   grid-area: "enterAsGuest";
+  width: 100%;
 }
 
 /* 
@@ -245,10 +244,12 @@ ABOUT
 }
 .about h1 {
   font-family: var(--serifFont);
+  color: var(--textColorMain);
   text-align: center;
   font-size: 1.75rem;
 }
 .about p {
+  color: var(--textColorLight);
   margin: auto;
   margin-bottom: 1.5rem;
   text-align: justify;
@@ -258,14 +259,7 @@ ABOUT
   display: flex;
   justify-content: center;
   margin: auto;
-  color: white;
   width: 20%;
-  padding: 0.5rem;
-  border: none;
-  background-image: var(--mainGradient);
-  border-radius: var(--mainBorderRadius);
-  background-size: 500%;
-  transition: all 0.3s;
 }
 
 /* 
