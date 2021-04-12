@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 const About = () => {
   return (
     <>
-      <section class="about">
+      <section className="about">
         <h1>About HotPoll</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
