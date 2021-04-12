@@ -4,20 +4,18 @@ Variables
 ======
 */
 :root {
-  --bgColorMain: #1c1c1c;
-  --bgColorLight: #2e2e2e;
-  --bgColorLighter: #424242;
-  --textColorMain: #eee;
-  --textColorLight: #aaa;
-  --buttonTextColor: #080808;
-  /* --accentColor1: #f35f98;
-  --accentColor2: #fe916f; */
+  --bgColorMain: #1b1b1e;
+  --bgColorLight: #2e2e30;
+  --bgColorLighter: #424245;
+  --textColorMain: #ffc;
+  --textColorLight: #ba9;
+  --buttonTextColor: #070709;
   --accentColor1: #ff9c74;
   --accentColor2: #ffdb65;
 
   --mainTransition: all 0.3s linear;
   --lightShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.2);
-  --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  --darkShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.6);
   --buttonGlow: 0px 0px 10px -5px var(--accentColor2);
   --mainBorderRadius: 0.5em;
 
@@ -154,9 +152,6 @@ HOME
   text-align: center;
 }
 
-.link-to-about {
-}
-
 @keyframes bg-animation {
   0% {
     background-position: left;
@@ -201,6 +196,7 @@ HOME
   background-color: var(--bgColorLighter);
   color: var(--textColorLight);
   border-radius: var(--mainBorderRadius);
+  box-shadow: var(--lightShadow);
   margin-bottom: 1rem;
 }
 
@@ -210,25 +206,20 @@ HOME
 
 .create-acc-or-guest {
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr;
-  grid-template-areas: "register or enterAsGuest";
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  grid-template-areas: "register enterAsGuest";
   justify-items: center;
 }
 
-.create-acc-or-guest h1 {
-  grid-area: "or";
-}
-.create-acc-or-guest button {
-  height: 2rem;
-}
 #register-btn {
   grid-area: "register";
-  width: 100%;
+  width: 80%;
 }
 
 #enter-as-guest-btn {
   grid-area: "enterAsGuest";
-  width: 100%;
+  width: 80%;
 }
 
 /* 
@@ -255,12 +246,6 @@ ABOUT
   text-align: justify;
   font-size: 1.2rem;
 }
-.about button {
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  width: 20%;
-}
 
 /* 
 ====== 
@@ -282,7 +267,9 @@ MEDIA QUERIES
 
 @media (max-width: 1100px) {
   .homescreen-content {
+    margin-top: 1rem;
     padding-top: 0;
+    gap: 5rem;
     grid-template-columns: auto;
     grid-template-rows: auto auto;
     grid-template-areas:

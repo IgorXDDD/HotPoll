@@ -45,7 +45,6 @@ const LoginOrCreateAccount = () => {
       <h1>Don't Have an Account?</h1>
       <div className="create-acc-or-guest">
         <button id="register-btn">Register</button>
-        <h1>or</h1>
         <button id="enter-as-guest-btn" onClick={handleEnterAsGuest}>
           Enter as a Guest
         </button>

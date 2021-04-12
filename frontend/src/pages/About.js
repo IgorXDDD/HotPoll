@@ -31,10 +31,9 @@ const About = () => {
           sint hic nobis ab, quasi aperiam tempora ducimus sed quaerat sunt
           quibusdam!
         </p>
-
-        <Link to="/">
-          <button className="dark-btn">Back Home</button>
-        </Link>
+        <p>
+          <Link to="/">Back Home</Link>
+        </p>
       </section>
       <Footer />
     </>
