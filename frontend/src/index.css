@@ -8,15 +8,19 @@ Variables
   --bgColorLight: #2e2e30;
   --bgColorLighter: #424245;
   --textColorMain: #ffc;
-  --textColorLight: #ba9;
-  --buttonTextColor: #070709;
+  --textColorLight: #baa;
+  --buttonTextColor: #ffc;
+  --buttonTextColorHover: #070709;
   --accentColor1: #ff9c74;
-  --accentColor2: #ffdb65;
+  --accentColor2: #ffc956;
+
+  --buttonBorder: 2px solid var(--accentColor1);
 
   --mainTransition: all 0.3s linear;
   --lightShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.2);
   --darkShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.6);
   --buttonGlow: 0px 0px 10px -5px var(--accentColor2);
+  --insetBorder: inset 0px 0px 0px 1.5px;
   --mainBorderRadius: 0.5em;
 
   --sansSerifFont: "Montserrat", sans-serif;
@@ -26,7 +30,7 @@ Variables
   --mainGradient: linear-gradient(
     45deg,
     var(--accentColor1),
-    #ffba68,
+    #ffac68,
     var(--accentColor2)
   );
 }
@@ -40,6 +44,7 @@ Global Styles
   padding: 0;
   box-sizing: border-box;
 }
+
 *:focus {
   outline: none;
 }
@@ -60,24 +65,58 @@ h5,
 h6 {
   margin-bottom: 1.25rem;
 }
+
 p {
   margin-bottom: 1.25rem;
   max-width: 60ch;
 }
+
 ul {
   list-style-type: none;
 }
+
 a {
   opacity: 50%;
+  display: inline-block;
   text-decoration: none;
   color: var(--accentColor1);
   transition: var(--mainTransition);
 }
+
+a::after {
+  content: "";
+  display: block;
+  transform: scale(0, 1);
+  height: 1.5px;
+  background: var(--accentColor2);
+  transition: var(--mainTransition);
+}
+
+a:hover::after,
+a:focus::after {
+  transform: scale(1, 1);
+}
+
 a:hover,
 a:focus {
   opacity: 100%;
   color: var(--accentColor2);
 }
+
+input {
+  padding: 0.5rem;
+  border: none;
+  background-color: var(--bgColorLighter);
+  color: var(--textColorLight);
+  border-radius: var(--mainBorderRadius);
+  box-shadow: var(--lightShadow);
+  margin-bottom: 1rem;
+}
+
+input:focus {
+  box-shadow: var(--insetBorder) var(--accentColor2);
+}
+
 img {
   width: 100%;
   display: block;
@@ -92,27 +131,31 @@ footer {
 
 button {
   font-family: var(--sansSerifFont);
-  background-color: var(--accentColor1);
+  background-color: rgba(0, 0, 0, 0);
   color: var(--buttonTextColor);
   text-transform: uppercase;
-  /* font-weight: 600; */
+  font-weight: 500;
   cursor: pointer;
   border-radius: var(--mainBorderRadius);
   border: none;
-  transition: all 0.3s;
+  box-shadow: var(--insetBorder) var(--accentColor1);
+  transition: var(--mainTransition);
   padding: 0.5em;
 }
 
 button:hover,
 button:focus {
+  color: var(--buttonTextColorHover);
   background-color: var(--accentColor2);
   box-shadow: var(--buttonGlow);
 }
+
 /* 
 ====== 
 HOME 
 ======
 */
+
 .homescreen {
   min-height: 100vh;
   padding: 0 4rem;
@@ -142,7 +185,7 @@ HOME
   background-image: var(--mainGradient);
   background-clip: text;
   color: transparent;
-  background-size: 500%;
+  background-size: 800%;
   animation: bg-animation 5s infinite;
 }
 .welcome h2 {
@@ -191,13 +234,6 @@ HOME
 
 .loginForm input {
   width: 100%;
-  padding: 0.5rem;
-  border: none;
-  background-color: var(--bgColorLighter);
-  color: var(--textColorLight);
-  border-radius: var(--mainBorderRadius);
-  box-shadow: var(--lightShadow);
-  margin-bottom: 1rem;
 }
 
 .loginForm button {
@@ -214,12 +250,12 @@ HOME
 
 #register-btn {
   grid-area: "register";
-  width: 80%;
+  width: 100%;
 }
 
 #enter-as-guest-btn {
   grid-area: "enterAsGuest";
-  width: 80%;
+  width: 100%;
 }
 
 /* 
