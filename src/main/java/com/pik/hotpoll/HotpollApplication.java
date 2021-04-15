@@ -16,26 +16,4 @@ public class HotpollApplication {
 		SpringApplication.run(HotpollApplication.class, args);
 	}
 
-	// @GetMapping("/")
-	// public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-	// 	return String.format("Hello %s!", name);
-	// }
-
-	@GetMapping("/")
-	public ModelAndView frontend(ModelMap model) {
-		model.addAttribute("attribute", "frontend");
-		return new ModelAndView("forward:/frontend/index.html", model);
-	}
-
-	@GetMapping("/test")
-	public String testString(@RequestParam(value = "text", defaultValue = "test") String text) {
-		if(text.equals("OK")){
-			System.out.println("Correct test param!");
-		}else {
-			System.out.println("Incorrect test param!: " + text);
-		}
-		return String.format("{\"string\": \"Testing %s!\"}", text);
-
-	}
-
 }
