@@ -2,17 +2,19 @@ import React from "react";
 import Welcome from "../components/Welcome";
 import LoginOrCreateAccount from "../components/LoginOrCreateAccount";
 import Footer from "../components/Footer";
-import Loading from "../components/Loading";
+import PollList from "../components/PollList";
+// import Loading from "../components/Loading";
 
 const Home = () => {
   return (
     <>
-      <div className="homescreen">
+      {/* <div className="homescreen">
         <section className="homescreen-content">
           <Welcome />
           <LoginOrCreateAccount />
         </section>
-      </div>
+      </div> */}
+      <PollList />
       <Footer />
     </>
   );

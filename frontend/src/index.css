@@ -16,10 +16,10 @@ Variables
 
   --buttonBorder: 2px solid var(--accentColor1);
 
-  --mainTransition: all 0.3s linear;
+  --mainTransition: all 0.2s linear;
   --lightShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.2);
   --darkShadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.6);
-  --buttonGlow: 0px 0px 10px -5px var(--accentColor2);
+  --buttonGlow: 0px 0px 15px -5px var(--accentColor2);
   --insetBorder: inset 0px 0px 0px 1.5px;
   --mainBorderRadius: 0.5em;
 
@@ -122,17 +122,10 @@ img {
   display: block;
 }
 
-footer {
-  height: 4rem;
-  text-align: center;
-  font-size: 2rem;
-  background-color: var(--bgColorLight);
-}
-
 button {
   font-family: var(--sansSerifFont);
   background-color: rgba(0, 0, 0, 0);
-  color: var(--buttonTextColor);
+  color: var(--textColorLight);
   text-transform: uppercase;
   font-weight: 500;
   cursor: pointer;
@@ -145,9 +138,56 @@ button {
 
 button:hover,
 button:focus {
-  color: var(--buttonTextColorHover);
-  background-color: var(--accentColor2);
-  box-shadow: var(--buttonGlow);
+  /* color: var(--buttonTextColorHover); */
+  /* background-color: var(--bgColorMain); */
+  color: var(--buttonTextColor);
+  box-shadow: var(--insetBorder) var(--accentColor2), var(--buttonGlow);
+}
+
+/* 
+====== 
+NAVBAR 
+======
+*/
+
+.navbar {
+  background-color: var(--bgColorLight);
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--lightShadow);
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: var(--smallWidth);
+  margin: 0 auto;
+  max-width: var(--fullWidth);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+.nav-links a {
+  text-transform: capitalize;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  padding: 0.25rem 0.5rem;
+  transition: var(--mainTransition);
+}
+.nav-links a:hover {
+  color: var(--primaryColor);
+}
+.logo {
+  width: 12rem;
 }
 
 /* 
@@ -326,6 +366,84 @@ MEDIA QUERIES
 
 /* 
 ====== 
+POLL
+======
+*/
+.poll-wrapper {
+  background-color: var(--bgColorLight);
+  border-radius: var(--mainBorderRadius);
+  padding: 1rem 1rem 0.5rem 1rem;
+  box-shadow: var(--lightShadow);
+  max-width: 70ch;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.poll-title {
+  font-family: var(--serifFont);
+  font-weight: 400;
+  color: var(--textColorMain);
+  font-size: 2rem;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.poll-meta {
+  font-size: 0.8rem;
+  color: var(--textColorLight);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: stretch;
+}
+
+.poll-meta p {
+  margin: 0;
+  padding: 0;
+}
+
+.underline::after {
+  content: "";
+  /* display: block; */
+  width: 200%;
+  height: 2px;
+  background: var(--textColorLight);
+}
+
+.question-wrapper {
+  background-color: var(--bgColorLighter);
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: var(--mainBorderRadius);
+  box-shadow: var(--lightShadow);
+}
+
+.question {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: auto;
+}
+
+.question-answer {
+  font-size: 1rem;
+  margin: 0 0 0 2rem;
+}
+
+.poll-button {
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.tags {
+  justify-self: right;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* 
+====== 
 LOADING
 ======
 */
@@ -342,4 +460,16 @@ LOADING
 svg path,
 svg rect {
   fill: var(--accentColor1);
+}
+
+/* 
+====== 
+FOOTER
+======
+*/
+.footer {
+  background-color: var(--bgColorLight);
+  height: 2rem;
+  display: flex;
+  align-items: center;
 }

@@ -8,12 +8,14 @@ import About from "./pages/About";
 // ...
 
 // import components
+import Navbar from "./components/Navbar";
 // ...
 
 const App = () => {
   return (
     <div>
       <Router>
+        <Navbar />
         <Switch>
           <Route exact path="/">
             <Home />
