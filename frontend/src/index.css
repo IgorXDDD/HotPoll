@@ -76,7 +76,7 @@ ul {
 }
 
 a {
-  opacity: 50%;
+  opacity: 0.5;
   display: inline-block;
   text-decoration: none;
   color: var(--accentColor1);
@@ -99,7 +99,7 @@ a:focus::after {
 
 a:hover,
 a:focus {
-  opacity: 100%;
+  opacity: 1;
   color: var(--accentColor2);
 }
 
@@ -322,4 +322,24 @@ MEDIA QUERIES
   .welcome h2 {
     font-size: 1.2rem;
   }
+}
+
+/* 
+====== 
+LOADING
+======
+*/
+
+.loader {
+  /* height: 200px; */
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  display: inline-block;
+  vertical-align: top;
+}
+
+svg path,
+svg rect {
+  fill: var(--accentColor1);
 }

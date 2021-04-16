@@ -2,6 +2,7 @@ import React from "react";
 import Welcome from "../components/Welcome";
 import LoginOrCreateAccount from "../components/LoginOrCreateAccount";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
 
 const Home = () => {
   return (
