@@ -429,6 +429,13 @@ POLL
   margin: 0 0 0 2rem;
 }
 
+.poll-link {
+  all: unset;
+}
+.poll-link::after {
+  all: unset;
+}
+
 .poll-button {
   display: block;
   margin: auto;

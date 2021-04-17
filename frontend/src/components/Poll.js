@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Poll = ({
   id,
@@ -17,26 +18,29 @@ const Poll = ({
         <p>created: {date}</p>
         <p style={{ textAlign: "right" }}>author: {author}</p>
       </div>
-      {questions.map((question) => {
+      {questions.slice(0, 3).map((question) => {
         return (
           <section className="question-wrapper" key={question.qid}>
             <h2 className="question">
               {`Q${question.qid}) `}
               {question.question}
             </h2>
-            {question.answers.map((answer) => {
+            {/* {question.answers.map((answer) => {
               return (
                 <p className="question-answer" key={answer.aid}>
                   {answer.answer}
                 </p>
               );
-            })}
+            })} */}
+            {questions.length > 3 ? <h2>and more...</h2> : null}
           </section>
         );
       })}
-      <button className="poll-button">
-        {alreadyCompleted ? "See results" : "Complete now"}
-      </button>
+      <Link to={`/poll/${id}`} className="poll-link">
+        <button className="poll-button">
+          {alreadyCompleted ? "See results" : "Complete now"}
+        </button>
+      </Link>
       <div className="poll-meta">
         <p>Poll completed: {timesCompleted} times</p>
         <div className="tags">

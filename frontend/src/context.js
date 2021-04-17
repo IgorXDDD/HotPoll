@@ -11,80 +11,80 @@ const AppProvider = ({ children }) => {
   const fetchPolls = () => {
     setLoading(true);
 
-    // const newPolls = [
-    //   {
-    //     id: 2137,
-    //     title: "Pineapple and Pizza?",
-    //     date: "16.04.2021",
-    //     author: "Demongo",
-    //     timesCompleted: 38,
-    //     tags: ["food", "pineapple", "pizza"],
-    //     alreadyCompleted: false,
-    //     questions: [
-    //       {
-    //         qid: 1,
-    //         question: "Does pineapple belong on pizza?",
-    //         type: "radio",
-    //         answers: [
-    //           {
-    //             aid: 1,
-    //             answer: "Hell Yeah!",
-    //           },
-    //           {
-    //             aid: 2,
-    //             answer: "Eww!",
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   },
-    // ];
+    const newPolls = [
+      {
+        id: 2137,
+        title: "Pineapple and Pizza?",
+        date: "16.04.2021",
+        author: "Demongo",
+        timesCompleted: 38,
+        tags: ["food", "pineapple", "pizza"],
+        alreadyCompleted: false,
+        questions: [
+          {
+            qid: 1,
+            question: "Does pineapple belong on pizza?",
+            type: "radio",
+            answers: [
+              {
+                aid: 1,
+                answer: "Hell Yeah!",
+              },
+              {
+                aid: 2,
+                answer: "Eww!",
+              },
+            ],
+          },
+        ],
+      },
+    ];
 
-    // setPolls(newPolls);
-    // setLoading(false);
+    setPolls(newPolls);
+    setLoading(false);
 
     // To co wyzej jest do szybszego testowania na lokalnym serwerze localhost:3000
     // trzeba odkomentowac gore i zakomentowac dol
 
-    try {
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("data: ", data);
-          let polls = [data];
-          if (polls) {
-            const newPolls = polls.map((poll) => {
-              const {
-                id,
-                title,
-                date,
-                author,
-                timesCompleted,
-                tags,
-                alreadyCompleted,
-                questions,
-              } = poll;
-              return {
-                id,
-                title,
-                date,
-                author,
-                timesCompleted,
-                tags,
-                alreadyCompleted,
-                questions,
-              };
-            });
-            setPolls(newPolls);
-          } else {
-            setPolls([]);
-          }
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
+    // try {
+    //   fetch(url)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       console.log("data: ", data);
+    //       let polls = [data];
+    //       if (polls) {
+    //         const newPolls = polls.map((poll) => {
+    //           const {
+    //             id,
+    //             title,
+    //             date,
+    //             author,
+    //             timesCompleted,
+    //             tags,
+    //             alreadyCompleted,
+    //             questions,
+    //           } = poll;
+    //           return {
+    //             id,
+    //             title,
+    //             date,
+    //             author,
+    //             timesCompleted,
+    //             tags,
+    //             alreadyCompleted,
+    //             questions,
+    //           };
+    //         });
+    //         setPolls(newPolls);
+    //       } else {
+    //         setPolls([]);
+    //       }
+    //       setLoading(false);
+    //     });
+    // } catch (error) {
+    //   console.log(error);
+    //   setLoading(false);
+    // }
   };
 
   useEffect(() => {
