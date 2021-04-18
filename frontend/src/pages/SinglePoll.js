@@ -31,6 +31,25 @@ const poll = {
         },
       ],
     },
+    {
+      qid: 2,
+      question: "Checkbox test question",
+      type: "checkbox",
+      answers: [
+        {
+          aid: 1,
+          answer: "Option 1",
+        },
+        {
+          aid: 2,
+          answer: "Option 2",
+        },
+        {
+          aid: 3,
+          answer: "Option 3",
+        },
+      ],
+    },
   ],
 };
 
@@ -62,6 +81,10 @@ const SinglePoll = () => {
   //     getPoll();
   // }, [id]);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   if (loading) {
     return (
       <article className="poll-wrapper">
@@ -90,7 +113,7 @@ const SinglePoll = () => {
   } = poll;
 
   return (
-    <article className="poll-wrapper">
+    <form className="poll-wrapper" onSubmit={handleSubmit}>
       <Link to="/">← Back</Link>
       <h1 className="poll-title">{title}</h1>
       <div className="poll-meta underline">
@@ -99,23 +122,28 @@ const SinglePoll = () => {
       </div>
       {questions.map((question) => {
         return (
-          <section className="question-wrapper" key={question.qid}>
-            <h2 className="question">
+          <fieldset className="question-wrapper" key={question.qid}>
+            <legend className="question">
               {`Q${question.qid}) `}
               {question.question}
-            </h2>
+            </legend>
             {question.answers.map((answer) => {
               return (
                 <p className="question-answer" key={answer.aid}>
-                  {answer.answer}
+                  <input
+                    type={question.type === "radio" ? "radio" : "checkbox"}
+                    name={question.question}
+                    id={answer.aid}
+                    value={answer.answer}
+                  />
+                  <label for={answer.aid}>{answer.answer}</label>
                 </p>
               );
             })}
-            {questions.length > 3 ? <h2>and more...</h2> : null}
-          </section>
+          </fieldset>
         );
       })}
-      <button className="poll-button">
+      <button className="poll-button" type="submit">
         {alreadyCompleted ? "See results" : "Submit"}
       </button>
       <div className="poll-meta">
@@ -126,7 +154,7 @@ const SinglePoll = () => {
           })}
         </div>
       </div>
-    </article>
+    </form>
   );
 };
 

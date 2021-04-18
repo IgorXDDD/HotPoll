@@ -21,7 +21,7 @@ const Poll = ({
       {questions.slice(0, 3).map((question) => {
         return (
           <section className="question-wrapper" key={question.qid}>
-            <h2 className="question">
+            <h2 className="question question-simple">
               {`Q${question.qid}) `}
               {question.question}
             </h2>
