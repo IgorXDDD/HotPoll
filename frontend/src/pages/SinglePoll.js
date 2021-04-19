@@ -88,7 +88,9 @@ const SinglePoll = () => {
   if (loading) {
     return (
       <article className="poll-wrapper">
-        <Link to="/">← Back</Link>
+        <Link to="/" className="link-underline">
+          ← Back
+        </Link>
         <Loading />
       </article>
     );
@@ -96,7 +98,9 @@ const SinglePoll = () => {
   if (!poll) {
     return (
       <article className="poll-wrapper">
-        <Link to="/">← Back</Link>
+        <Link to="/" className="link-underline">
+          ← Back
+        </Link>
         <h2 className="poll-title">No poll to display</h2>
       </article>
     );
@@ -114,7 +118,9 @@ const SinglePoll = () => {
 
   return (
     <form className="poll-wrapper" onSubmit={handleSubmit}>
-      <Link to="/">← Back</Link>
+      <Link to="/" className="link-underline">
+        ← Back
+      </Link>
       <h1 className="poll-title">{title}</h1>
       <div className="poll-meta underline">
         <p>created: {date}</p>

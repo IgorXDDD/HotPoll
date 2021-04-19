@@ -32,7 +32,9 @@ const About = () => {
           quibusdam!
         </p>
         <p>
-          <Link to="/">Back Home</Link>
+          <Link to="/" className="link-underline">
+            Back Home
+          </Link>
         </p>
       </section>
       <Footer />
