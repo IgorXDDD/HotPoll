@@ -33,6 +33,29 @@ $ ./mvnw clean install
 $ ./mvnw spring-boot:run
 ```
 
+## Architecture summary
+
+Architecure seen from modules perspective.
+
+![Architecture](architecture.png)
+
+### Modules:
+#### PollModule
+
+![ArchitecturePoll](architecturePoll.png)
+
+#### VoteModule
+
+![ArchitectureVote](architectureVote.png)
+
+#### UserModule
+
+![ArchitectureUser](architectureUser.png)
+
+#### StatisticsModule
+
+![ArchitectureStatistics](architectureStatistics.png)
+
 ## Tutorials
 ### Frontend
 * [Tutorial 1](https://youtu.be/4UZrsTqkcW4)
