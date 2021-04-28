@@ -1,7 +1,8 @@
-package com.pik.hotpoll.persistence;
+package com.pik.hotpoll.repositories;
 
 import java.util.List;
 
+import com.pik.hotpoll.domain.Person;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

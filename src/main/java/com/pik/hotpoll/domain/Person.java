@@ -1,4 +1,4 @@
-package com.pik.hotpoll.persistence;
+package com.pik.hotpoll.domain;
 
 import org.springframework.data.annotation.Id;
 

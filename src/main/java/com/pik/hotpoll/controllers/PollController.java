@@ -1,46 +1,53 @@
 package com.pik.hotpoll.controllers;
 
-import net.minidev.json.JSONArray;
+import com.google.inject.internal.util.Lists;
+import com.pik.hotpoll.controllers.mappers.PollMapper;
+import com.pik.hotpoll.domain.Poll;
+import com.pik.hotpoll.domain.PollDTO;
+import com.pik.hotpoll.exceptions.ConstraintsViolationException;
+import com.pik.hotpoll.services.DefaultPollService;
+import com.pik.hotpoll.services.PollService;
 import net.minidev.json.JSONObject;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/poll")
 public class PollController {
+
+    private PollService pollService;
+
+    @Autowired
+    public void PollController(DefaultPollService pollService){
+        this.pollService = pollService;
+    }
+
     @GetMapping("")
-    public String getPolls() {
-        JSONObject jo = new JSONObject()
-                .appendField("id",2137)
-                .appendField("title","Pineapple and Pizza?")
-                .appendField("date","16.04.2021")
-                .appendField("author","Demongo")
-                .appendField("timesCompleted",38)
-                .appendField("tags",new JSONArray()
-                        .appendElement("food")
-                        .appendElement("pineapple")
-                        .appendElement("pizza"))
-                .appendField("alreadyCompleted",false)
-                .appendField("questions",new JSONArray()
-                        .appendElement(new JSONObject()
-                        .appendField("qid",1)
-                        .appendField("question", "Does pineapple belong on pizza?")
-                        .appendField("type","radio")
-                        .appendField("answers", new JSONArray()
-                                .appendElement(new JSONObject()
-                                        .appendField("aid",1)
-                                        .appendField("answer","Hell Yeah!"))
-                                .appendElement(new JSONObject()
-                                        .appendField("aid",2)
-                                        .appendField("answer", "Eww!"))))
-        );
-        return jo.toString();
+    public List<PollDTO> getPolls() throws ConstraintsViolationException, EntityNotFoundException {
+
+        List<Poll> polls = new ArrayList<>(Lists.newArrayList(pollService.findAll()));
+
+        return PollMapper.makePollDTOList(polls);
+    }
+
+    @GetMapping("/{pollID}")
+    public PollDTO getPoll(@Validated @PathVariable Integer pollID) throws EntityNotFoundException{
+        return PollMapper.makePollDTO(pollService.find(pollID));
     }
 
     @PostMapping("")
-    public String postPoll(@RequestParam(value = "name", defaultValue = "Nice poll") String name) {
-        JSONObject jo = new JSONObject();
-        jo.put("message","Added poll: name: " + name + " ,description: Neat!");
-        return jo.toString();
+    @ResponseStatus(HttpStatus.CREATED)
+    public PollDTO postPoll(@Validated @RequestBody PollDTO pollDTO)
+            throws ConstraintsViolationException {
+        Poll poll = PollMapper.makePoll(pollDTO);
+        return PollMapper.makePollDTO(pollService.create(poll));
     }
 }
