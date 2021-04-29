@@ -1,9 +1,7 @@
 package com.pik.hotpoll.services;
 
 import com.pik.hotpoll.domain.Answer;
-import com.pik.hotpoll.domain.Poll;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
-import com.pik.hotpoll.repositories.AnswerRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
