@@ -1,37 +1,45 @@
 package com.pik.hotpoll.domain;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import javax.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 
-@Entity
+
+//                .appendField("questions",new JSONArray()
+//                        .appendElement(new JSONObject()
+//                        .appendField("qid",1)
+//                        .appendField("question", "Does pineapple belong on pizza?")
+//                        .appendField("type","radio")
+//                        .appendField("answers", new JSONArray()
+//                                .appendElement(new JSONObject()
+//                                        .appendField("aid",1)
+//                                        .appendField("answer","Hell Yeah!"))
+//                                .appendElement(new JSONObject()
+//                                        .appendField("aid",2)
+//                                        .appendField("answer", "Eww!"))))
+//        );
+
+@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+@Builder(builderClassName = "AnswerBuilder")
+@JsonDeserialize(builder = Answer.AnswerBuilder.class)
 public class Answer {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+    private final String id;
+    @NotNull
+    private final String text;
+    @NotNull
+    private final Integer votes;
 
-    @Column(nullable = false)
-    private String answerText;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AnswerBuilder {
 
-    public Answer(String answerText) {
-        this.answerText = answerText;
     }
 
-    public Answer(){}
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getAnswerText() {
-        return answerText;
-    }
-
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
-    }
 }
+

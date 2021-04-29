@@ -1,7 +1,12 @@
 package com.pik.hotpoll.domain;
 
-import javax.persistence.*;
-import java.util.Map;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import javax.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import java.util.List;
 
 //                .appendField("questions",new JSONArray()
 //                        .appendElement(new JSONObject()
@@ -17,67 +22,26 @@ import java.util.Map;
 //                                        .appendField("answer", "Eww!"))))
 //        );
 
-
-@Entity
+@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+@Builder(builderClassName = "QuestionBuilder")
+@JsonDeserialize(builder = Question.QuestionBuilder.class)
 public class Question {
-
-    enum QuestionType{RADIO, CHECKBOX}
-    public static Integer MAX_ANSWER_AMOUNT = 10;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+    private final String id;
+    @NotNull
+    private final String text;
+    @NotNull
+    private final String type;
+    @NotNull
+    private final List<Answer> answers;
 
-    @Column(nullable = false)
-    private String questionText;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private QuestionType questionType;
-
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private Map<Integer, Answer> answers;
-
-    public Question(String questionText, QuestionType questionType) {
-        this.questionText = questionText;
-        this.questionType = questionType;
-    }
-
-    public Question() {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class QuestionBuilder {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getQuestionText() {
-        return questionText;
-    }
-
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
-    }
-
-    public QuestionType getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(QuestionType questionType) {
-        this.questionType = questionType;
-    }
-
-    public Map<Integer, Answer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(Map<Integer, Answer> answers) {
-        this.answers = answers;
-    }
 }
+
