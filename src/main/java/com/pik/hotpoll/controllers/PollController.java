@@ -10,6 +10,7 @@ import com.pik.hotpoll.services.PollService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,34 +21,35 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/poll")
+@RequestMapping("/poll/{pollID}")
 public class PollController {
 
-    private PollService pollService;
+    private final PollService pollService;
+    private PollMapper pollMapper;
 
     @Autowired
-    public void PollController(DefaultPollService pollService){
+    public PollController(DefaultPollService pollService){
         this.pollService = pollService;
     }
 
-    @GetMapping("")
-    public List<PollDTO> getPolls() throws ConstraintsViolationException, EntityNotFoundException {
-
-        List<Poll> polls = new ArrayList<>(Lists.newArrayList(pollService.findAll()));
-
-        return PollMapper.makePollDTOList(polls);
+    @GetMapping
+    public ResponseEntity<?> getPoll(@Validated @PathVariable(required = false) String pollID) {
+        if( pollID == null ){
+            return ResponseEntity.ok(pollService.findAll());
+        }
+        return ResponseEntity.ok(pollService.find(pollID));
     }
 
-    @GetMapping("/{pollID}")
-    public PollDTO getPoll(@Validated @PathVariable Integer pollID) throws EntityNotFoundException{
-        return PollMapper.makePollDTO(pollService.find(pollID));
-    }
-
-    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public PollDTO postPoll(@Validated @RequestBody PollDTO pollDTO)
-            throws ConstraintsViolationException {
-        Poll poll = PollMapper.makePoll(pollDTO);
-        return PollMapper.makePollDTO(pollService.create(poll));
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> createPerson(@RequestBody Poll poll) {
+        try {
+            Poll p = pollService.create(poll);
+            return ResponseEntity.ok(p);
+        }catch (ConstraintsViolationException ignored){
+            return ResponseEntity.ok(poll); //todo lepiej
+        }
+
     }
+
 }

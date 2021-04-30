@@ -13,28 +13,24 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class DefaultPollService implements PollService {
-    private static org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultPollService.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultPollService.class);
     private final PollRepository pollRepository;
-    private QuestionService questionService;
+
 
     @Autowired
-    public DefaultPollService(final PollRepository pollRepository,
-                              DefaultQuestionService questionService){
+    public DefaultPollService(final PollRepository pollRepository){
         this.pollRepository = pollRepository;
-        this.questionService = questionService;
     }
 
-    @Override
-    @Transactional
-    public Poll find(Integer id) throws EntityNotFoundException {
+    public Poll find(String id) throws EntityNotFoundException {
         return findPollChecked(id);
     }
 
-    @Override
-    @Transactional
+
     public Poll create(Poll poll) throws ConstraintsViolationException {
         Poll pollNew;
         try {
@@ -46,64 +42,58 @@ public class DefaultPollService implements PollService {
         return pollNew;
     }
 
-    @Override
-    @Transactional
-    public void delete(Integer id) throws EntityNotFoundException, ConstraintsViolationException {
+    public void delete(String id) throws EntityNotFoundException, ConstraintsViolationException {
         Poll poll = findPollChecked(id);
         pollRepository.delete(poll);
     }
 
-    @Override
-    @Transactional
-    public void addQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException {
-        Poll poll = find(pollId);
-        Question question = questionService.find(questionId);
-        if (poll.getQuestions().size() > Poll.MAX_QUESTION_AMOUNT) {
-            throw new ConstraintsViolationException("Too many questions");
-        }
-        pollAddQuestion(poll, question);
-        create(poll);
-    }
+//    public void addQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException {
+//        Poll poll = find(pollId);
+//        Question question = questionService.find(questionId);
+//        if (poll.getQuestions().size() > Poll.MAX_QUESTION_AMOUNT) {
+//            throw new ConstraintsViolationException("Too many questions");
+//        }
+//        pollAddQuestion(poll, question);
+//        create(poll);
+//    }
+//
+//    public void deleteQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException {
+//        Poll poll = find(pollId);
+//        Question question = questionService.find(questionId);
+//        if (poll.getQuestions() == null) {
+//            throw new ConstraintsViolationException("No questions");
+//        }
+//        Map<Integer, Question> questions = poll.getQuestions();
+//        if (!questions.containsKey(questionId)) {
+//            throw new ConstraintsViolationException("This question does not belong to the poll");
+//        }
+//        pollRemoveQuestion(poll, question);
+//        create(poll);
+//    }
 
-    @Override
-    @Transactional
-    public void deleteQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException {
-        Poll poll = find(pollId);
-        Question question = questionService.find(questionId);
-        if (poll.getQuestions() == null) {
-            throw new ConstraintsViolationException("No questions");
-        }
-        Map<Integer, Question> questions = poll.getQuestions();
-        if (!questions.containsKey(questionId)) {
-            throw new ConstraintsViolationException("This question does not belong to the poll");
-        }
-        pollRemoveQuestion(poll, question);
-        create(poll);
-    }
-
-    @Override
-    @Transactional
     public Iterable<Poll> findAll() {
         return pollRepository.findAll();
     }
 
-    private Poll findPollChecked(Integer id) throws EntityNotFoundException {
-        Poll poll = pollRepository.findPollById(id);
-        if (poll == null) {
-            throw new EntityNotFoundException("Could not find car with this licensePlate");
+    private Poll findPollChecked(String id) throws EntityNotFoundException {
+        Optional<Poll> poll = pollRepository.findById(id);
+        if (!poll.isPresent()) {
+            throw new EntityNotFoundException("poll not found");
+        }else{
+            return poll.get();
         }
-        return poll;
+
     }
 
-    private void pollAddQuestion(Poll poll, Question question){
-        Map<Integer, Question> questions = poll.getQuestions();
-        questions.put(question.getId(),question);
-        poll.setQuestions(questions);
-    }
-
-    private void pollRemoveQuestion(Poll poll, Question question){
-        Map<Integer, Question> questions = poll.getQuestions();
-        questions.remove(question.getId(),question);
-        poll.setQuestions(questions);
-    }
+//    private void pollAddQuestion(Poll poll, Question question){
+//        Map<Integer, Question> questions = poll.getQuestions();
+//        questions.put(question.getId(),question);
+//        poll.setQuestions(questions);
+//    }
+//
+//    private void pollRemoveQuestion(Poll poll, Question question){
+//        Map<Integer, Question> questions = poll.getQuestions();
+//        questions.remove(question.getId(),question);
+//        poll.setQuestions(questions);
+//    }
 }
