@@ -4,30 +4,34 @@ import com.google.inject.internal.util.Lists;
 import com.pik.hotpoll.controllers.mappers.PollMapper;
 import com.pik.hotpoll.domain.Poll;
 import com.pik.hotpoll.domain.PollDTO;
+import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
+import com.pik.hotpoll.exceptions.NoAuthorizationException;
+import com.pik.hotpoll.services.interfaces.AuthorizationService;
 import com.pik.hotpoll.services.DefaultPollService;
-import com.pik.hotpoll.services.PollService;
-import net.minidev.json.JSONObject;
+import com.pik.hotpoll.services.interfaces.PollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/poll")
 public class PollController {
 
     private PollService pollService;
+    private AuthorizationService authorizationService;
 
     @Autowired
-    public void PollController(DefaultPollService pollService){
+    public void PollController(DefaultPollService pollService, AuthorizationService authorizationService){
+
         this.pollService = pollService;
+        this.authorizationService = authorizationService;
     }
 
     @GetMapping("")
@@ -45,8 +49,11 @@ public class PollController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public PollDTO postPoll(@Validated @RequestBody PollDTO pollDTO)
-            throws ConstraintsViolationException {
+    public PollDTO postPoll(@Validated @RequestBody PollDTO pollDTO, @AuthenticationPrincipal User user)
+            throws ConstraintsViolationException, NoAuthorizationException {
+        if(!authorizationService.canCreatePoll(user)){
+            throw new NoAuthorizationException();
+        }
         Poll poll = PollMapper.makePoll(pollDTO);
         return PollMapper.makePollDTO(pollService.create(poll));
     }

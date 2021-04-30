@@ -1,11 +1,11 @@
 package com.pik.hotpoll.services;
 
 import com.pik.hotpoll.domain.Answer;
-import com.pik.hotpoll.domain.Poll;
 import com.pik.hotpoll.domain.Question;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
-import com.pik.hotpoll.repositories.PollRepository;
 import com.pik.hotpoll.repositories.QuestionRepository;
+import com.pik.hotpoll.services.interfaces.AnswerService;
+import com.pik.hotpoll.services.interfaces.QuestionService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 import java.util.Map;
 
 @Service
-public class DefaultQuestionService implements QuestionService{
+public class DefaultQuestionService implements QuestionService {
     private static org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultPollService.class);
     private final QuestionRepository questionRepository;
     private AnswerService answerService;

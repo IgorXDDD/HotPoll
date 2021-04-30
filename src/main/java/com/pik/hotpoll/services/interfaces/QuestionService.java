@@ -1,4 +1,4 @@
-package com.pik.hotpoll.services;
+package com.pik.hotpoll.services.interfaces;
 
 import com.pik.hotpoll.domain.Poll;
 import com.pik.hotpoll.domain.Question;

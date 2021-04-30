@@ -18,6 +18,10 @@ public class User {
     @NotNull
     private final String nickname;
 
+    public String getPassword() {
+        return "password";
+    }
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class UserBuilder {
 

@@ -12,5 +12,6 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     List<User> findByNickname(@Param("nickname") String name);
     Optional<User> findById(@Param("id") String id);
+
 }
 
