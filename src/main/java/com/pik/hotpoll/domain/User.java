@@ -29,15 +29,6 @@ public class User {
     @NotNull
     private Boolean emailVerified = false;
 
-    @JsonIgnore
-    private String password;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private AuthProvider provider;
-
-    private String providerId;
-
-    private String imageUrl;
 
 
 

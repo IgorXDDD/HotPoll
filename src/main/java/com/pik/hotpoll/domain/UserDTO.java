@@ -19,10 +19,4 @@ public class UserDTO {
     private String bio;
     private String image;
 
-    private Boolean emailVerified;
-    private String password;
-    private AuthProvider provider;
-
-    private String providerId;
-    private String imageUrl;
 }
