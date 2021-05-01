@@ -28,6 +28,10 @@ public class User {
     private final String email;
     @NotNull
     private Boolean emailVerified = false;
+    @NotNull
+    private String password;
+    @NotNull
+    private String authority;
 
 
 

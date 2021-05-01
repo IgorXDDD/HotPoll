@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @GetMapping("")
     public String getUser(@RequestParam(value = "name", defaultValue = "Adam") String name) {

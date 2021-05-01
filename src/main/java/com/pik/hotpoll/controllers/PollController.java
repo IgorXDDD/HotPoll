@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/poll/{pollID}")
+@RequestMapping("/api/poll/{pollID}")
 public class PollController {
 
 
