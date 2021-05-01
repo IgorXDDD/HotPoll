@@ -1,13 +1,14 @@
 package com.pik.hotpoll.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -23,12 +24,21 @@ public class User {
     private final String id;
     @NotNull
     private final String nickname;
+    @NotNull
+    private final String email;
+    @NotNull
+    private Boolean emailVerified = false;
 
+    @JsonIgnore
+    private String password;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
 
+    private String providerId;
 
-    public String getPassword() {
-        return "password";
-    }
+    private String imageUrl;
+
 
 
     @JsonPOJOBuilder(withPrefix = "")

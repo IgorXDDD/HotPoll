@@ -1,8 +1,13 @@
 package com.pik.hotpoll.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -13,4 +18,11 @@ public class UserDTO {
     private String username;
     private String bio;
     private String image;
+
+    private Boolean emailVerified;
+    private String password;
+    private AuthProvider provider;
+
+    private String providerId;
+    private String imageUrl;
 }
