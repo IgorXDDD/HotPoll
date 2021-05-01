@@ -1,5 +1,6 @@
 package com.pik.hotpoll.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import javax.validation.constraints.NotNull;
@@ -25,7 +26,7 @@ public class User {
     private final String nickname;
 
 
-
+    @JsonIgnore
     public String getPassword() {
         return "password";
     }
