@@ -86,6 +86,12 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
             <version>2.4.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
 
         <dependency>

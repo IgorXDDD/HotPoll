@@ -3,11 +3,11 @@ package com.pik.hotpoll.controllers;
 import com.google.inject.internal.util.Lists;
 import com.pik.hotpoll.controllers.mappers.PollMapper;
 import com.pik.hotpoll.domain.Poll;
-import com.pik.hotpoll.domain.PollDTO;
+
 import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.exceptions.NoAuthorizationException;
-import com.pik.hotpoll.services.interfaces.AuthorizationService;
+
 import com.pik.hotpoll.services.DefaultPollService;
 import com.pik.hotpoll.services.interfaces.PollService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +28,12 @@ public class PollController {
 
 
     private final PollService pollService;
-    private AuthorizationService authorizationService;
+
 
     @Autowired
-    public PollController(DefaultPollService pollService, AuthorizationService authorizationService){
+    public PollController(DefaultPollService pollService){
 
         this.pollService = pollService;
-        this.authorizationService = authorizationService;
     }
 
     @GetMapping

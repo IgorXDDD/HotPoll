@@ -23,7 +23,7 @@ public class User {
     @Id
     private final String id;
     @NotNull
-    private final String nickname;
+    private final String username;
     @NotNull
     private final String email;
     @NotNull
@@ -32,8 +32,6 @@ public class User {
     private String password;
     @NotNull
     private String authority;
-
-
 
 
     @JsonPOJOBuilder(withPrefix = "")

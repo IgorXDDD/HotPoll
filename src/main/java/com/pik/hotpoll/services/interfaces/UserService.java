@@ -1,12 +1,20 @@
 package com.pik.hotpoll.services.interfaces;
 
 import com.pik.hotpoll.domain.User;
+import com.pik.hotpoll.exceptions.ConstraintsViolationException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface UserService {
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 
-    List<Object> findById(String id);
+    User findById(String id);
+
+    User create(String username, String password, String email) throws ConstraintsViolationException;
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }

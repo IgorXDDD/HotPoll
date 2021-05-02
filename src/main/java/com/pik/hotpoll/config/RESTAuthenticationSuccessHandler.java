@@ -1,6 +1,7 @@
 package com.pik.hotpoll.config;
 
 import com.pik.hotpoll.HotpollApplication;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -12,14 +13,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 @Component
 public class RESTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+    private static final Logger logger = LoggerFactory.getLogger(RESTAuthenticationSuccessHandler.class);
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication a) throws IOException, ServletException {
-        System.out.println(a.toString());
+        logger.error(a.toString());
         clearAuthenticationAttributes(httpServletRequest);
     }
 }

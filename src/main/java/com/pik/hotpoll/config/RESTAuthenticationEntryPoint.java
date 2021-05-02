@@ -15,9 +15,10 @@ import java.util.logging.Level;
 
 @Component
 public class RESTAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    private static final Logger logger = LoggerFactory.getLogger(RESTAuthenticationEntryPoint.class);
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        System.out.println(e.toString());
+        logger.error(e.getMessage());
     }
 }

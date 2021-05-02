@@ -1,15 +1,20 @@
 package com.pik.hotpoll;
 
+import com.pik.hotpoll.controllers.AuthController;
+import com.pik.hotpoll.services.DefaultUserDetailsService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication()
+@ComponentScan(basePackageClasses = AuthController.class)
 @RestController
 public class HotpollApplication {
 

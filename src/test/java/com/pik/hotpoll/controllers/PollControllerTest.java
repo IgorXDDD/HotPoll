@@ -40,7 +40,7 @@ class PollControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         pollJsonObject = new JSONObject();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        User user = User.builder().nickname("igor").id("igor").build();
+        User user = User.builder().username("igor").id("igor").build();
         List<String> tags = new ArrayList<>();
         List<Question> questions = new ArrayList<>();
         List<Answer> answers = new ArrayList<>();
