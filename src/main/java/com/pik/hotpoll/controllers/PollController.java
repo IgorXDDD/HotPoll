@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
 
 
 @RestController
-@RequestMapping("/poll")
+@RequestMapping("/api/poll")
 public class PollController {
 
 

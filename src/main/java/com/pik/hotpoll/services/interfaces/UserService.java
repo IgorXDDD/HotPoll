@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface UserService {
     List<User> findByEmail(String email);
 
+    List<User> findByNickname(String nickname);
+
     Optional<User> findById(String id);
 
     User find(String id) throws EntityNotFoundException;

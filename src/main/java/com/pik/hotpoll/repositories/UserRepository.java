@@ -1,4 +1,3 @@
-
 package com.pik.hotpoll.repositories;
 
 import java.time.LocalDateTime;

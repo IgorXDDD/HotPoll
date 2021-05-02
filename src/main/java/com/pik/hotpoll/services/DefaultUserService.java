@@ -13,7 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("DefaultUserService")
 public class DefaultUserService implements UserService {
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultUserService.class);
     private final UserRepository userRepository;
@@ -32,6 +32,11 @@ public class DefaultUserService implements UserService {
     @Override
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public List<User> findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname);
     }
 
     public User find(String id) throws EntityNotFoundException {
