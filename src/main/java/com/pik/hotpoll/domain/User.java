@@ -24,12 +24,10 @@ public class User {
     private final String id;
     @NotNull
     private final String nickname;
+    private final String email;
+    @NotNull
+    private final String password;
 
-
-    @JsonIgnore
-    public String getPassword() {
-        return "password";
-    }
 
 
     @JsonPOJOBuilder(withPrefix = "")
