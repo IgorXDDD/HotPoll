@@ -11,10 +11,10 @@ import com.pik.hotpoll.config.JwtUtils;
 import com.pik.hotpoll.config.UserDetailsImpl;
 import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
-import com.pik.hotpoll.payload.JwtResponse;
-import com.pik.hotpoll.payload.LoginRequest;
-import com.pik.hotpoll.payload.MessageResponse;
-import com.pik.hotpoll.payload.SignupRequest;
+import com.pik.hotpoll.payloads.JwtResponse;
+import com.pik.hotpoll.payloads.LoginRequest;
+import com.pik.hotpoll.payloads.MessageResponse;
+import com.pik.hotpoll.payloads.SignupRequest;
 import com.pik.hotpoll.repositories.UserRepository;
 import com.pik.hotpoll.services.DefaultUserService;
 
@@ -66,10 +66,12 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail()));
+        return ResponseEntity.ok(JwtResponse.builder()
+                .jwt(jwt)
+                .id(userDetails.getId())
+                .username(userDetails.getUsername())
+                .email(userDetails.getEmail())
+                .build());
     }
 
     @GetMapping("/singup")
@@ -83,13 +85,13 @@ public class AuthController {
         if (userService.findByNickname(signUpRequest.getUsername()).size() != 0) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body( MessageResponse.builder().string("Error: Username is already taken!").build());
         }
 
         if (userService.findByEmail(signUpRequest.getEmail()).size() != 0) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+                    .body( MessageResponse.builder().string("Error: Email is already in use!").build());
         }
 
         // Create new user's account
@@ -98,6 +100,6 @@ public class AuthController {
                 .password(encoder.encode(signUpRequest.getPassword())).build());
 
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok (MessageResponse.builder().string("User registered successfully!").build());
     }
 }

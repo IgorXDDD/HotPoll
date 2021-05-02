@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PollRepository extends MongoRepository<Poll, String> {
 
-    List<Poll> findByAuthorUsername(@Param("username") String name);
+    List<Poll> findByAuthorNickname(@Param("nickname") String name);
     List<Poll> findByTitle(@Param("title") String title);
     List<Poll> findByTags(@Param("tags") List<String> tags);
     List<Poll> findByDate(@Param("date") LocalDateTime date);
