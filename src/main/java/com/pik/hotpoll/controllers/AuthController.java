@@ -66,10 +66,11 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail()));
+        return ResponseEntity.ok(JwtResponse.builder()
+                        .jwt(jwt)
+                        .id(userDetails.getId())
+                        .username(userDetails.getUsername())
+                        .email(userDetails.getEmail()).build());
     }
 
     @GetMapping("/singup")
@@ -83,13 +84,13 @@ public class AuthController {
         if (userService.findByNickname(signUpRequest.getUsername()).size() != 0) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(MessageResponse.builder().message("Error: Username is already taken!").build());
         }
 
         if (userService.findByEmail(signUpRequest.getEmail()).size() != 0) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+                    .body(MessageResponse.builder().message("Error: Email is already in use!").build());
         }
 
         // Create new user's account
@@ -98,6 +99,6 @@ public class AuthController {
                 .password(encoder.encode(signUpRequest.getPassword())).build());
 
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(MessageResponse.builder().message("User registered successfully!").build());
     }
 }

@@ -1,8 +1,22 @@
 package com.pik.hotpoll.payload;
 
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+@Builder(builderClassName = "MessageResponseBuilder")
+@JsonDeserialize(builder = MessageResponse.MessageResponseBuilder.class)
 public class MessageResponse {
     private String message;
-    public MessageResponse(String s) {
-        this.message = s;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class MessageResponseBuilder {
+
     }
+
 }
