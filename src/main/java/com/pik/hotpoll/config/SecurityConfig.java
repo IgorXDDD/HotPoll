@@ -16,6 +16,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.NimbusAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
@@ -47,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -60,8 +68,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/poll", "/api/user").authenticated();
+                .antMatchers("/api/poll", "/api/user").authenticated()
+                .and()
+                .oauth2Login().defaultSuccessUrl("/").failureUrl("/")
+                .authorizationEndpoint()
+                .baseUri("/oauth2/authorize-client")
+                .authorizationRequestRepository(authorizationRequestRepository())
+                .and()
+                .tokenEndpoint()
+                .accessTokenResponseClient(accessTokenResponseClient());
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest>
+    authorizationRequestRepository() {
+        return new HttpSessionOAuth2AuthorizationRequestRepository();
+    }
+
+    @Bean
+    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest>
+    accessTokenResponseClient() {
+        return new DefaultAuthorizationCodeTokenResponseClient();
     }
 }

@@ -12,7 +12,11 @@
 //import org.json.JSONObject;
 //import org.junit.BeforeClass;
 //import org.junit.jupiter.api.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.http.*;
+//import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.web.client.RestTemplate;
 //import org.springframework.web.util.UriComponentsBuilder;
 //
@@ -24,6 +28,8 @@
 //
 //import static org.junit.jupiter.api.Assertions.*;
 //
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
 //class PollControllerTest {
 //    private static JSONObject pollJsonObject;
 //    private static Poll poll;
@@ -35,11 +41,10 @@
 //
 //
 //    @Test
+//    @WithMockUser(username = "Pa", password = "haslo", roles = "USER")
 //    void getPolls() throws JsonProcessingException {
-//        System.setProperty("proxyHost", "yourproxy");
-//        System.setProperty("proxyPort", "4444");
 //        postPoll();
-//        createPollUrl = "http://localhost:4444/poll";
+//        createPollUrl = "http://localhost:4444/api/poll";
 //
 //        objectMapper = new ObjectMapper();
 //        objectMapper.registerModule(new JavaTimeModule());
@@ -57,8 +62,9 @@
 //    }
 //
 //    @Test
+//    @WithMockUser(username = "Pa", password = "haslo", roles = "USER")
 //    void getPoll() throws JsonProcessingException {
-//        createPollUrl = "http://localhost:4444/poll";
+//        createPollUrl = "http://localhost:4444/api/poll";
 //
 //        objectMapper = new ObjectMapper();
 //        objectMapper.registerModule(new JavaTimeModule());
@@ -98,8 +104,9 @@
 //    }
 //
 //    @Test
+//    @WithMockUser(username = "Pa", password = "haslo", roles = "USER")
 //    void postPoll() throws JsonProcessingException {
-//        createPollUrl = "http://localhost:4444/poll";
+//        createPollUrl = "http://localhost:4444/api/poll";
 //
 //        objectMapper = new ObjectMapper();
 //        objectMapper.registerModule(new JavaTimeModule());

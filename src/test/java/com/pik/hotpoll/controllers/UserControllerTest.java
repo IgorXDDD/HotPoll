@@ -4,6 +4,7 @@
 //import com.fasterxml.jackson.databind.JsonNode;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+//import com.pik.hotpoll.config.SecurityConfig;
 //import com.pik.hotpoll.domain.Answer;
 //import com.pik.hotpoll.domain.Poll;
 //import com.pik.hotpoll.domain.Question;
@@ -12,7 +13,14 @@
 //import org.json.JSONObject;
 //import org.junit.BeforeClass;
 //import org.junit.jupiter.api.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.context.annotation.Import;
 //import org.springframework.http.*;
+//import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.web.client.RestTemplate;
 //import org.springframework.web.util.UriComponentsBuilder;
 //
@@ -24,6 +32,8 @@
 //
 //import static org.junit.jupiter.api.Assertions.*;
 //
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
 //class UserControllerTest {
 //    private static JSONObject pollJsonObject;
 //    private static User user;
@@ -33,9 +43,10 @@
 //    private static String createUserUrl;
 //
 //    @Test
+//    @WithMockUser(username = "Pa", password = "haslo")
 //    void getUsers() throws JsonProcessingException {
 //        postUser();
-//        createUserUrl = "http://localhost:4444/user";
+//        createUserUrl = "http://localhost:4444/api/user";
 //
 //        objectMapper = new ObjectMapper();
 //        restTemplate = new RestTemplate();
@@ -52,8 +63,9 @@
 //    }
 //
 //    @Test
+//    @WithMockUser(username = "Pa", password = "haslo")
 //    void getUser() throws JsonProcessingException {
-//        createUserUrl = "http://localhost:4444/user";
+//        createUserUrl = "http://localhost:4444/api/user";
 //
 //        objectMapper = new ObjectMapper();
 //        restTemplate = new RestTemplate();
@@ -83,8 +95,9 @@
 //    }
 //
 //    @Test
+//    @WithMockUser(username = "Pa", password = "haslo")
 //    void postUser() throws JsonProcessingException {
-//        createUserUrl = "http://localhost:4444/user";
+//        createUserUrl = "http://localhost:4444/api/user";
 //
 //        objectMapper = new ObjectMapper();
 //        restTemplate = new RestTemplate();
