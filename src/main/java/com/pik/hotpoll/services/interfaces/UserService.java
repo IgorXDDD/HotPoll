@@ -21,4 +21,6 @@ public interface UserService {
     void delete(String id) throws EntityNotFoundException, ConstraintsViolationException;
 
     Iterable<User> findAll();
+
+
 }

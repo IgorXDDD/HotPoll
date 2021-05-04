@@ -29,12 +29,10 @@ public class User {
     private final String password;
 
 
-
     @JsonPOJOBuilder(withPrefix = "")
     public static class UserBuilder {
 
     }
-
 
 }
 

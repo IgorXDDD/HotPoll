@@ -4,6 +4,7 @@ import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.repositories.UserRepository;
 import com.pik.hotpoll.services.interfaces.UserService;
+import org.graalvm.compiler.lir.LIRInstruction;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -63,6 +64,7 @@ public class DefaultUserService implements UserService {
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
+
 
     private User findUserChecked(String id) throws EntityNotFoundException {
         Optional<User> user = userRepository.findById(id);

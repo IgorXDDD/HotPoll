@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 @ControllerAdvice
-public class PollControllerExceptionHandler {
-    private static Logger logger = LoggerFactory.getLogger(PollControllerExceptionHandler .class);
+public class ControllerExceptionHandler {
+    private static Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler .class);
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception e) {
         logger.error(e.getMessage());
