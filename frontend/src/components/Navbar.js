@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import logo from "../hotpoll-logo.svg";
+import AuthService from '../services/user.service'
+import { useGlobalContext } from "../context";
+import Loading from './Loading'
 
 const customStyles = {
   overlay: {
@@ -24,6 +27,11 @@ Modal.setAppElement(document.getElementById("root"));
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  
+  const {logged, setLogged} = useGlobalContext();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -31,6 +39,28 @@ const Navbar = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+
+  const handleSubmit = (event) => {
+    setLoading(true);
+    event.preventDefault();
+    console.log("clicked login button");
+    AuthService.login(login,password).then(
+      ()=>{
+        setLoading(false);
+        console.log("udalo sie zalogowac");
+        window.location.assign("/#/about"); 
+        closeModal();
+      }
+      ,
+      (loginFailedError) => {
+        setLoading(false);
+        console.log("nie udalo sie zalogowac");
+        console.log(loginFailedError);
+      }
+    )
+
   };
 
   return (
@@ -70,11 +100,36 @@ const Navbar = () => {
         <Link to="#" className="link-underline" onClick={closeModal}>
           close
         </Link>
-        <form className="loginForm">
-          <input type="text" placeholder="login" />
-          <input type="password" placeholder="password" />
-          <button>Login</button>
-        </form>
+        
+        <div className="login-or-create-account">
+          <h1>Login or Create Account for Free!</h1>
+          <form onSubmit={handleSubmit} className="loginForm">
+            <input
+              type="text"
+              placeholder="login"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {
+              loading?<Loading/>:
+            
+            <button type="submit">Login</button>
+        }
+          </form>
+          <h1>Don't Have an Account?</h1>
+          <div className="create-acc-or-guest">
+            <button id="register-btn">Register</button>
+            <button id="enter-as-guest-btn">
+              Enter as a Guest
+            </button>
+          </div>
+        </div>
       </Modal>
     </>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 // import pages
 import Home from "./pages/Home";
@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar";
 // ...
 
 const App = () => {
+
   return (
     <div>
       <Router>
