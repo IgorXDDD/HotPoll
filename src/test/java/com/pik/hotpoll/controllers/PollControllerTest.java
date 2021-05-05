@@ -17,7 +17,9 @@ import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
@@ -32,7 +34,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PollControllerTest {
     private static JSONObject pollJsonObject;
     private static Poll poll;
@@ -42,14 +44,15 @@ class PollControllerTest {
     private static String createPollUrl;
     private static String jwt;
     private static boolean signed = false;
+    @Autowired
+    private ServletWebServerApplicationContext webServerAppCtxt;
 
 
     @Test
     void getPolls() throws JsonProcessingException {
-
-        assertNotNull(jwt);
+        Integer port = webServerAppCtxt.getWebServer().getPort();
         postPoll();
-        createPollUrl = "http://localhost:4444/api/poll";
+        createPollUrl = "http://localhost:" + port.toString() + "/api/poll";
 
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -71,9 +74,8 @@ class PollControllerTest {
 
     @Test
     void getPoll() throws JsonProcessingException {
-        assertNotNull(jwt);
-        createPollUrl = "http://localhost:4444/api/poll";
-        System.out.println(jwt);
+        Integer port = webServerAppCtxt.getWebServer().getPort();
+        createPollUrl = "http://localhost:" + port.toString() + "/api/poll";
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         restTemplate = new RestTemplate();
@@ -97,8 +99,7 @@ class PollControllerTest {
         assertNotNull(ret);
 
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(createPollUrl)
-                .queryParam("pollID", ret.getId());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(createPollUrl).queryParam("pollID", ret.getId());
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -113,8 +114,9 @@ class PollControllerTest {
 
     @Test
     void postPoll() throws JsonProcessingException {
-        createPollUrl = "http://localhost:4444/api/poll";
-        System.out.println(jwt);
+        Integer port = webServerAppCtxt.getWebServer().getPort();
+        createPollUrl = "http://localhost:" + port.toString() + "/api/poll";
+
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         restTemplate = new RestTemplate();
@@ -131,11 +133,9 @@ class PollControllerTest {
         questions.add(Question.builder().type("radio").id("1").text("student?").answers(answers).build());
         questions.add(Question.builder().type("radio").id("2").text("debil?").answers(answers).build());
         poll = Poll.builder().title("poll").author(user).date(LocalDateTime.now()).tags(tags).questions(questions).build();
-        HttpEntity<String> request =
-                new HttpEntity<>(objectMapper.writeValueAsString(poll), headers);
+        HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(poll), headers);
 
-        Poll ret =
-                restTemplate.postForObject(createPollUrl, request, Poll.class);
+        Poll ret = restTemplate.postForObject(createPollUrl, request, Poll.class);
         assertNotNull(ret);
         assertEquals(poll.getAuthor(), ret.getAuthor());
         assertEquals(poll.getDate(), ret.getDate());
@@ -150,7 +150,8 @@ class PollControllerTest {
         try {
             if (signed)
                 return;
-            String signUpUrl = "http://localhost:4444/api/auth/signup";
+            Integer port = webServerAppCtxt.getWebServer().getPort();
+            String signUpUrl = "http://localhost:"+ port.toString() +"/api/auth/signup";
             objectMapper = new ObjectMapper();
             restTemplate = new RestTemplate();
             headers = new HttpHeaders();
@@ -162,14 +163,13 @@ class PollControllerTest {
         }catch (HttpClientErrorException ignored){
 
         }
-//        assertNotNull(ret);
-//        assertEquals("User registered successfully!", ret.getMessage());
     }
 
-//    @Before
     @Test
     void signIn() throws JsonProcessingException {
-        String signInUrl = "http://localhost:4444/api/auth/signin";
+        Integer port = webServerAppCtxt.getWebServer().getPort();
+        String signInUrl = "http://localhost:"+ port.toString() +"/api/auth/signin";
+
         objectMapper = new ObjectMapper();
         restTemplate = new RestTemplate();
         headers = new HttpHeaders();
@@ -180,7 +180,6 @@ class PollControllerTest {
         assertNotNull(ret);
         assertNotNull(ret.getJwt());
         jwt = ret.getJwt();
-        System.out.println(jwt);
     }
 
 }
