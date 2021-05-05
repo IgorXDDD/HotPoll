@@ -7,6 +7,7 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [polls, setPolls] = useState([]);
+  const [logged,setLogged] = useState(false);
 
   const fetchPolls = () => {
     setLoading(true);
@@ -92,7 +93,7 @@ const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ loading, polls }}>
+    <AppContext.Provider value={{ loading, polls, logged, setLogged }}>
       {children}
     </AppContext.Provider>
   );
