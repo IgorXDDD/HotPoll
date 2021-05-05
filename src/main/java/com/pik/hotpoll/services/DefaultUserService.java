@@ -4,7 +4,6 @@ import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.repositories.UserRepository;
 import com.pik.hotpoll.services.interfaces.UserService;
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
