@@ -204,6 +204,9 @@ NAVBAR
 .ReactModal__Overlay--before-close {
   opacity: 0;
 }
+.hidden {
+  display: none;
+}
 
 /* 
 ====== 
