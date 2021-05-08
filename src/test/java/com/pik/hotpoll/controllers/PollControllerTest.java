@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -71,6 +72,82 @@ class PollControllerTest {
         System.out.println(polls.size());
         assertNotEquals(0, polls.size());
     }
+
+    @Test
+    void deletePoll() throws JsonProcessingException {
+        Integer port = webServerAppCtxt.getWebServer().getPort();
+        createPollUrl = "http://localhost:" + port.toString() + "/api/poll";
+
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        restTemplate = new RestTemplate();
+        headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer "+jwt);
+        HttpEntity<String> request =
+                new HttpEntity<>(headers);
+        ResponseEntity<Poll[]> ret = restTemplate.exchange(createPollUrl, HttpMethod.GET, request, Poll[].class);
+        assertNotNull(ret.getBody());
+        List<Poll> polls = Arrays.asList(ret.getBody());
+        int numPolls = polls.size();
+        assertNotEquals(0, numPolls);
+        Poll toDelete = polls.get(0);
+        assertNotEquals("", toDelete.getId());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(createPollUrl).queryParam("pollID", toDelete.getId());
+
+        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
+
+        ResponseEntity<String> delStatus = restTemplate.exchange(builder.toUriString(), HttpMethod.PATCH, request, String.class);
+        assertNotNull(delStatus.getBody());
+        assertEquals(HttpStatus.OK, delStatus.getStatusCode());
+
+        ResponseEntity<Poll[]> ret_2 = restTemplate.exchange(createPollUrl, HttpMethod.GET, request, Poll[].class);
+        assertNotNull(ret_2.getBody());
+        List<Poll> polls_2 = Arrays.asList(ret_2.getBody());
+        assertEquals( numPolls - 1, polls_2.size());
+
+
+    }
+
+
+    @Test
+    void updatePoll() throws JsonProcessingException {
+        Integer port = webServerAppCtxt.getWebServer().getPort();
+        createPollUrl = "http://localhost:" + port.toString() + "/api/poll";
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        restTemplate = new RestTemplate();
+        headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer "+jwt);
+        User user = User.builder().nickname("igor").id("igor").build();
+        List<String> tags = new ArrayList<>();
+        List<Question> questions = new ArrayList<>();
+        List<Answer> answers = new ArrayList<>();
+        tags.add("tag1"); tags.add("tag2"); tags.add("tag3");
+        answers.add(Answer.builder().id("1").text("tak").votes(2).build());
+        answers.add(Answer.builder().id("2").text("nie").votes(2).build());
+        questions.add(Question.builder().type("radio").id("1").text("student?").answers(answers).build());
+        questions.add(Question.builder().type("radio").id("2").text("debil?").answers(answers).build());
+        poll = Poll.builder().title("poll").author(user).date(LocalDateTime.now()).tags(tags).questions(questions).build();
+        HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(poll), headers);
+        Poll ret = restTemplate.postForObject(createPollUrl, request, Poll.class);
+        assertNotNull(ret);
+        Poll updatedPoll = Poll.builder().id(ret.getId()).title("updatedPoll").author(user).date(LocalDateTime.now()).tags(tags).questions(questions).build();
+        request = new HttpEntity<>(objectMapper.writeValueAsString(updatedPoll), headers);
+        HttpEntity<Poll> response = restTemplate.exchange(createPollUrl, HttpMethod.PUT, request, Poll.class);
+        assertNotNull(response.getBody());
+        assertEquals(updatedPoll.getId(), response.getBody().getId());
+        assertEquals(updatedPoll.getTitle(), response.getBody().getTitle());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(createPollUrl).queryParam("pollID", updatedPoll.getId());
+        response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, request, Poll.class);
+        assertNotNull(response.getBody());
+        assertEquals(updatedPoll.getId(), response.getBody().getId());
+        assertEquals(updatedPoll.getTitle(), response.getBody().getTitle());
+
+    }
+
 
     @Test
     void getPoll() throws JsonProcessingException {

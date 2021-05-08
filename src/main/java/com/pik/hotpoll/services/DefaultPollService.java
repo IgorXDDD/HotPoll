@@ -47,29 +47,6 @@ public class DefaultPollService implements PollService {
         pollRepository.delete(poll);
     }
 
-//    public void addQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException {
-//        Poll poll = find(pollId);
-//        Question question = questionService.find(questionId);
-//        if (poll.getQuestions().size() > Poll.MAX_QUESTION_AMOUNT) {
-//            throw new ConstraintsViolationException("Too many questions");
-//        }
-//        pollAddQuestion(poll, question);
-//        create(poll);
-//    }
-//
-//    public void deleteQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException {
-//        Poll poll = find(pollId);
-//        Question question = questionService.find(questionId);
-//        if (poll.getQuestions() == null) {
-//            throw new ConstraintsViolationException("No questions");
-//        }
-//        Map<Integer, Question> questions = poll.getQuestions();
-//        if (!questions.containsKey(questionId)) {
-//            throw new ConstraintsViolationException("This question does not belong to the poll");
-//        }
-//        pollRemoveQuestion(poll, question);
-//        create(poll);
-//    }
 
     public Iterable<Poll> findAll() {
         return pollRepository.findAll();
@@ -85,15 +62,4 @@ public class DefaultPollService implements PollService {
 
     }
 
-//    private void pollAddQuestion(Poll poll, Question question){
-//        Map<Integer, Question> questions = poll.getQuestions();
-//        questions.put(question.getId(),question);
-//        poll.setQuestions(questions);
-//    }
-//
-//    private void pollRemoveQuestion(Poll poll, Question question){
-//        Map<Integer, Question> questions = poll.getQuestions();
-//        questions.remove(question.getId(),question);
-//        poll.setQuestions(questions);
-//    }
 }

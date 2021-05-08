@@ -7,6 +7,7 @@ import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.services.DefaultPollService;
 import com.pik.hotpoll.services.interfaces.PollService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +44,25 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
     }
 
     @PostMapping(name = "",  consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> createPerson(@RequestBody Poll poll) throws ConstraintsViolationException {
+    public ResponseEntity<?> createPoll(@RequestBody Poll poll) throws ConstraintsViolationException {
             Poll p = pollService.create(poll);
             return ResponseEntity.ok(p);
     }
+
+    @PutMapping(name = "",  consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> updatePoll(@RequestBody Poll poll) throws ConstraintsViolationException {
+        Poll p = pollService.create(poll);
+        return ResponseEntity.ok(p);
+    }
+
+    @PatchMapping("")
+    public ResponseEntity<String> deletePoll( @RequestParam(value = "pollID") String pollID) {
+        try{
+            pollService.delete(pollID);
+            return ResponseEntity.ok("ok");
+        }catch (ConstraintsViolationException e){
+            return new ResponseEntity<String>("no such poll", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
