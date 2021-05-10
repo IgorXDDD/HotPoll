@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 const About = () => {
   return (
     <>
-      <section class="about">
+      <section className="about">
         <h1>About HotPoll</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
@@ -31,10 +31,11 @@ const About = () => {
           sint hic nobis ab, quasi aperiam tempora ducimus sed quaerat sunt
           quibusdam!
         </p>
-
-        <Link to="/">
-          <button className="dark-btn">Back Home</button>
-        </Link>
+        <p>
+          <Link to="/" className="link-underline">
+            Back Home
+          </Link>
+        </p>
       </section>
       <Footer />
     </>
