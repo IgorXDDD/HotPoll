@@ -8,7 +8,7 @@ Zaakceptowany
 
 ## Kontekst
 
-Wybór języka i framework'u dla naszej aplikacji. Wymagane są języki działające na JVM - z nich jedynie z Javą mamy doświadczenie. Spring jest król frameworków jak lew jest król dżungli.
+Wybór języka i framework'u dla naszej aplikacji. Wymagane są języki działające na JVM - z nich jedynie z Javą mamy doświadczenie. Spring jest król frameworków jak lew jest król dżungli. Pojawia się gęsto jako wymaganie w ofertach pracy, więc jest korzystne dla rozwoju zespołu go użyć.
 
 ## Decyzja
 
