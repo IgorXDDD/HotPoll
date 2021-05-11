@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import GoogleLogin from "react-google-login"
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import logo from "../hotpoll-logo.svg";
@@ -203,7 +204,7 @@ const Navbar = () => {
               Enter as a Guest
             </button>
           
-            <a className="google-btn" href={OAUTH_URL}>
+            <a className="google-btn" href={OAUTH_URL} target="popup">
                 <img src='../google_button.png' alt="Sign in with google" />
             </a>
           </div>

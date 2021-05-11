@@ -8,6 +8,56 @@ const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [polls, setPolls] = useState([]);
   const [logged,setLogged] = useState(false);
+  const [questions, setQuestions] = useState([{
+    "id": "1",
+    'text': 'pytanko nr 1',
+    'type': 'multiple',
+    "answers": [
+      {
+        "id": "0",
+        "text": "ans 1",
+        "votes": 0
+      },
+      {
+        "id": "1",
+        "text": "ans 2",
+        "votes": 0
+      },
+      {
+        "id": "2",
+        "text": "ans 3",
+        "votes": 0
+      },
+      {
+        "id": "3",
+        "text": "ans 42",
+        "votes": 0
+      },
+      {
+        "id": "4",
+        "text": "ans 52",
+        "votes": 0
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "text": "tak czy nie?",
+    "type": "radio",
+    "answers": [
+      {
+        "id": "1",
+        "text": "tak",
+        "votes": 2
+      },
+      {
+        "id": "2",
+        "text": "nie",
+        "votes": 2
+      }
+    ]
+  }])
+  const [tags, setTags] = useState(["IT","FOOD"]);
 
   const fetchPolls = () => {
     setLoading(true);
@@ -40,7 +90,6 @@ const AppProvider = ({ children }) => {
         ],
       },
     ];
-
     setPolls(newPolls);
     setLoading(false);
 
@@ -93,7 +142,16 @@ const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ loading, polls, logged, setLogged }}>
+    <AppContext.Provider value={
+      { loading,
+        polls,
+        logged,
+        setLogged,
+        questions,
+        setQuestions,
+        tags,
+        setTags }
+      }>
       {children}
     </AppContext.Provider>
   );
@@ -104,3 +162,28 @@ export const useGlobalContext = () => {
 };
 
 export { AppContext, AppProvider };
+
+
+//        JSONObject jo = new JSONObject()
+//                .appendField("id",2137)
+//                .appendField("title","Pineapple and Pizza?")
+//                .appendField("date","16.04.2021")
+//                .appendField("author","Demongo")
+//                .appendField("timesCompleted",38)
+//                .appendField("tags",new JSONArray()
+//                        .appendElement("food")
+//                        .appendElement("pineapple")
+//                        .appendElement("pizza"))
+//                .appendField("alreadyCompleted",false)
+//                .appendField("questions",new JSONArray()
+//                        .appendElement(new JSONObject()
+//                        .appendField("qid",1)
+//                        .appendField("question", "Does pineapple belong on pizza?")
+//                        .appendField("type","radio")
+//                        .appendField("answers", new JSONArray()
+//                                .appendElement(new JSONObject()
+//                                        .appendField("aid",1)
+//                                        .appendField("answer","Hell Yeah!"))
+//                                .appendElement(new JSONObject()
+//                                        .appendField("aid",2)
+//                                        .appendField("answer", "Eww!"))))

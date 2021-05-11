@@ -15,8 +15,8 @@ const Home = () => {
           <LoginOrCreateAccount />
         </section>
       </div> */}
-      <PollList />
-      {/* <PollCreator/> */}
+      {/* <PollList /> */}
+      <PollCreator/>
       <Footer />
     </>
   );
