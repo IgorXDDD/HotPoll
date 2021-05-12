@@ -11,6 +11,7 @@ import PollCreator from "./components/polls/PollCreator"
 
 // import components
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 // ...
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
             <Error />
           </Route>
         </Switch>
+        <Footer/>
       </Router>
     </div>
   );

@@ -18,7 +18,6 @@ const Home = () => {
       {/* <PollList /> */}
       {/* <PollCreator />
       <PollList /> */}
-      <Footer />
     </>
   );
 };
