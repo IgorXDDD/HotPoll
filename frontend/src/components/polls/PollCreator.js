@@ -21,18 +21,20 @@ function PollCreator() {
   };
 
   return (
-    <div className="poll-wrapper">
+    <div className="poll-wrapper poll-creator-wrapper">
       <form
+        className="set-poll-name"
         action=""
         onSubmit={() => {
           console.log(handleSubmit());
         }}
       >
-        <button className="submit-btn">Submit new poll</button>
+        <button className="submit-poll-creator">Submit new poll</button>
 
-        <h3>Poll name</h3>
+        <h3 className="poll-creator-heading">Set Poll Name</h3>
         <input
           type="text"
+          className="poll-name"
           placeholder="enter poll name"
           value={pollName}
           onChange={(e) => setPollName(e.target.value)}

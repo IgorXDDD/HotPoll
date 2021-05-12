@@ -104,8 +104,11 @@ ul {
   color: var(--accentColor2);
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   background-color: var(--bgColorMain);
+  font-family: var(--sansSerifFont);
+  font-weight: 300;
   font-size: 1rem;
   color: var(--textColorMain);
   border: none;
@@ -115,7 +118,8 @@ input[type="text"] {
   margin: 0.5rem;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
   box-shadow: var(--insetBorder) var(--accentColor2), var(--lightShadow);
 }
 
@@ -307,6 +311,9 @@ HOME
 
 .loginForm input {
   width: 100%;
+  margin: auto;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
 }
 
 .loginForm button {
@@ -503,11 +510,58 @@ svg rect {
 FOOTER
 ======
 */
+
 .footer {
   background-color: var(--bgColorLight);
   height: 2rem;
   display: flex;
   align-items: center;
+}
+
+/* 
+====== 
+POLL CREATOR
+======
+*/
+
+.poll-creator-wrapper {
+  padding: 2rem;
+}
+
+.question-creator-wrapper::after {
+  content: "";
+  display: block;
+  margin: 2rem 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background-color: var(--bgColorMain);
+}
+
+.poll-creator-heading {
+  font-family: var(--serifFont);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.poll-name {
+  width: 50%;
+}
+
+.set-poll-name {
+  margin-bottom: 2rem;
+}
+
+.allow-multiple-checkbox {
+  margin-left: 10px;
+}
+
+.tag {
+  margin-bottom: 6px;
+}
+
+.fa-icon {
+  margin: 0px 1px;
 }
 
 /* 
