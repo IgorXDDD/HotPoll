@@ -1,6 +1,6 @@
 # 5. React
 
-Data: 2021-05-10
+Data: 2021-05-12
 
 ## Status
 
@@ -8,12 +8,11 @@ Zaakceptowany
 
 ## Kontekst
 
-The issue motivating this decision, and any context that influences or constrains the decision.
+Wybór frontendu dla naszej aplikacji. Ostatecznie i tak wszystko się sprowadza (ostateczny kod) do JavaScriptu, także najlepszą decyzją było dla nas wybranie czegoś, co jedynie nadbudowuje JS. Jednym z popularniejszych ostatnio rozwiązań jest React, którego znajomość wymaga przynajmniej podstawowej wiedzy JS.
 
 ## Decyzja
-
-The change that we're proposing or have agreed to implement.
+Wybraliśmy React.js jako narzędzie do tworzenia frontednu.
 
 ## Konsekwencje
 
-What becomes easier or more difficult to do and any risks introduced by the change that will need to be mitigated.
+Uczymy się najpopularniejszego na stackoverflow języka co sprawia, że wszelkie potencjalne problemy są szybko rozwiązywalne. Zyskujemy wiedzę z HTML, CSS, JS oraz React, co pozwala nam lepiej zrozumieć działanie stron internetowych oraz daje solidne fundamenty z zakresu webdevu.
