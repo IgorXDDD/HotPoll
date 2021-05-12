@@ -104,6 +104,25 @@ ul {
   color: var(--accentColor2);
 }
 
+input[type="text"],
+input[type="password"] {
+  background-color: var(--bgColorMain);
+  font-family: var(--sansSerifFont);
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--textColorMain);
+  border: none;
+  height: 2rem;
+  padding: 0.5rem;
+  border-radius: var(--mainBorderRadius);
+  margin: 0.5rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  box-shadow: var(--insetBorder) var(--accentColor2), var(--lightShadow);
+}
+
 /* input {
   padding: 0.5rem;
   border: none;
@@ -204,6 +223,9 @@ NAVBAR
 .ReactModal__Overlay--before-close {
   opacity: 0;
 }
+.hidden {
+  display: none;
+}
 
 /* 
 ====== 
@@ -289,6 +311,9 @@ HOME
 
 .loginForm input {
   width: 100%;
+  margin: auto;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
 }
 
 .loginForm button {
@@ -348,35 +373,6 @@ ERROR
   height: 100vh;
   background-image: var(--lightGradient);
   padding: 3rem;
-}
-
-/* 
-====== 
-MEDIA QUERIES
-======
-*/
-
-@media (max-width: 1100px) {
-  .homescreen-content {
-    margin-top: 1rem;
-    padding-top: 0;
-    gap: 5rem;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "welcome"
-      "loginOrCreateAccount";
-  }
-  .login-or-create-account {
-    margin-bottom: 2rem;
-    place-self: center;
-  }
-  .welcome h1 {
-    font-size: 6rem;
-  }
-  .welcome h2 {
-    font-size: 1.2rem;
-  }
 }
 
 /* 
@@ -514,9 +510,92 @@ svg rect {
 FOOTER
 ======
 */
+
 .footer {
   background-color: var(--bgColorLight);
   height: 2rem;
   display: flex;
   align-items: center;
+}
+
+/* 
+====== 
+POLL CREATOR
+======
+*/
+
+.poll-creator-wrapper {
+  padding: 2rem;
+}
+
+.question-creator-wrapper::after {
+  content: "";
+  display: block;
+  margin: 2rem 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background-color: var(--bgColorMain);
+}
+
+.poll-creator-heading {
+  font-family: var(--serifFont);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.poll-name {
+  width: 50%;
+}
+
+.set-poll-name {
+  margin-bottom: 2rem;
+}
+
+.allow-multiple-checkbox {
+  margin-left: 10px;
+}
+
+.tag {
+  margin-bottom: 6px;
+}
+
+.fa-icon {
+  margin: 0px 1px;
+}
+
+/* 
+====== 
+MEDIA QUERIES
+======
+*/
+
+@media (max-width: 1100px) {
+  .homescreen-content {
+    margin-top: 1rem;
+    padding-top: 0;
+    gap: 5rem;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "welcome"
+      "loginOrCreateAccount";
+  }
+  .login-or-create-account {
+    margin-bottom: 2rem;
+    place-self: center;
+  }
+  .welcome h1 {
+    font-size: 6rem;
+  }
+  .welcome h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 790px) {
+  .poll-wrapper {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }

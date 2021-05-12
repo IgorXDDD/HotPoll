@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { useGlobalContext } from "../context";
 
 const testUrl = "http://localhost:4444/test?text=OK";
 
 const LoginOrCreateAccount = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+
+  const {logged, setLogged} = useGlobalContext();
 
   const fetchData = () => {
     fetch(testUrl)
