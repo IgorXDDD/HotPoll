@@ -104,6 +104,21 @@ ul {
   color: var(--accentColor2);
 }
 
+input[type="text"] {
+  background-color: var(--bgColorMain);
+  font-size: 1rem;
+  color: var(--textColorMain);
+  border: none;
+  height: 2rem;
+  padding: 0.5rem;
+  border-radius: var(--mainBorderRadius);
+  margin: 0.5rem;
+}
+
+input[type="text"]:focus {
+  box-shadow: var(--insetBorder) var(--accentColor2), var(--lightShadow);
+}
+
 /* input {
   padding: 0.5rem;
   border: none;
@@ -355,35 +370,6 @@ ERROR
 
 /* 
 ====== 
-MEDIA QUERIES
-======
-*/
-
-@media (max-width: 1100px) {
-  .homescreen-content {
-    margin-top: 1rem;
-    padding-top: 0;
-    gap: 5rem;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "welcome"
-      "loginOrCreateAccount";
-  }
-  .login-or-create-account {
-    margin-bottom: 2rem;
-    place-self: center;
-  }
-  .welcome h1 {
-    font-size: 6rem;
-  }
-  .welcome h2 {
-    font-size: 1.2rem;
-  }
-}
-
-/* 
-====== 
 POLL
 ======
 */
@@ -522,4 +508,40 @@ FOOTER
   height: 2rem;
   display: flex;
   align-items: center;
+}
+
+/* 
+====== 
+MEDIA QUERIES
+======
+*/
+
+@media (max-width: 1100px) {
+  .homescreen-content {
+    margin-top: 1rem;
+    padding-top: 0;
+    gap: 5rem;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "welcome"
+      "loginOrCreateAccount";
+  }
+  .login-or-create-account {
+    margin-bottom: 2rem;
+    place-self: center;
+  }
+  .welcome h1 {
+    font-size: 6rem;
+  }
+  .welcome h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 790px) {
+  .poll-wrapper {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
