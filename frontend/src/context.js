@@ -30,12 +30,12 @@ const AppProvider = ({ children }) => {
       },
       {
         "id": "3",
-        "text": "ans 42",
+        "text": "ans 4",
         "votes": 0
       },
       {
         "id": "4",
-        "text": "ans 52",
+        "text": "ans 5",
         "votes": 0
       }
     ]

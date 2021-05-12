@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import OptionsList from "./OptionsList";
 import { useGlobalContext } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";

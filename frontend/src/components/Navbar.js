@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GoogleLogin from "react-google-login"
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
@@ -41,6 +41,14 @@ const Navbar = () => {
 
   const {logged, setLogged} = useGlobalContext();
 
+
+  useEffect(() => {
+    if(AuthService.getCurrentUser())
+    {
+      setLogged(true);
+    }
+  })
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -70,7 +78,7 @@ const Navbar = () => {
         setLoading(false);
         setLogged(true);
         console.log("udalo sie zalogowac");
-        window.location.assign("/#/about"); 
+        window.location.assign("/#/createpoll"); 
         closeModal();
       }
       ,

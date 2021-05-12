@@ -9,15 +9,15 @@ import PollCreator from "../components/polls/PollCreator";
 const Home = () => {
   return (
     <>
-      {/* <div className="homescreen">
+      <div className="homescreen">
         <section className="homescreen-content">
           <Welcome />
-          <LoginOrCreateAccount />
+          {/* <LoginOrCreateAccount /> */}
         </section>
-      </div> */}
+      </div>
       {/* <PollList /> */}
-      <PollCreator />
-      <PollList />
+      {/* <PollCreator />
+      <PollList /> */}
       <Footer />
     </>
   );
