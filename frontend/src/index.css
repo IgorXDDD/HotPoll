@@ -518,6 +518,11 @@ FOOTER
   align-items: center;
 }
 
+.footer p {
+  margin: auto;
+  color: var(--textColorLight);
+}
+
 /* 
 ====== 
 POLL CREATOR

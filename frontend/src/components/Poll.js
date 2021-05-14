@@ -1,37 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Poll = ({
-  id,
-  title,
-  date,
-  author,
-  timesCompleted,
-  tags,
-  alreadyCompleted,
-  questions,
-}) => {
+const Poll = ({ id, title, date, author, tags, questions }) => {
+  // w domyśle te dwie wartości powinny przychodzić
+  // z ankiety albo skądś indziej
+  let timesCompleted = 10;
+  let alreadyCompleted = false;
+
   return (
     <article className="poll-wrapper">
       <h1 className="poll-title">{title}</h1>
       <div className="poll-meta underline">
         <p>created: {date}</p>
-        <p style={{ textAlign: "right" }}>author: {author}</p>
+        <p style={{ textAlign: "right" }}>author: {author.nickname}</p>
       </div>
       {questions.slice(0, 3).map((question) => {
         return (
-          <section className="question-wrapper" key={question.qid}>
+          <section className="question-wrapper" key={question.id}>
             <h2 className="question question-simple">
-              {`Q${question.qid}) `}
-              {question.question}
+              {`Q${question.id}) `}
+              {question.text}
             </h2>
+            {/* // comment vvv */}
             {/* {question.answers.map((answer) => {
               return (
-                <p className="question-answer" key={answer.aid}>
-                  {answer.answer}
+                <p className="question-answer" key={answer.id}>
+                  {answer.text}
                 </p>
               );
             })} */}
+            {/* // comment ^^^ */}
             {questions.length > 3 ? <h2>and more...</h2> : null}
           </section>
         );

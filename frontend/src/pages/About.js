@@ -37,7 +37,6 @@ const About = () => {
           </Link>
         </p>
       </section>
-      <Footer />
     </>
   );
 };

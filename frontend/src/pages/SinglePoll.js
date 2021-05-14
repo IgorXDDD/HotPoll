@@ -11,7 +11,12 @@ const poll = {
   id: 2137,
   title: "Pineapple and Pizza?",
   date: "16.04.2021",
-  author: "Demongo",
+  author: {
+    id: "Demongo",
+    nickname: "Demongo",
+    email: null,
+    password: null,
+  },
   timesCompleted: 38,
   tags: ["food", "pineapple", "pizza"],
   alreadyCompleted: false,
@@ -124,7 +129,7 @@ const SinglePoll = () => {
       <h1 className="poll-title">{title}</h1>
       <div className="poll-meta underline">
         <p>created: {date}</p>
-        <p style={{ textAlign: "right" }}>author: {author}</p>
+        <p style={{ textAlign: "right" }}>author: {author.nickname}</p>
       </div>
       {questions.map((question) => {
         return (
