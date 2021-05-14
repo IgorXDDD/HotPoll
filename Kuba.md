@@ -6,7 +6,7 @@ In this tutorial I will show you how to create simple app just like out HotPoll,
 
 For starters you can quickly setup your own Spring serwer using [this spring Initializr](https://start.spring.io/), which will let you customize your starting configuration.  
 
-| [!Initializr](/images/initializr.png) |
+| | ![Initializr](/images/initializr.png) |
 
 Next step is to create index controller.
 
