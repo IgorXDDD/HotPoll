@@ -10,7 +10,7 @@ For starters you can quickly setup your own Spring serwer using [this spring Ini
 
 Next step is to create index controller class. Spring controllers are using [REST API](https://www.redhat.com/en/topics/api/what-is-a-rest-api) for comunication with world, so if you want to create such server you should know at least what GET and POST requests are ([usefull link](https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/)).
 
-```Java
+```java
 package com.example.springboot;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -30,13 +30,13 @@ public class HelloController {
 With this piece of code your server will now print `<Greetings form Spring Boot!>`. You can test your app already if you want to. Spring Boot has generated all necessary
 dependencies. All you have to do now is to put this lines of code in your terminal:
 
-```Bash
+```bash
 ./mvnw clean install
 ```
 
 The line above builds and installs your app so you will have to put it before if you made any changes.
 
-```Bash
+```bash
 ./mvnw spring-boot:run
 ```
 
@@ -44,7 +44,7 @@ If everything is alright when you go to `<localhost:8080>` in your browser, you 
 
 In this tutorial I won't be covering frontend so if you want to make your site better looking I can suggest other tutorials from our blog. In order to connect frontend with backend you can follow [this tutorial](https://www.youtube.com/watch?v=RZ8A2Jnxgr4&ab_channel=DevinJapan). Creating new [endpoints](https://smartbear.com/learn/performance-monitoring/api-endpoints/#:~:text=Simply%20put%2C%20an%20endpoint%20is,of%20a%20server%20or%20service.&text=The%20place%20that%20APIs%20send,lives%2C%20is%20called%20an%20endpoint.) for frontend dev is as simple as creating new controllers in Spring, each created with a template:
 
-```Java
+```java
 @RestController
 @RequestMapping("/your/api/path")
 public class HelloController {
