@@ -177,7 +177,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/poll", "/api/user").authenticated();
+                .antMatchers("/your/api/1", "/your/api/2").authenticated();
 
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -256,10 +256,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${hotpoll.app.jwtSecret}")
+    @Value("${your.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${hotpoll.app.jwtExpirationMs}")
+    @Value("${your.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
@@ -300,8 +300,8 @@ public class JwtUtils {
 ```
 Also add this to your application.properties:
 ```properties
-hotpoll.app.jwtSecret=secret
-hotpoll.app.jwtExpirationMs=86400000
+your.app.jwtSecret=secret
+your.app.jwtExpirationMs=86400000
 ```
 
 Now if you want to just use JWT you should give user some way to authenticate themselves. We can achieve this with simple controller:
