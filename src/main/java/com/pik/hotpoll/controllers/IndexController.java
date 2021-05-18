@@ -15,4 +15,10 @@ public class IndexController {
         model.addAttribute("attribute", "frontend");
         return new ModelAndView("forward:/frontend/index.html", model);
     }
+
+    @GetMapping("icon")
+    public ModelAndView icon(ModelMap model) {
+        model.addAttribute("attribute", "frontend");
+        return new ModelAndView("forward:/frontend/google_button.png", model);
+    }
 }
