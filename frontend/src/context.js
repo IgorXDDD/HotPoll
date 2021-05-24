@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [polls, setPolls] = useState([]);
   const [logged, setLogged] = useState(false);
+  const [isGoogleLogged,setIsGoogleLogged] = useState(false);
   const [questions, setQuestions] = useState([
     {
       id: "1",
@@ -47,12 +48,12 @@ const AppProvider = ({ children }) => {
       type: "radio",
       answers: [
         {
-          id: "1",
+          id: "0",
           text: "tak",
           votes: 2,
         },
         {
-          id: "2",
+          id: "1",
           text: "nie",
           votes: 2,
         },

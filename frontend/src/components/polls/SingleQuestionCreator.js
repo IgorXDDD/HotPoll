@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useGlobalContext } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -14,35 +14,112 @@ function SingleQuestionCreator({ questionIndex }) {
     setAlert({ show, type, msg });
   };
 
-  const removeAnswer = (id) => {
-    //TODO
+  let questionName = useRef("question 2");
+
+  const removeQuestion = () => 
+  {
+    let newArray = []
+    Object.assign(newArray,questions);
+
+    newArray.splice(questionIndex,1);
+
+    newArray = newArray.map((question)=>
+    {
+      if(question.id<(questionIndex+1))
+      {
+        return question;
+      }
+      else
+      {
+        let newQuestion = {};
+        Object.assign(newQuestion,question);
+        newQuestion.id = (newQuestion.id-1).toString();
+        return newQuestion
+      }
+    })
+
+    setQuestions(newArray);
   };
+
+  const removeAnswer = (index) =>
+  {
+    if(questions[questionIndex].answers.length<3)
+    {
+        console.log("Cannot leave less than 2 answers!");
+    }
+    else
+    {
+      let newArray = []
+      Object.assign(newArray,questions[questionIndex].answers);
+      newArray.splice(index,1);
+      newArray = newArray.map((answer)=>{
+        if(answer.id<(index+1))
+        {
+          return answer;
+        }
+        else
+        {
+          let newAnswer = {};
+          Object.assign(newAnswer,answer);
+          newAnswer.id=(newAnswer.id-1).toString();
+          return newAnswer;
+        }
+      })
+
+      setQuestions(questions.map((question,qIndex)=>
+      {
+        if(qIndex!== questionIndex)
+        {
+          return question;
+        }
+        else
+        {
+          let modified = {};
+          Object.assign(modified,questions[qIndex]);
+          modified.answers=newArray;
+          return modified;
+        }
+      }));
+    }
+  }
+
   useEffect(() => {
     setAnswers(questions[parseInt(questionIndex)].answers);
     setIsMultiple(questions[parseInt(questionIndex)].type !== "radio");
-  }, []);
+  }, [questions]);
 
   return (
     <div className="question-creator-wrapper">
       {alert.show && <Alert {...alert} removeAlert={showAlert} />}
+  
       <div>
         <h3 className="poll-creator-heading">Add new question</h3>
+        <button onClick={removeQuestion}>
+          Remove question
+        </button>
+        <br/>
         <input
           type="text"
-          placeholder={"Question nr " + questionIndex}
+          placeholder={"Question nr " + (questionIndex+1)}
+          required
           defaultValue={questions[parseInt(questionIndex)].text}
+          ref={questionName}
           onChange={(e) =>
+            {
+              console.log("TAKIE JEST: "+questionName.current.value);
+            e.preventDefault();
             setQuestions(
               questions.map((question) => {
                 if (questions.indexOf(question) != questionIndex) {
                   return question;
                 } else {
                   let tmp = question;
-                  tmp.text = e.target.value;
+                  tmp.text = questionName.current.value
                   return tmp;
                 }
               })
             )
+          }
           }
         />
       </div>
@@ -51,6 +128,7 @@ function SingleQuestionCreator({ questionIndex }) {
         <input
           type="checkbox"
           onChange={(e) => {
+            e.preventDefault();
             setIsMultiple(e.target.checked);
             setQuestions(
               questions.map((question, qIndex) => {
@@ -81,6 +159,7 @@ function SingleQuestionCreator({ questionIndex }) {
               value={ans.text}
               placeholder="new answer"
               onChange={(e) => {
+                e.preventDefault();
                 setQuestions(
                   questions.map((question, qIndex) => {
                     if (qIndex !== questionIndex) {
@@ -103,7 +182,9 @@ function SingleQuestionCreator({ questionIndex }) {
                 );
               }}
             />
-            <button>
+            <button onClick={()=>{
+              removeAnswer(index);
+            }}>
               <FontAwesomeIcon icon={faTrash} className="fa-icon" />
             </button>
           </div>
@@ -111,7 +192,8 @@ function SingleQuestionCreator({ questionIndex }) {
       })}
 
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           if (questions[parseInt(questionIndex)].answers.length < 10) {
             setAnswers([...answers, { id: answers.length + 1, text: "" }]);
 
@@ -131,8 +213,6 @@ function SingleQuestionCreator({ questionIndex }) {
                 }
               })
             );
-
-            console.log(questions);
           } else showAlert(true, "danger", "Too many answers!");
         }}
       >

@@ -21,11 +21,15 @@ function Tag() {
       <h3 className="poll-creator-heading">Add Tags:</h3>
       <form
         action=""
-        onSubmit={() => {
+        onSubmit={(e) =>
+          {
+            e.preventDefault();
           if (tags.includes(newTag.current.value.toUpperCase())) {
-            console.log("JUZ TAKI TAG JEST:" + newTag.current.value);
-          } else {
-            setTags([...tags, newTag.current.value.toUpperCase()]);
+            console.log("Tag repetition: " + newTag.current.value);
+          } 
+          else 
+          {
+            newTag.current.value && setTags([...tags, newTag.current.value.toUpperCase()]);
           }
         }}
       >

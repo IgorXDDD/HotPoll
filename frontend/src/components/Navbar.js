@@ -10,6 +10,7 @@ import Loading from './Loading'
 
 
 const OAUTH_URL = "http://localhost:4444/oauth2/authorization/google";
+const PRINCIPAL_URL = "http://localhost:4444/api/user/principal";
 
 const customStyles = {
   overlay: {
@@ -38,16 +39,41 @@ const Navbar = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [isRegistration,setIsRegistration] = useState(false);
-
-  const {logged, setLogged} = useGlobalContext();
+  const {logged, setLogged, isGoogleLogged, setIsGoogleLogged} = useGlobalContext();
 
 
   useEffect(() => {
     if(AuthService.getCurrentUser())
     {
       setLogged(true);
+      console.log("NORMALNE");
     }
-  })
+    else
+    {
+      console.log("GOOGLOWE");
+      if(!isGoogleLogged)
+        getGoogleLogin();
+    }
+  },[logged,isGoogleLogged])
+
+  const getGoogleLogin = () => 
+  {
+    console.log("LOGUJEMY GOOGLEM");
+    fetch(PRINCIPAL_URL)    
+    .then((response) => response.json())
+      .then((data) => {
+        console.log("takie cookie:");
+        console.log(document.cookie);
+        setIsGoogleLogged(true);
+        console.log("udalo sie zalogowac googlem :))");
+        setLogged(true);
+      })
+      .catch(e=>
+        {
+          console.log("nie udalo sie zalogowac :(");
+        })
+      
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -62,10 +88,10 @@ const Navbar = () => {
     setIsModalOpen(false);
   };
   const logOut = () => {
+    document.cookie = "JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setIsGoogleLogged(false);
     AuthService.logout();
     setLogged(false);
-    // location.reload();
-    //albo to:
     window.location.assign("/#"); 
   }
 
@@ -98,7 +124,6 @@ const Navbar = () => {
     // podstawowe sprawdzanie typu: czy jest poprawy email wpisany EDIT: o przy submicie samo sprawdza
     // czy zgadzaja sie oba hasla
     // jezeli cos jest nietak to trzeba na czerwono wyswietlic komunikat
-
 
 
     setLoading(true);
