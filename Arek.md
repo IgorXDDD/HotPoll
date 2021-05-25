@@ -72,8 +72,7 @@ As you can see, the Footer component (among others like Welcome or LoginOrCreate
 
 
 ## Hooks
-It used to be that components in React were written as classes rather than functions. It wasn't very convenient and there were some problems with that approach.  
-Function components and hooks were introduced in 2018 with React 16.8.0.  
+It used to be that components in React were written as classes rather than functions. It wasn't very convenient and there were some problems with that approach. Function components and hooks were introduced in 2018 with React 16.8.0.  
 
 Hooks are special functions that allow you to use *state* and other features of React. Let's take a look at the most popular hooks - *useState* and *useEffect*.
 
@@ -134,8 +133,6 @@ The *useEffect* hook is a function that takes another function as an argument. T
 It's optional, but you can also specify second argument. It should be a list of dependencies. In other words a list of these variables that, when changed, should invoke *useEffect* to run. Passing in an empty list is a good way to say "do it only once after the first render".
 
 ### **Personalized hooks**
-community already created many useful hooks like useFetch, 
-
 Sometimes, we want to reuse some stateful logic between components. Traditionally, there were two popular solutions to this problem: higher-order components and render props. Custom Hooks let you do this, but without adding more components to your tree.  
 
 Before you can start writing your own hooks, you have to learn some rules:
