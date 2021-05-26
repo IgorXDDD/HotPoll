@@ -1,7 +1,7 @@
 package com.pik.hotpoll.services;
 
 import com.pik.hotpoll.domain.Poll;
-import com.pik.hotpoll.domain.Question;
+import com.pik.hotpoll.domain.Vote;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.repositories.PollRepository;
 import com.pik.hotpoll.services.interfaces.PollService;
@@ -11,8 +11,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -24,6 +22,7 @@ public class DefaultPollService implements PollService {
     @Autowired
     public DefaultPollService(final PollRepository pollRepository){
         this.pollRepository = pollRepository;
+        pollRepository.deleteAll();
     }
 
     public Poll find(String id) throws EntityNotFoundException {
@@ -60,6 +59,22 @@ public class DefaultPollService implements PollService {
             return poll.get();
         }
 
+    }
+
+    public Poll addVote(Vote vote) throws EntityNotFoundException{
+        Optional<Poll> p = pollRepository.findById(vote.getPollID());
+        if (!p.isPresent()) {
+            throw new EntityNotFoundException("poll not found");
+        }else{
+            Poll poll = p.get();
+            try {
+                poll.getQuestions().get(vote.getQuestionID()).getAnswers().get(vote.getAnswerID()).addVote();
+                pollRepository.save(poll);
+            }catch (Exception e){
+                throw new EntityNotFoundException("wrong question/answerID");
+            }
+            return poll;
+        }
     }
 
 }

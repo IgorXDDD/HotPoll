@@ -8,23 +8,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import java.util.List;
 
-//                .appendField("questions",new JSONArray()
-//                        .appendElement(new JSONObject()
-//                        .appendField("qid",1)
-//                        .appendField("question", "Does pineapple belong on pizza?")
-//                        .appendField("type","radio")
-//                        .appendField("answers", new JSONArray()
-//                                .appendElement(new JSONObject()
-//                                        .appendField("aid",1)
-//                                        .appendField("answer","Hell Yeah!"))
-//                                .appendElement(new JSONObject()
-//                                        .appendField("aid",2)
-//                                        .appendField("answer", "Eww!"))))
-//        );
 
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Builder(builderClassName = "QuestionBuilder")
 @JsonDeserialize(builder = Question.QuestionBuilder.class)
 public class Question {

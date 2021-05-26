@@ -6,9 +6,7 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 
 @Service("DefaultVersionService")
 public class DefaultVersionService implements VersionService {

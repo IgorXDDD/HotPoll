@@ -2,12 +2,9 @@ package com.pik.hotpoll.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.pik.hotpoll.domain.Poll;
 import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
-import com.pik.hotpoll.services.DefaultPollService;
 import com.pik.hotpoll.services.DefaultUserService;
-import com.pik.hotpoll.services.interfaces.PollService;
 import com.pik.hotpoll.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

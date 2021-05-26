@@ -21,6 +21,7 @@ public class HotpollApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HotpollApplication.class, args);
+
 	}
 
 }

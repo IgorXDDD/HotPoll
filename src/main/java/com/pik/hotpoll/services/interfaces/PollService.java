@@ -1,6 +1,7 @@
 package com.pik.hotpoll.services.interfaces;
 
 import com.pik.hotpoll.domain.Poll;
+import com.pik.hotpoll.domain.Vote;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,9 +14,7 @@ public interface PollService {
 
     void delete(String id) throws EntityNotFoundException, ConstraintsViolationException;
 
-//    void addQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException;
-//
-//    void deleteQuestion(Integer questionId, Integer pollId) throws ConstraintsViolationException, EntityNotFoundException;
+    Poll addVote(Vote vote) throws EntityNotFoundException;
 
     Iterable<Poll> findAll();
 }

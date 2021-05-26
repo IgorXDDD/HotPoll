@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Builder(builderClassName = "LoginRequestBuilder")
 @JsonDeserialize(builder = LoginRequest.LoginRequestBuilder.class)
 public class LoginRequest {

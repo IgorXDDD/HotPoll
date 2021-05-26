@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/poll", "/api/user").authenticated()
+                .antMatchers("/api/poll", "/api/user", "/api/vote").authenticated()
                 .and()
                 .oauth2Login().defaultSuccessUrl("/api/user/afterOAuth",true).failureUrl("/")
                 .userInfoEndpoint().userService(oauthUserService);

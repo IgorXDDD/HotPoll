@@ -6,23 +6,21 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 @Data
-@Builder(builderClassName = "UserBuilder")
-@JsonDeserialize(builder = User.UserBuilder.class)
-public class User {
-    @Id
-    private final String id;
+@Builder(builderClassName = "VoteBuilder")
+@JsonDeserialize(builder = Vote.VoteBuilder.class)
+public class Vote {
     @NotNull
-    private final String nickname;
-    private final String email;
+    private final String pollID;
     @NotNull
-    private final String password;
+    private final int questionID;
+    @NotNull
+    private final int answerID;
 
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class UserBuilder {
+    public static class VoteBuilder {
 
     }
 
