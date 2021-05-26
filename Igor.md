@@ -81,12 +81,12 @@ Once we have everything prepared (our globals) we can define our `return`:
 ...
 return (
     <AppContext.Provider 
-    value = {{
+    value = {
         username,
         setUsername,
         isLogged,
         setIsLogged
-    }}
+    }
     >
         {children}
     </AppContext.Provider>
