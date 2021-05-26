@@ -60,6 +60,7 @@ const AppProvider = ({ children }) => {
       ],
     },
   ]);
+  const [googleInfo, setGoogleInfo] = useState({});
   const [tags, setTags] = useState(["IT", "FOOD"]);
 
   const fetchPolls = () => {
@@ -152,6 +153,10 @@ const AppProvider = ({ children }) => {
         setLogged,
         questions,
         setQuestions,
+        isGoogleLogged,
+        setIsGoogleLogged,
+        googleInfo,
+        setGoogleInfo,
         tags,
         setTags,
       }}

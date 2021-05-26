@@ -8,21 +8,22 @@ function SingleQuestionCreator({ questionIndex }) {
   const [answers, setAnswers] = useState([]);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const [isMultiple, setIsMultiple] = useState(false);
+  const [questionName, setQuestionName] = useState('');
   const { questions, setQuestions } = useGlobalContext();
 
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
 
-  let questionName = useRef("question 2");
-
   const removeQuestion = () => 
   {
     let newArray = []
     Object.assign(newArray,questions);
 
+    // console.log("zamieniamy " + newArray[parseInt(questionIndex)].text);
+    // console.log("na "+ newArray[parseInt(questionIndex)+1].text);
+    // newArray[parseInt(questionIndex)].text=newArray[parseInt(questionIndex)+1].text;
     newArray.splice(questionIndex,1);
-
     newArray = newArray.map((question)=>
     {
       if(question.id<(questionIndex+1))
@@ -88,12 +89,16 @@ function SingleQuestionCreator({ questionIndex }) {
     setIsMultiple(questions[parseInt(questionIndex)].type !== "radio");
   }, [questions]);
 
+  useEffect(() => {
+    setQuestionName(questions[parseInt(questionIndex)].text);
+  }, [])
+
   return (
     <div className="question-creator-wrapper">
       {alert.show && <Alert {...alert} removeAlert={showAlert} />}
   
       <div>
-        <h3 className="poll-creator-heading">Add new question</h3>
+        <h3 className="poll-creator-heading">Question nr {questionIndex+1}</h3>
         <button onClick={removeQuestion}>
           Remove question
         </button>
@@ -103,18 +108,15 @@ function SingleQuestionCreator({ questionIndex }) {
           placeholder={"Question nr " + (questionIndex+1)}
           required
           defaultValue={questions[parseInt(questionIndex)].text}
-          ref={questionName}
           onChange={(e) =>
             {
-              console.log("TAKIE JEST: "+questionName.current.value);
-            e.preventDefault();
             setQuestions(
               questions.map((question) => {
                 if (questions.indexOf(question) != questionIndex) {
                   return question;
                 } else {
                   let tmp = question;
-                  tmp.text = questionName.current.value
+                  tmp.text = e.target.value
                   return tmp;
                 }
               })
@@ -128,6 +130,7 @@ function SingleQuestionCreator({ questionIndex }) {
         <input
           type="checkbox"
           onChange={(e) => {
+            console.log("NAZWA = ");
             e.preventDefault();
             setIsMultiple(e.target.checked);
             setQuestions(
@@ -160,6 +163,7 @@ function SingleQuestionCreator({ questionIndex }) {
               placeholder="new answer"
               onChange={(e) => {
                 e.preventDefault();
+                console.log(questionName);
                 setQuestions(
                   questions.map((question, qIndex) => {
                     if (qIndex !== questionIndex) {
