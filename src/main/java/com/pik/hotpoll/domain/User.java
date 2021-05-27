@@ -13,7 +13,7 @@ import org.springframework.data.annotation.Id;
 @JsonDeserialize(builder = User.UserBuilder.class)
 public class User {
     @Id
-    private final String id;
+    private String id;
     @NotNull
     private final String nickname;
     private final String email;

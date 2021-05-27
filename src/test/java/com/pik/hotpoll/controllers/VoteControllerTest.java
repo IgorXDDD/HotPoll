@@ -80,14 +80,18 @@ class VoteControllerTest {
 
         Poll ret = restTemplate.postForObject(createPollUrl, request, Poll.class);
         assertNotNull(ret);
-
-        Vote vote = Vote.builder().pollID(ret.getId()).questionID(0).answerID(0).build();
+        List<Vote.AnswerID> answerIDS = new ArrayList<>();
+        answerIDS.add(Vote.AnswerID.builder().questionID(1).answerID(0).build());
+        answerIDS.add(Vote.AnswerID.builder().questionID(0).answerID(0).build());
+        Vote vote = Vote.builder().pollID(ret.getId()).answers(answerIDS).build();
         request = new HttpEntity<>(objectMapper.writeValueAsString(vote), headers);
 
         Poll afterVote = restTemplate.postForObject(voteUrl, request, Poll.class);
 
         assertNotNull(afterVote);
         assertEquals(poll.getQuestions().get(0).getAnswers().get(0).getVotes() + 1 , afterVote.getQuestions().get(0).getAnswers().get(0).getVotes());
+        assertEquals(poll.getQuestions().get(1).getAnswers().get(0).getVotes() + 1 , afterVote.getQuestions().get(1).getAnswers().get(0).getVotes());
+        assertEquals(poll.getTimesFilled() + 1 , afterVote.getTimesFilled());
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(createPollUrl).queryParam("pollID", ret.getId());
 

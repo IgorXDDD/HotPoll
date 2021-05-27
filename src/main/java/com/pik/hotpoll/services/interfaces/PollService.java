@@ -6,6 +6,11 @@ import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.querydsl.core.types.Predicate;
+
+import java.util.List;
+
+
 public interface PollService {
 
     Poll find(String id) throws EntityNotFoundException;
@@ -16,5 +21,9 @@ public interface PollService {
 
     Poll addVote(Vote vote) throws EntityNotFoundException;
 
-    Iterable<Poll> findAll();
+    Iterable<Poll> findAll(int page, int size, Boolean newest);
+
+    Iterable<Poll> findByTags(List<String> tags, int page, int size, Boolean newest);
+
+    List<Poll> search(Predicate p);
 }

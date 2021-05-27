@@ -2,9 +2,13 @@ package com.pik.hotpoll.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,15 +20,17 @@ import java.util.List;
 
 
 @Data
+@TypeAlias("poll")
 @Document(collection = "polls")
-
+@QueryEntity
 @Builder(builderClassName = "PollBuilder")
 @JsonDeserialize(builder = Poll.PollBuilder.class)
 public class Poll {
     @Id
-    private final String id;
+    private String id;
     @NotNull
     private final String title;
+    @Indexed(direction = IndexDirection.DESCENDING)
     @DateTimeFormat(pattern="dd-MM-yyyy HH:mm")
     @NotNull
     private final LocalDateTime date;
@@ -34,9 +40,20 @@ public class Poll {
     @NotNull
     private final List<Question> questions;
 
+    @Indexed(direction = IndexDirection.DESCENDING)
+    @NotNull
+    private int timesFilled;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class PollBuilder {
 
+    }
+
+    public void addVote(Vote vote){
+        ++timesFilled;
+        for (Vote.AnswerID id : vote.getAnswers()){
+            questions.get(id.getQuestionID()).getAnswers().get(id.getAnswerID()).addVote();
+        }
     }
 
 }

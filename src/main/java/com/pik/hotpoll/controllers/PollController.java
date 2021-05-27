@@ -3,9 +3,11 @@ package com.pik.hotpoll.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pik.hotpoll.domain.Poll;
+import com.pik.hotpoll.domain.search.BasicPredicateBuilder;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.services.DefaultPollService;
 import com.pik.hotpoll.services.interfaces.PollService;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 
 @RestController
@@ -36,11 +39,22 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getPoll( @RequestParam(value = "pollID", required = false) String pollID) {
-        if( pollID == null ){
-            return ResponseEntity.ok(pollService.findAll());
+    public ResponseEntity<?> getPoll( @RequestParam(value = "pollID", required = false) String pollID, @RequestParam(value = "tags", required = false) List<String> tags,
+        @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+        @RequestParam(value = "newest", required = false) Boolean newest) {
+        if(newest == null)
+            newest = false;
+
+        if(pollID != null){
+            return ResponseEntity.ok(pollService.find(pollID));
         }
-        return ResponseEntity.ok(pollService.find(pollID));
+
+        if(tags != null){
+            return ResponseEntity.ok(pollService.findByTags(tags, page, size, newest));
+        }
+        return ResponseEntity.ok(pollService.findAll(page, size, newest));
+
+
     }
 
     @PostMapping(name = "",  consumes = "application/json", produces = "application/json")
