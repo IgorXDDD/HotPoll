@@ -1,9 +1,9 @@
 import React from "react";
 import Welcome from "../components/Welcome";
-import LoginOrCreateAccount from "../components/LoginOrCreateAccount";
-import Footer from "../components/Footer";
+// import LoginOrCreateAccount from "../components/LoginOrCreateAccount";
+// import Footer from "../components/Footer";
 import PollList from "../components/PollList";
-import PollCreator from "../components/polls/PollCreator";
+// import PollCreator from "../components/polls/PollCreator";
 // import Loading from "../components/Loading";
 
 const Home = () => {
@@ -15,10 +15,10 @@ const Home = () => {
           {/* <LoginOrCreateAccount /> */}
         </section>
       </div>
-      {/* <PollList /> */}
+      <PollList />
       {/* <PollCreator />
       <PollList /> */}
-      <PollList />
+      {/* <PollList /> */}
     </>
   );
 };

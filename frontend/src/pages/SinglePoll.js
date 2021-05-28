@@ -42,15 +42,15 @@ const poll = {
       type: "checkbox",
       answers: [
         {
-          aid: 1,
+          aid: 3,
           answer: "Option 1",
         },
         {
-          aid: 2,
+          aid: 4,
           answer: "Option 2",
         },
         {
-          aid: 3,
+          aid: 5,
           answer: "Option 3",
         },
       ],

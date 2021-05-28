@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/poll", "/api/user", "/api/vote").authenticated()
                 .and()
-                .oauth2Login().defaultSuccessUrl("/api/user/afterOAuth",true).failureUrl("/")
+                .oauth2Login().defaultSuccessUrl("/",true).failureUrl("/")
                 .userInfoEndpoint().userService(oauthUserService);
 
 

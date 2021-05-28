@@ -10,7 +10,8 @@ import Loading from './Loading'
 
 
 const OAUTH_URL = "http://localhost:4444/oauth2/authorization/google";
-
+const PRINCIPAL_URL = "http://localhost:4444/api/user/principal";
+const DEBUG_URL = "https://jsonplaceholder.typicode.com/albums";
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.75)",
@@ -38,16 +39,58 @@ const Navbar = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [isRegistration,setIsRegistration] = useState(false);
-
-  const {logged, setLogged} = useGlobalContext();
+  const {logged, setLogged, isGoogleLogged, setIsGoogleLogged, googleInfo,setGoogleInfo} = useGlobalContext();
 
 
   useEffect(() => {
     if(AuthService.getCurrentUser())
     {
       setLogged(true);
+      console.log("NORMALNE LOGOWANIE");
     }
-  })
+    else
+    {
+      console.log("GOOGLOWE LGOWANIE");
+      if(!isGoogleLogged)
+        getGoogleLogin();
+    }
+  },[logged,isGoogleLogged])
+
+
+  const getGoogleInfo = () =>
+  {
+  fetch(PRINCIPAL_URL)
+                .then(response => response.json())
+                .then(json => {
+                  setGoogleInfo({'email': json.authorities[0].attributes.email,
+                                  'username': json.authorities[0].attributes.name});
+                  })
+  }
+  const getGoogle = () =>
+  {
+    console.log(googleInfo);
+  }
+
+  const getGoogleLogin = () => 
+  {
+    fetch(PRINCIPAL_URL)    
+    .then((response) => response.json())
+      .then((data) => {
+        console.log("takie cookie:");
+        console.log(document.cookie);
+        setIsGoogleLogged(true);
+        console.log("udalo sie zalogowac googlem :))");
+        setLogged(true);
+        // window.location.assign("/#/createpoll"); 
+        closeModal();
+        getGoogleInfo();
+      })
+      .catch(e=>
+        {
+          console.log("nie udalo sie zalogowac googlem :(");
+        })
+      
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -61,11 +104,12 @@ const Navbar = () => {
     setPasswordConfirm('');
     setIsModalOpen(false);
   };
+
   const logOut = () => {
+    document.cookie = "JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setIsGoogleLogged(false);
     AuthService.logout();
     setLogged(false);
-    // location.reload();
-    //albo to:
     window.location.assign("/#"); 
   }
 
@@ -78,7 +122,7 @@ const Navbar = () => {
         setLoading(false);
         setLogged(true);
         console.log("udalo sie zalogowac");
-        window.location.assign("/#/createpoll"); 
+        // window.location.assign("/#/createpoll"); 
         closeModal();
       }
       ,
@@ -93,12 +137,19 @@ const Navbar = () => {
 
   };
 
+  const showAll = ()=>{
+    console.log("is logged  = "+ logged);
+    console.log("is Googlelogged  = "+ isGoogleLogged);
+    console.log("takie cookie:");
+    console.log(document.cookie);
+
+  }
+
   const handleRegisterSubmit = (event) => 
   {
     // podstawowe sprawdzanie typu: czy jest poprawy email wpisany EDIT: o przy submicie samo sprawdza
     // czy zgadzaja sie oba hasla
     // jezeli cos jest nietak to trzeba na czerwono wyswietlic komunikat
-
 
 
     setLoading(true);
@@ -132,6 +183,12 @@ const Navbar = () => {
           </Link>
           <ul className="nav-links">
             <li>
+              <Link className={logged?"link-to-about link-underline":"hidden"}
+              to="/createpoll">
+                Create new poll
+              </Link>
+            </li>
+            <li>
               <Link to="/" className="link-underline">
                 Home
               </Link>
@@ -146,7 +203,6 @@ const Navbar = () => {
                 {logged?"Logout":"Sign in"}
               </button>
             </li>
-        
           </ul>
         </div>
       </nav>
@@ -212,7 +268,7 @@ const Navbar = () => {
               Enter as a Guest
             </button>
           
-            <a className="google-btn" href={OAUTH_URL} target="popup">
+            <a className="google-btn" href={OAUTH_URL}>
                 <img src='../google_button.png' alt="Sign in with google" />
             </a>
           </div>
