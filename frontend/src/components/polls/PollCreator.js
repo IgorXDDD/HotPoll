@@ -35,6 +35,7 @@ function PollCreator()
         console.log("kliknieto submit");
         console.log("TAKA JEST ANKIETA");
         console.log(questions);
+       
         if(isGoogleLogged)
         {
             const response = await fetch(API_URL, {

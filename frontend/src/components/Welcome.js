@@ -11,11 +11,6 @@ const Welcome = () => {
       <Link className="link-to-about link-underline" to="/about">
         About
       </Link>
-      <br />
-      <Link className={logged?"link-to-about link-underline":"hidden"}
-      to="/createpoll">
-        Create new poll
-      </Link>
     </div>
   );
 };

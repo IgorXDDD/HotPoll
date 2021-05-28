@@ -153,10 +153,12 @@ const AppProvider = ({ children }) => {
         setLogged,
         questions,
         setQuestions,
+
         isGoogleLogged,
         setIsGoogleLogged,
         googleInfo,
         setGoogleInfo,
+        
         tags,
         setTags,
       }}

@@ -183,6 +183,12 @@ const Navbar = () => {
           </Link>
           <ul className="nav-links">
             <li>
+              <Link className={logged?"link-to-about link-underline":"hidden"}
+              to="/createpoll">
+                Create new poll
+              </Link>
+            </li>
+            <li>
               <Link to="/" className="link-underline">
                 Home
               </Link>
