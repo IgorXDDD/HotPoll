@@ -41,7 +41,7 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
     @GetMapping("")
     public ResponseEntity<?> getPoll( @RequestParam(value = "pollID", required = false) String pollID, @RequestParam(value = "tags", required = false) List<String> tags,
         @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
-        @RequestParam(value = "newest", required = false) Boolean newest) {
+        @RequestParam(value = "newest", required = false) Boolean newest, @RequestParam(value = "name", required = false) String name ) {
         if(newest == null)
             newest = false;
 
@@ -49,11 +49,13 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
             return ResponseEntity.ok(pollService.find(pollID));
         }
 
+        if(name != null){
+            return ResponseEntity.ok(pollService.findByName(name, page, size, newest));
+        }
         if(tags != null){
             return ResponseEntity.ok(pollService.findByTags(tags, page, size, newest));
         }
         return ResponseEntity.ok(pollService.findAll(page, size, newest));
-
 
     }
 

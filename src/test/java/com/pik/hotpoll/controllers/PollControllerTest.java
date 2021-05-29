@@ -131,14 +131,14 @@ class PollControllerTest {
 
         User user = User.builder().nickname("igor").id("igor").build();
         Random random = new Random();
-        for(int i = 0 ; i < 100; ++i) {
+        for(int i = 0 ; i < 1000; ++i) {
             List<String> tags = new ArrayList<>();
             List<Question> questions = new ArrayList<>();
             List<Answer> answers = new ArrayList<>();
 
-            tags.add("tag" + random.nextInt(100));
-            tags.add("tag" + random.nextInt(100));
-            tags.add("tag" + random.nextInt(100));
+            tags.add("tag" + random.nextInt(10));
+            tags.add("tag" + random.nextInt(10));
+            tags.add("tag" + random.nextInt(10));
             answers.add(Answer.builder().id("1").text("tak").votes(2).build());
             answers.add(Answer.builder().id("2").text("nie").votes(2).build());
             questions.add(Question.builder().type("radio").id("1").text("student?").answers(answers).build());
@@ -148,15 +148,15 @@ class PollControllerTest {
         }
         List<String> tags = new ArrayList<>();
         tags.add("tag1");
-        tags.add("tag45");
-        tags.add("tag34");
+        tags.add("tag9");
 
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(createPollUrl).queryParam("tags", tags);
 
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         RestTemplate restTemplate = new RestTemplate(requestFactory);
-
+        System.out.println(request.toString());
+        System.out.println(builder.toUriString());
         ResponseEntity<Poll[]> ret = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, request,  Poll[].class);
         assertNotNull(ret.getBody());
         assertEquals(HttpStatus.OK, ret.getStatusCode());
@@ -276,8 +276,11 @@ class PollControllerTest {
         questions.add(Question.builder().type("radio").id("2").text("debil?").answers(answers).build());
         poll = Poll.builder().title("poll").author(user).date(LocalDateTime.now()).tags(tags).timesFilled(0).questions(questions).build();
         HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(poll), headers);
-
+        System.out.println(objectMapper.writeValueAsString(poll));
         Poll ret = restTemplate.postForObject(createPollUrl, request, Poll.class);
+        System.out.println(ret.getId());
+        System.out.println(objectMapper.writeValueAsString(ret));
+        System.out.println(request.toString());
         assertNotNull(ret);
         assertEquals(poll.getAuthor(), ret.getAuthor());
         assertEquals(poll.getDate(), ret.getDate());

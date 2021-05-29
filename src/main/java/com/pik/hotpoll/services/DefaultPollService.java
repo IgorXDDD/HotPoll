@@ -74,6 +74,16 @@ public class DefaultPollService implements PollService {
         return pollRepository.findByTags(tags, paging);
     }
 
+    public Iterable<Poll> findByName(String name, int page, int size, Boolean newest){
+        Pageable paging;
+        if(newest){
+            paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+            return pollRepository.findByTitleLike(name, paging);
+        }
+        paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "timesFilled"));
+        return pollRepository.findByTitleLike(name, paging);
+    }
+
     public List<Poll> search(Predicate p) {
         return Lists.newArrayList(pollRepository.findAll(p));
     }
