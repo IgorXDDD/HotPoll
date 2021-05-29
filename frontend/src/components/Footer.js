@@ -11,9 +11,9 @@ const Footer = () => {
         setVersion(data);
       });
   };
-  useEffect(() => {
-    getVersion();
-  }, []);
+  // useEffect(() => {
+  //   getVersion();
+  // }, []);
 
   return (
     <footer className="footer">

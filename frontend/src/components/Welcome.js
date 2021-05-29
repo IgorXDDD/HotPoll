@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {useGlobalContext} from "../context";
 
 const Welcome = () => {
+  const {logged} = useGlobalContext();
   return (
     <div className="welcome">
       <h1>HotPoll</h1>
