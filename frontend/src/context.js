@@ -11,8 +11,8 @@ const AppProvider = ({ children }) => {
   const [isGoogleLogged,setIsGoogleLogged] = useState(false);
   const [questions, setQuestions] = useState([
     {
-      id: "1",
-      text: "pytanko nr 1",
+      id: "0",
+      text: "pytanie checkbox",
       type: "multiple",
       answers: [
         {
@@ -24,27 +24,12 @@ const AppProvider = ({ children }) => {
           id: "1",
           text: "ans 2",
           votes: 0,
-        },
-        {
-          id: "2",
-          text: "ans 3",
-          votes: 0,
-        },
-        {
-          id: "3",
-          text: "ans 4",
-          votes: 0,
-        },
-        {
-          id: "4",
-          text: "ans 5",
-          votes: 0,
-        },
+        }
       ],
     },
     {
-      id: "2",
-      text: "tak czy nie?",
+      id: "1",
+      text: "pytanie radio button",
       type: "radio",
       answers: [
         {
@@ -63,102 +48,69 @@ const AppProvider = ({ children }) => {
   const [googleInfo, setGoogleInfo] = useState({});
   const [tags, setTags] = useState(["IT", "FOOD"]);
 
-  const fetchPolls = () => {
-    setLoading(true);
+  // const fetchPolls = () => {
+  //   setLoading(true);
+  //   try {
+  //     fetch(url)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log("data: ", data);
+  //         let polls = data;
+  //         if (polls) {
+  //           const newPolls = polls.map((poll) => {
+  //             const {
+  //               id,
+  //               title,
+  //               date,
+  //               author,
+  //               tags,
+  //               questions,
+  //               timesFilled
+  //             } = poll;
+  //             return {
+  //               id,
+  //               title,
+  //               date,
+  //               author,
+  //               tags,
+  //               questions,
+  //               timesFilled
+  //             };
+  //           });
+  //           setPolls(newPolls);
+  //         } else {
+  //           setPolls([]);
+  //         }
+  //         setLoading(false);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
 
-    // const newPolls = [
-    //   {
-    //     id: 2137,
-    //     title: "Pineapple and Pizza?",
-    //     date: "16.04.2021",
-    //     author: "Demongo",
-    //     timesCompleted: 38,
-    //     tags: ["food", "pineapple", "pizza"],
-    //     alreadyCompleted: false,
-    //     questions: [
-    //       {
-    //         qid: 1,
-    //         question: "Does pineapple belong on pizza?",
-    //         type: "radio",
-    //         answers: [
-    //           {
-    //             aid: 1,
-    //             answer: "Hell Yeah!",
-    //           },
-    //           {
-    //             aid: 2,
-    //             answer: "Eww!",
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   },
-    // ];
-    // setPolls(newPolls);
-    // setLoading(false);
-
-    // To co wyzej jest do szybszego testowania na lokalnym serwerze localhost:3000
-    // trzeba odkomentowac gore i zakomentowac dol
-
-    try {
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("data: ", data);
-          let polls = data;
-          if (polls) {
-            const newPolls = polls.map((poll) => {
-              const {
-                id,
-                title,
-                date,
-                author,
-                tags,
-
-                questions,
-              } = poll;
-              return {
-                id,
-                title,
-                date,
-                author,
-
-                tags,
-
-                questions,
-              };
-            });
-            setPolls(newPolls);
-          } else {
-            setPolls([]);
-          }
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPolls();
-  }, []);
+  // useEffect(() => {
+  //   fetchPolls();
+  // }, []);
 
   return (
     <AppContext.Provider
       value={{
         loading,
+        setLoading,
+        //WYSWIETLANIE ANKIET
         polls,
+        setPolls,
+        //INFO O ZALOGOWANIU
         logged,
         setLogged,
-        questions,
-        setQuestions,
-
         isGoogleLogged,
         setIsGoogleLogged,
         googleInfo,
         setGoogleInfo,
-        
+        //TWORZENIE ANKIET
+        questions,
+        setQuestions,
         tags,
         setTags,
       }}
@@ -173,27 +125,3 @@ export const useGlobalContext = () => {
 };
 
 export { AppContext, AppProvider };
-
-//        JSONObject jo = new JSONObject()
-//                .appendField("id",2137)
-//                .appendField("title","Pineapple and Pizza?")
-//                .appendField("date","16.04.2021")
-//                .appendField("author","Demongo")
-//                .appendField("timesCompleted",38)
-//                .appendField("tags",new JSONArray()
-//                        .appendElement("food")
-//                        .appendElement("pineapple")
-//                        .appendElement("pizza"))
-//                .appendField("alreadyCompleted",false)
-//                .appendField("questions",new JSONArray()
-//                        .appendElement(new JSONObject()
-//                        .appendField("qid",1)
-//                        .appendField("question", "Does pineapple belong on pizza?")
-//                        .appendField("type","radio")
-//                        .appendField("answers", new JSONArray()
-//                                .appendElement(new JSONObject()
-//                                        .appendField("aid",1)
-//                                        .appendField("answer","Hell Yeah!"))
-//                                .appendElement(new JSONObject()
-//                                        .appendField("aid",2)
-//                                        .appendField("answer", "Eww!"))))

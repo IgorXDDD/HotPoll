@@ -18,10 +18,6 @@ function SingleQuestionCreator({ questionIndex }) {
   const removeQuestion = () => {
     let newArray = []
     Object.assign(newArray, questions)
-
-    // console.log("zamieniamy " + newArray[parseInt(questionIndex)].text);
-    // console.log("na "+ newArray[parseInt(questionIndex)+1].text);
-    // newArray[parseInt(questionIndex)].text=newArray[parseInt(questionIndex)+1].text;
     newArray.splice(questionIndex, 1)
     newArray = newArray.map((question) => {
       if (question.id < questionIndex + 1) {

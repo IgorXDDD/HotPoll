@@ -1,26 +1,27 @@
 import React from "react";
-import Welcome from "../components/Welcome";
+import Welcome from "./Welcome";
 // import LoginOrCreateAccount from "../components/LoginOrCreateAccount";
 // import Footer from "../components/Footer";
 import PollList from "../components/PollList";
-// import PollCreator from "../components/polls/PollCreator";
+// import PollCreator from "../components/pollsUtilities/PollCreator";
 // import Loading from "../components/Loading";
 
 const Home = () => {
   return (
     <>
-      <div className="homescreen">
-        <section className="homescreen-content">
+      <div className='homescreen'>
+        {/* <section className='homescreen-content'>
           <Welcome />
-          {/* <LoginOrCreateAccount /> */}
-        </section>
+          <LoginOrCreateAccount />
+        </section> */}
+        <PollList />
       </div>
-      <PollList />
+       {/* <PollList className={pollOnly?'':'hidden'} /> */}
       {/* <PollCreator />
       <PollList /> */}
-      {/* <PollList /> */}
+     
     </>
-  );
+  )
 };
 
 export default Home;

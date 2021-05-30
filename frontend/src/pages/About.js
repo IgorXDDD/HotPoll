@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import Welcome from "./Welcome"
 
 const About = () => {
   return (
     <>
+    <Welcome/>
       <section className="about">
         <h1>About HotPoll</h1>
         <p>
@@ -31,11 +33,11 @@ const About = () => {
           sint hic nobis ab, quasi aperiam tempora ducimus sed quaerat sunt
           quibusdam!
         </p>
-        <p>
+        {/* <p>
           <Link to="/" className="link-underline">
             Back Home
           </Link>
-        </p>
+        </p> */}
       </section>
     </>
   );
