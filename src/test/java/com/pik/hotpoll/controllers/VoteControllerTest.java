@@ -85,7 +85,7 @@ class VoteControllerTest {
         answerIDS.add(Vote.AnswerID.builder().questionID(0).answerID(0).build());
         Vote vote = Vote.builder().pollID(ret.getId()).answers(answerIDS).build();
         request = new HttpEntity<>(objectMapper.writeValueAsString(vote), headers);
-
+        System.out.println(objectMapper.writeValueAsString(vote));
         Poll afterVote = restTemplate.postForObject(voteUrl, request, Poll.class);
 
         assertNotNull(afterVote);

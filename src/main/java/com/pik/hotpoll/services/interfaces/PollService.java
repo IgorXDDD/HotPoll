@@ -24,6 +24,7 @@ public interface PollService {
     Iterable<Poll> findAll(int page, int size, Boolean newest);
 
     Iterable<Poll> findByTags(List<String> tags, int page, int size, Boolean newest);
+    Iterable<Poll> findByName(String name, int page, int size, Boolean newest);
 
     List<Poll> search(Predicate p);
 }

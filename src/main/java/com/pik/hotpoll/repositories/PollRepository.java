@@ -17,13 +17,15 @@ public interface PollRepository extends MongoRepository<Poll, String>, QuerydslP
 
 
     List<Poll> findByAuthorNickname(@Param("nickname") String name);
-    List<Poll> findByTitle(@Param("title") String title);
+    List<Poll> findByTitleLike(@Param("title") String title, Pageable paging);
 
-    @Query(value = "{tags: {$in: ?0 } }")
+    @Query(value = "{tags: {$all: ?0 } }")
     List<Poll> findByTags(@Param("tags") List<String> tags, Pageable paging);
 
     List<Poll> findByDate(@Param("date") LocalDateTime date);
 
     Optional<Poll> findById(@Param("id") String id);
+
+
 }
 
