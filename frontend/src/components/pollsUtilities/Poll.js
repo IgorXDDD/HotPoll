@@ -1,11 +1,28 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
 import { Link } from "react-router-dom";
 
 const Poll = ({ id, title, date, author, tags, questions, timesFilled }) => {
   // w domyśle te dwie wartości powinny przychodzić
   // z ankiety albo skądś indziej
-  let alreadyCompleted = false;
+  // mamy to B)
+  const [alreadyCompleted,setAlreadyCompleted] = useState(false);
   let creationDate = new Date(date);
+  const completed_url = 'http://localhost:4444/api/vote?pollID='
+
+  useEffect(() => 
+  {
+    fetch(`${completed_url}${id}`)
+      .then((response => response.text()))
+      .then((data)=>{
+        if(data=='YES')
+        {
+          setAlreadyCompleted(true)
+        }
+        if (data == 'NO') {
+          setAlreadyCompleted(false)
+        }
+      })
+  }, [])
 
   return (
     <article className='poll-wrapper'>
@@ -47,7 +64,7 @@ const Poll = ({ id, title, date, author, tags, questions, timesFilled }) => {
           {tags.map((tag, index) => {
             return tag ? (
               <p key={index}>
-                <Link to={`/tag/${tag}`} className='tagLink'>
+                <Link to={`/tag/${tag}/0`} className='tagLink'>
                   <button>#{tag}</button>
                 </Link>
               </p>

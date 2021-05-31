@@ -6,8 +6,9 @@ import Welcome from "./Welcome"
 const About = () => {
   return (
     <>
-    <Welcome/>
-      <section className="about">
+      <Welcome />
+      <section className='about'>
+        
         <h1>About HotPoll</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
@@ -40,7 +41,7 @@ const About = () => {
         </p> */}
       </section>
     </>
-  );
+  )
 };
 
 export default About;

@@ -14,6 +14,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PollList from "./components/PollList";
 import TagList from "./components/TagList";
+import { Search } from "./components/Search";
+import SearchForm from "./pages/SearchForm";
 // ...
 
 const App = () => {
@@ -45,6 +47,10 @@ const App = () => {
 
           <Route path='/page/:id'>
             <PollList />
+          </Route>
+
+          <Route path='/search'>
+            <SearchForm />
           </Route>
 
           <Route path='*'>

@@ -6,6 +6,7 @@ import AuthService from '../services/user.service'
 
 const url = 'http://localhost:4444/api/poll?pollID='
 const API_URL = 'http://localhost:4444/api/vote'
+const completed_url = 'http://localhost:4444/api/vote?pollID='
 // Tu powinien byc link do endpointa zwracajacego pelne info o danej ankiecie
 // Na razie zhardkodowalem to sobie
 
@@ -22,7 +23,6 @@ let tempPoll = {
   },
   timesFilled: 38,
   tags: ['food', 'pineapple', 'pizza'],
-  alreadyCompleted: false,
   questions: [
     {
       id: 0,
@@ -103,6 +103,7 @@ const SinglePollPage = () => {
   const [loading, setLoading] = useState(false)
   const [poll, setPoll] = useState(tempPoll)
   const { isGoogleLogged } = useGlobalContext()
+  const [alreadyCompleted, setAlreadyCompleted] = useState(false)
 //   const [formula,setFormula] = useState(
 //     {
 //       "pollID": id,
@@ -165,8 +166,6 @@ formula.map((q,index)=>
     "pollID": id,
     "answers": answersJson
   }
-  console.log('TAKI POLL WYSYLAMY:');
-  console.log(completedPoll);
 
   //WYSYLANIE DO API
   
@@ -184,16 +183,20 @@ formula.map((q,index)=>
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(completedPoll), // body data type must match "Content-Type" header
     })
-  
-
-  
+    window.location.assign('/#')
 }
 
 
+// TODO: TUTAJ AREK MOZESZ WRZUCIC POKAZYWANIE STATYSTK ANKIETY JAKBY CO, W SUMIE TO MOZNA TEZ ZAMIAST KLIKANIA NA PRZYCISK PO PROSTU WYRENDEROWAC
+// (RETURNOWAC W FUNKCJI) STATYSTYKI OD TAK WPROST
+const showStats = () =>
+{
+  console.log("pokazywanie statystyk");
+}
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-  }
+const handleSubmit = (event) => {
+  event.preventDefault()
+}
 
   // kiedy sie laduje pierwszy raz stronka z ankieta
   useEffect(() => {
@@ -209,6 +212,17 @@ formula.map((q,index)=>
         console.log('nie dostalismy ankiety :(')
       })
       
+    fetch(`${completed_url}${id}`)
+      .then((response) => response.text())
+      .then((data) => {
+        if (data == 'YES') {
+          setAlreadyCompleted(true);
+        }
+        if (data == 'NO') {
+          setAlreadyCompleted(false)
+        }
+      })
+    
 
   }, [id])
 
@@ -233,7 +247,7 @@ formula.map((q,index)=>
     )
   }
 
-  const { title, author, date, timesFilled, tags, questions, alreadyCompleted } =
+  const { title, author, date, timesFilled, tags, questions } =
     poll
   let creationDate = new Date(date);
   return (
@@ -295,7 +309,7 @@ formula.map((q,index)=>
         className='poll-button'
         type='submit'
         onClick={() => {
-          sendPoll()
+          alreadyCompleted ? showStats() : sendPoll()
         }}
       >
         {alreadyCompleted ? 'See results' : 'Submit'}

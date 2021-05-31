@@ -41,6 +41,7 @@ function Tag() {
             {
               tagNumber+=1;
               newTag.current.value && setTags([...tags, newTag.current.value.toUpperCase()]);
+              newTag.current.value='';
             }
           }
         }}
