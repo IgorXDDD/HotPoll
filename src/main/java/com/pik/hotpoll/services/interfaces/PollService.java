@@ -7,6 +7,7 @@ import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import javax.persistence.EntityNotFoundException;
 
 import com.querydsl.core.types.Predicate;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface PollService {
     Iterable<Poll> findByName(String name, int page, int size, Boolean newest);
 
     List<Poll> search(Predicate p);
+
+    Long getPollsNum();
 }

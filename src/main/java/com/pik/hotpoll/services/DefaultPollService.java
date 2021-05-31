@@ -114,6 +114,9 @@ public class DefaultPollService implements PollService {
         }
     }
 
+    public Long getPollsNum(){
+        return pollRepository.count();
+    }
 
 
 }
