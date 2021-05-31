@@ -4,10 +4,15 @@ import com.pik.hotpoll.domain.Poll;
 import com.pik.hotpoll.domain.Vote;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.services.DefaultPollService;
+import com.pik.hotpoll.services.DefaultStatisticsService;
 import com.pik.hotpoll.services.interfaces.PollService;
+import com.pik.hotpoll.services.interfaces.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @RestController
@@ -16,17 +21,33 @@ public class VoteController {
 
 
     private final PollService pollService;
-
+    private final StatisticsService statisticsService;
     @Autowired
-    public VoteController(DefaultPollService pollService){
+    public VoteController(DefaultPollService pollService, DefaultStatisticsService statisticsService){
         this.pollService = pollService;
+        this.statisticsService = statisticsService;
     }
 
 
     @PostMapping(name = "",  consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> addVote(@RequestBody Vote vote) throws ConstraintsViolationException {
+    public ResponseEntity<?> addVote(@RequestBody Vote vote, Principal principal) throws ConstraintsViolationException {
+//        System.out.println(principal.getName());
         Poll poll = pollService.addVote(vote);
-        return ResponseEntity.ok(poll);
+//        return ResponseEntity.ok(poll);
+        if(statisticsService.userVoted(vote, principal.getName())){
+            return ResponseEntity.ok(poll);
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping(name = "",  consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> hasVoted(String pollId, Principal principal) throws ConstraintsViolationException {
+        if (statisticsService.hasUserVotedOnPoll(pollId, principal.getName())){
+            return ResponseEntity.ok("YES");
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

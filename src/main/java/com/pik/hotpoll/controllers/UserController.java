@@ -54,7 +54,7 @@ public class UserController {
     @GetMapping("/afterOAuth")
     public ModelAndView afterOAuth(ModelMap model) {
         model.addAttribute("attribute", "frontend");
-        return new ModelAndView("forward:/frontend/afterOAuth.html", model);
+        return new ModelAndView("forward:frontend/afterOAuth.html", model);
     }
 
     @RequestMapping("/principal")
