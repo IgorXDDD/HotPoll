@@ -49,14 +49,16 @@ public class DefaultStatisticsService implements StatisticsService {
     @Override
     public boolean hasUserVotedOnPoll(String pollId, String name) {
         List<User> userList = userRepository.findByNickname(name);
-        if(userList.isEmpty()){
+        if(userList.isEmpty() || pollId.isEmpty()){
             return false;
         }
         List<UserVote> userVotes = userVoteRepository.findByUser(userList.get(0));
         for (UserVote vote:
              userVotes) {
-            if(vote.getPoll().getId().equals(pollId)){
-                return true;
+            if(vote.getPoll() != null) {
+                if (vote.getPoll().getId().equals(pollId)) {
+                    return true;
+                }
             }
         }
         return false;

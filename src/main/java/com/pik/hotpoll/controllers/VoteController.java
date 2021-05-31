@@ -41,13 +41,17 @@ public class VoteController {
         }
     }
 
-    @GetMapping(name = "",  consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> hasVoted(String pollId, Principal principal) throws ConstraintsViolationException {
-        if (statisticsService.hasUserVotedOnPoll(pollId, principal.getName())){
-            return ResponseEntity.ok("YES");
-        }else {
-            return ResponseEntity.notFound().build();
+    @GetMapping(name = "")
+    public ResponseEntity<?> hasVoted(@RequestParam(value = "pollID" )String pollId, Principal principal) {
+        try {
+            if (statisticsService.hasUserVotedOnPoll(pollId, principal.getName()))
+                return ResponseEntity.ok("YES");
+            return ResponseEntity.ok("NO");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
         }
+        return ResponseEntity.notFound().build();
     }
 
 }
