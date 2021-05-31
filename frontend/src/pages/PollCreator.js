@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory,Link, Redirect } from 'react-router-dom'
 import SingleQuestion from '../components/pollsUtilities/SingleQuestionCreator'
 import { useGlobalContext } from '../context'
 import Tag from '../components/pollsUtilities/Tags'
@@ -27,9 +28,9 @@ const questionTemplate = {
 
 function PollCreator() {
   const [pollName, setPollName] = useState('')
-  let { questions, tags, setQuestions, isGoogleLogged, googleInfo } =
-    useGlobalContext()
 
+  let { logged, questions, tags, setQuestions, isGoogleLogged, googleInfo } =
+    useGlobalContext()
   const makeTen = () => {
     let ten = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
     let jwt = AuthService.getCurrentUser().jwt
@@ -63,7 +64,6 @@ function PollCreator() {
       })
     })
   }
-
 
   async function postData() {
     console.log('kliknieto submit')
@@ -132,9 +132,21 @@ function PollCreator() {
         }), // body data type must match "Content-Type" header
       })
     }
-    window.location.assign('/#')
+    console.log("PRZENOSIMY NA STRONE GLOWNA");
+    console.log("TAKA LOKALIZACJA: "); 
+    console.log(window.location);
+    window.location.assign('/#');
+    // window.location.href='/#'
+    // window.location.reload();
+    return false;
   }
-
+  if (!logged) {
+    return (
+      <div>
+        <h1>Please Sign in!</h1>
+      </div>
+    )
+  }
   return (
     <div className='poll-wrapper'>
       <button onClick={makeTen}>dodaj 11</button>
@@ -173,7 +185,9 @@ function PollCreator() {
         onSubmit={(e) => {
           // e.preventDefault()
           // console.log(questions)
-          postData()
+          postData();
+          window.setTimeout(()=>{window.location.assign('/#')}, 350); 
+          window.location.assign('/#');
         }}
       >
         <button className='submit-btn'>Submit new poll</button>

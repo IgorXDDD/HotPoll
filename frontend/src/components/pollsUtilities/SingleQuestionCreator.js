@@ -158,7 +158,7 @@ function SingleQuestionCreator({ questionIndex }) {
                           return {
                             id: ans.id.toString(),
                             text: e.target.value,
-                            votes: ans.votes,
+                            votes: ans.votes?ans.votes:0,
                           }
                         else return ans2
                       })
