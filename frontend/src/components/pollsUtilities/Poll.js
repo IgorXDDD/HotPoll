@@ -29,7 +29,7 @@ const Poll = ({ id, title, date, author, tags, questions, timesFilled }) => {
         return (
           <section className='question-wrapper' key={question.id}>
             <h2 className='question question-simple'>
-              {`Q${question.id+1}) `}
+              {`Q${(parseInt(question.id)+1)}) `}
               {question.text}
             </h2>
             {questions.length > 3 ? <h2>and more...</h2> : null}

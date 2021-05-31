@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from "react";
 import Poll from "./pollsUtilities/Poll";
 import Loading from "./Loading";
+import ReactPaginate from 'react-paginate'
 import { useParams, Link } from 'react-router-dom'
 import { useGlobalContext } from "../context";
 import Welcome from "../pages/Welcome";
@@ -12,13 +13,14 @@ const PollList = () => {
 
   useEffect(() => 
   {
+    console.log("probojemy pobrac ankiety");
     if(!logged)
     {
       setPolls([]);
     }
-    else if(!id || parseInt(id)>0)
+    else if(!id || parseInt(id)>=0)
     {
-      fetch(`${poll_url}${id?(parseInt(id)-1):0}`)
+      fetch(`${poll_url}${id?(parseInt(id)):0}`)
         .then((response) => response.json())
         .then((data) => {
           // console.log('data: ', data)
@@ -38,6 +40,8 @@ const PollList = () => {
               }
             })
             setPolls(newPolls) 
+            console.log('udalo sie zdobyc takie:');
+            console.log(newPolls);
           } 
           else 
           {
@@ -55,11 +59,26 @@ const PollList = () => {
     }
     else
     {
+      console.log("nie udalo sie pobrac ankiet");
       //WYSWIETL ERROR
-      window.location.assign(`/#/error=${id}`);
+      // window.location.assign(`/#/error=${id}`);
     }
-  }, [id])
+  }, [id,logged])
 
+
+  const pageChange = (strona) => {
+    // console.log(strona.selected)
+    // console.log(window.location)
+    // console.log("zamieniamy pollist na: ");
+    // console.log(`/#/page/${(parseInt(strona.selected)).toString()}`)
+
+    // TO SIE WYKONUJE NA SAMYM POCZATKU TEZ DLATEGO JEST STRONA GLOWNA 
+    // ZAWSZE PRZEKIEROWUJE NA /page/
+    window.location.assign(
+      `/#/page/${strona.selected}`
+    )
+    // console.log('ZMIANA STRONY XD')
+  }
 
   if (!logged)
   {
@@ -70,7 +89,10 @@ const PollList = () => {
   } else if (polls.length < 1) {
     return (
       <div>
-        <h2>No polls</h2>
+        <h2>
+          No polls or You've exceeded our page limit (we're still working on
+          that)
+        </h2>
         <Link to='/'>
           <button>Go to home page</button>
         </Link>
@@ -90,7 +112,25 @@ const PollList = () => {
       {polls.map((item) => {
         return <Poll key={item.id} {...item} />
       })}
-
+      {/* TO PLAN A */}
+      {/* TRZEBA ZMIENIC PAGECOUNT NA TAKI, KTORY JEST ZALEZNY OD LICZBY ANKIET CALKOWITEJ */}
+      {/* tutaj zrodlo: https://github.com/AdeleD/react-paginate */}
+      <ReactPaginate
+        previousLabel={'previous'}
+        nextLabel={'next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={10}
+        marginPagesDisplayed={3}
+        pageRangeDisplayed={3}
+        onPageChange={pageChange}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+        initialPage={id ? parseInt(id) : 0}
+        previousLabel={<button>previous</button>}
+        nextLabel={<button>next</button>}
+      />
+      {/* TO NASZ PLAN B 
       <Link
         className={!id || id == 1 ? 'hidden' : ''}
         to={`/page/${parseInt(id) - 1}`}
@@ -98,9 +138,9 @@ const PollList = () => {
         <button>previous page</button>
       </Link>
 
-      <Link to={`/page/${(id ? (parseInt(id) + 1).toString() : (2).toString())}`}>
+      <Link to={`/page/${id ? (parseInt(id) + 1).toString() : (2).toString()}`}>
         <button>next page</button>
-      </Link>
+      </Link> */}
     </>
   )
 };

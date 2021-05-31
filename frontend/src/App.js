@@ -13,6 +13,7 @@ import PollCreator from "./pages/PollCreator"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PollList from "./components/PollList";
+import TagList from "./components/TagList";
 // ...
 
 const App = () => {
@@ -34,9 +35,12 @@ const App = () => {
           <Route path='/poll/:id'>
             <SinglePollPage />
           </Route>
-          {/* TODO: ZROBIC STRONE NA ZBIERANIE TAGOW */}
+
+          <Route path='/tag/:id/:page'>
+            <TagList />
+          </Route>
           <Route path='/tag/:id'>
-            <PollList />
+            <TagList />
           </Route>
 
           <Route path='/page/:id'>

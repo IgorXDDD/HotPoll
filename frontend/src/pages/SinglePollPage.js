@@ -9,6 +9,7 @@ const API_URL = 'http://localhost:4444/api/vote'
 // Tu powinien byc link do endpointa zwracajacego pelne info o danej ankiecie
 // Na razie zhardkodowalem to sobie
 
+
 let tempPoll = {
   id: 2137,
   title: 'Pineapple and Pizza?',
@@ -101,6 +102,7 @@ const SinglePollPage = () => {
   const { id } = useParams()
   const [loading, setLoading] = useState(false)
   const [poll, setPoll] = useState(tempPoll)
+  const { isGoogleLogged } = useGlobalContext()
 //   const [formula,setFormula] = useState(
 //     {
 //       "pollID": id,
@@ -141,7 +143,6 @@ const setAnswers = (qIndex, aIndex, isChecked, isRadio)=>
 
 const sendPoll = () =>
 {
-let jwt = AuthService.getCurrentUser().jwt
 answersJson = [];
 formula.map((q,index)=>
     {
@@ -164,7 +165,8 @@ formula.map((q,index)=>
     "pollID": id,
     "answers": answersJson
   }
-
+  console.log('TAKI POLL WYSYLAMY:');
+  console.log(completedPoll);
 
   //WYSYLANIE DO API
   
@@ -175,14 +177,18 @@ formula.map((q,index)=>
     credentials: 'same-origin', // include, *same-origin, omit
     headers: {
       'Content-Type': 'application/json',
-       Authorization: `Bearer ${jwt}`,
+       Authorization: isGoogleLogged?'':`Bearer ${AuthService.getCurrentUser().jwt}`,
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     redirect: 'follow', // manual, *follow, error
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(completedPoll), // body data type must match "Content-Type" header
-  })
+    })
+  
+
+  
 }
+
 
 
   const handleSubmit = (event) => {
@@ -229,7 +235,7 @@ formula.map((q,index)=>
 
   const { title, author, date, timesFilled, tags, questions, alreadyCompleted } =
     poll
-
+  let creationDate = new Date(date);
   return (
     <form className='poll-wrapper' onSubmit={handleSubmit}>
       <Link to='/' className='link-underline'>
@@ -237,7 +243,18 @@ formula.map((q,index)=>
       </Link>
       <h1 className='poll-title'>{title}</h1>
       <div className='poll-meta underline'>
-        <p>created: {date}</p>
+        <p>
+          created:{' '}
+          {creationDate.getDate() +
+            '.' +
+            (creationDate.getMonth() + 1) +
+            '.' +
+            creationDate.getFullYear() +
+            '  ' +
+            creationDate.getHours() +
+            ':' +
+            creationDate.getMinutes()}
+        </p>
         <p style={{ textAlign: 'right' }}>author: {author.nickname}</p>
       </div>
       {questions.map((question) => {
@@ -256,8 +273,13 @@ formula.map((q,index)=>
                     name={question.text}
                     id={question.id + '.' + answer.id}
                     // value={answer.text}
-                    onChange={(e)=>{
-                      setAnswers(question.id, answer.id, e.target.checked, question.type ==='radio');
+                    onChange={(e) => {
+                      setAnswers(
+                        question.id,
+                        answer.id,
+                        e.target.checked,
+                        question.type === 'radio'
+                      )
                     }}
                   />
                   <label for={question.id + '.' + answer.id}>
@@ -273,8 +295,7 @@ formula.map((q,index)=>
         className='poll-button'
         type='submit'
         onClick={() => {
-
-          sendPoll();
+          sendPoll()
         }}
       >
         {alreadyCompleted ? 'See results' : 'Submit'}

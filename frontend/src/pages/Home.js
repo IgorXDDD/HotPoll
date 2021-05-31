@@ -19,7 +19,6 @@ const Home = () => {
        {/* <PollList className={pollOnly?'':'hidden'} /> */}
       {/* <PollCreator />
       <PollList /> */}
-     
     </>
   )
 };
