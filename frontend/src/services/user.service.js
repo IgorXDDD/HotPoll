@@ -7,6 +7,7 @@ class AuthService {
 
   
   login(username, password) {
+    console.log("NO LOGUJEMY SIE");
     return axios
       .post(API_URL + "signin", {
         username,
@@ -18,7 +19,11 @@ class AuthService {
         // }
         sessionStorage.setItem("user", JSON.stringify(response.data));
         return response.data;
-      });
+      })
+      .
+      catch(()=>{
+        console.log("nie udalo sie zalgowoac");
+      })
   }
 
   logout() {
