@@ -55,10 +55,26 @@ public class DefaultStatisticsService implements StatisticsService {
         List<UserVote> userVotes = userVoteRepository.findByUser(userList.get(0));
         for (UserVote vote:
              userVotes) {
-            if(vote.getPoll().getId() == pollId){
+            if(vote.getPoll().getId().equals(pollId)){
                 return true;
             }
         }
         return false;
     }
+
+    public Long getPollsNum(){
+        return pollRepository.count();
+    }
+
+    @Override
+    public Long getCountByTags( List<String> tags) {
+        return pollRepository.countByTags(tags);
+    }
+
+    @Override
+    public Long getCountByName(String title) {
+        return pollRepository.countByTitleLike(title);
+    }
+
+
 }

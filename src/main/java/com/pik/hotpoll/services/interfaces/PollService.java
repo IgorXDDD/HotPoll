@@ -29,5 +29,4 @@ public interface PollService {
 
     List<Poll> search(Predicate p);
 
-    Long getPollsNum();
 }
