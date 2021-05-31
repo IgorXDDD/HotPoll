@@ -8,6 +8,8 @@ import com.pik.hotpoll.payload.JwtResponse;
 import com.pik.hotpoll.payload.LoginRequest;
 import com.pik.hotpoll.payload.MessageResponse;
 import com.pik.hotpoll.payload.SignupRequest;
+import com.pik.hotpoll.repositories.PollRepository;
+import com.pik.hotpoll.services.interfaces.PollService;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,11 +44,12 @@ class StatisticsControllerTest {
     @Autowired
     private ServletWebServerApplicationContext webServerAppCtxt;
 
-
+    @Autowired
+    private PollRepository repository;
 
     @Test
     void getNumVotesTest() throws JsonProcessingException {
-
+//        repository.deleteAll();
         Integer port = webServerAppCtxt.getWebServer().getPort();
         String signInUrl = "http://localhost:"+ port.toString() +"/api/auth/signin";
 
@@ -92,7 +95,7 @@ class StatisticsControllerTest {
 
     @Test
     void getCountByNameTest() throws JsonProcessingException {
-
+        repository.deleteAll();
         Integer port = webServerAppCtxt.getWebServer().getPort();
         String signInUrl = "http://localhost:"+ port.toString() +"/api/auth/signin";
 
