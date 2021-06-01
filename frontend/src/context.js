@@ -1,54 +1,53 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useCallback } from "react";
+import React, { useState, useContext, useEffect } from 'react';
+import { useCallback } from 'react';
 
-const url = "http://localhost:4444/api/poll";
+const url = 'http://localhost:4444/api/poll';
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [polls, setPolls] = useState([]);
   const [logged, setLogged] = useState(false);
-  const [isGoogleLogged,setIsGoogleLogged] = useState(false);
+  const [isGoogleLogged, setIsGoogleLogged] = useState(false);
   const [questions, setQuestions] = useState([
     {
-      id: "0",
-      text: "pytanie checkbox",
-      type: "multiple",
+      id: '0',
+      text: 'pytanie checkbox',
+      type: 'multiple',
       answers: [
         {
-          id: "0",
-          text: "ans 1",
+          id: '0',
+          text: 'ans 1',
           votes: 0,
         },
         {
-          id: "1",
-          text: "ans 2",
+          id: '1',
+          text: 'ans 2',
           votes: 0,
-        }
+        },
       ],
     },
     {
-      id: "1",
-      text: "pytanie radio button",
-      type: "radio",
+      id: '1',
+      text: 'pytanie radio button',
+      type: 'radio',
       answers: [
         {
-          id: "0",
-          text: "tak",
-          votes: 2,
+          id: '0',
+          text: 'tak',
+          votes: 0,
         },
         {
-          id: "1",
-          text: "nie",
-          votes: 2,
+          id: '1',
+          text: 'nie',
+          votes: 0,
         },
       ],
     },
   ]);
   const [googleInfo, setGoogleInfo] = useState({});
-  const [tags, setTags] = useState(["IT", "FOOD"]);
+  const [tags, setTags] = useState(['IT', 'FOOD']);
   const [searchTerm, setSearchTerm] = useState('');
-
 
   // const fetchPollByName = async ()=>
   // {
@@ -56,7 +55,7 @@ const AppProvider = ({ children }) => {
   //   const data = await response.json()
   //   console.log(data)
   //   const { Polls } = data
-  //   if (Polls) 
+  //   if (Polls)
   //   {
   //     const newPolls = Polls.map((item) => {
   //       const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strGlass } =
@@ -71,9 +70,8 @@ const AppProvider = ({ children }) => {
   //       }
   //     })
   //     setCocktails(newCocktails)
-  //   } 
+  //   }
   // }
-
 
   return (
     <AppContext.Provider
@@ -96,12 +94,12 @@ const AppProvider = ({ children }) => {
         tags,
         setTags,
         // SZUKANIE ANKIET
-        setSearchTerm
+        setSearchTerm,
       }}
     >
       {children}
     </AppContext.Provider>
-  )
+  );
 };
 
 export const useGlobalContext = () => {
