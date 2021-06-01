@@ -78,10 +78,10 @@ public class DefaultPollService implements PollService {
         Pageable paging;
         if(newest){
             paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
-            return pollRepository.findByTitleLike(name, paging);
+            return pollRepository.findByTitleLikeIgnoreCase(name, paging);
         }
         paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "timesFilled"));
-        return pollRepository.findByTitleLike(name, paging);
+        return pollRepository.findByTitleLikeIgnoreCase(name, paging);
     }
 
     public List<Poll> search(Predicate p) {

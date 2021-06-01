@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface PollRepository extends MongoRepository<Poll, String>, QuerydslPredicateExecutor<Poll> {
 
 
-    List<Poll> findByTitleLike(@Param("title") String title, Pageable paging);
+    List<Poll> findByTitleLikeIgnoreCase(@Param("title") String title, Pageable paging);
 
     Long countByTitleLike(@Param("title") String title);
 

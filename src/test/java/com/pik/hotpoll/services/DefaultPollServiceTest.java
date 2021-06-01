@@ -142,7 +142,7 @@ public class DefaultPollServiceTest {
     public void findByTitleTest() throws ConstraintsViolationException {
         User user = User.builder().nickname("igor").id("igor").build();
         Random random = new Random();
-        List<String> names = Arrays.asList("apple juice","orange juice", "banana juice", "cherry juice", "apple soczek","orange soczek", "banana soczek", "cherry soczek");
+        List<String> names = Arrays.asList("Apple juice","orange juice", "banana juice", "cherry juice", "aPPle soczek","orange soczek", "banana soczek", "cherry soczek");
         for(int i = 0 ; i < 1000; ++i) {
             List<String> tags = new ArrayList<>();
             List<Question> questions = new ArrayList<>();
