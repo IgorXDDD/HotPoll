@@ -1,49 +1,42 @@
-import React, {useState,useEffect} from "react";
-import Poll from "./pollsUtilities/Poll";
-import Loading from "./Loading";
-import ReactPaginate from 'react-paginate'
-import { useParams, Link } from 'react-router-dom'
-import { useGlobalContext } from "../context";  
-import Welcome from "../pages/Welcome";
-const poll_url = 'http://localhost:4444/api/poll?page='
-const poll_stat = 'http://localhost:4444/api/statistics'
+import React, { useState, useEffect } from 'react';
+import Poll from './pollsUtilities/Poll';
+import Loading from './Loading';
+import ReactPaginate from 'react-paginate';
+import { useParams, Link } from 'react-router-dom';
+import { useGlobalContext } from '../context';
+import Welcome from '../pages/Welcome';
+const poll_url = 'http://localhost:4444/api/poll?page=';
+const poll_stat = 'http://localhost:4444/api/statistics';
 
 const PollList = () => {
   const { id } = useParams();
   const { polls, setPolls, loading, setLoading, logged } = useGlobalContext();
   const [numberOfPages, setNumberOfPages] = useState(1);
 
-
-  async function getPagesNumber()
-  {
+  async function getPagesNumber() {
     fetch(poll_stat)
-      .then((response => response.text()))
-      .then((data)=> {
-        if(!isNaN(data))
-        {
+      .then((response) => response.text())
+      .then((data) => {
+        if (!isNaN(data)) {
           setNumberOfPages(Math.ceil(parseFloat(data) / 10));
         }
-      })
+      });
   }
 
-  useEffect(() => 
-  {
-    window.scrollTo(0,0);
-    if(!logged)
-    {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (!logged) {
       setPolls([]);
-    }
-    else if(!id || parseInt(id)>=0)
-    {
-      fetch(`${poll_url}${id?(parseInt(id)):0}`)
+    } else if (!id || parseInt(id) >= 0) {
+      fetch(`${poll_url}${id ? parseInt(id) : 0}`)
         .then((response) => response.json())
         .then((data) => {
           // console.log('data: ', data)
-          let polls = data
+          let polls = data;
           if (polls) {
             const newPolls = polls.map((poll) => {
               const { id, title, date, author, tags, questions, timesFilled } =
-                poll
+                poll;
               return {
                 id,
                 title,
@@ -52,33 +45,28 @@ const PollList = () => {
                 tags,
                 questions,
                 timesFilled,
-              }
-            })
-            setPolls(newPolls) 
+              };
+            });
+            setPolls(newPolls);
             getPagesNumber();
-          } 
-          else 
-          {
-            setPolls([])
+          } else {
+            setPolls([]);
           }
-          setLoading(false)
+          setLoading(false);
         })
         .catch((e) => {
-          console.log("error przy pobieraniu id strony z ankietami");
+          console.log('error przy pobieraniu id strony z ankietami');
           console.log(e);
           // tutaj chyba jakies przejscie do strony z errorem co nie?
           // window.location.assign(`/#/error=${id}`)
           // setLoading(false);
-        })
-    }
-    else
-    {
-      console.log("nie udalo sie pobrac ankiet");
+        });
+    } else {
+      console.log('nie udalo sie pobrac ankiet');
       //WYSWIETL ERROR
       // window.location.assign(`/#/error=${id}`);
     }
-  }, [id,logged])
-
+  }, [id, logged]);
 
   const pageChange = (strona) => {
     // console.log(strona.selected)
@@ -86,47 +74,44 @@ const PollList = () => {
     // console.log("zamieniamy pollist na: ");
     // console.log(`/#/page/${(parseInt(strona.selected)).toString()}`)
 
-    // TO SIE WYKONUJE NA SAMYM POCZATKU TEZ DLATEGO JEST STRONA GLOWNA 
+    // TO SIE WYKONUJE NA SAMYM POCZATKU TEZ DLATEGO JEST STRONA GLOWNA
     // ZAWSZE PRZEKIEROWUJE NA /page/
-    if(window.location.href!=`${window.location.origin}/#/page/${strona.selected}`)
-    {
-      window.location.assign(
-        `/#/page/${strona.selected}`
-      )
+    if (
+      window.location.href !==
+      `${window.location.origin}/#/page/${strona.selected}`
+    ) {
+      window.location.assign(`/#/page/${strona.selected}`);
     }
     // console.log('ZMIANA STRONY XD')
-  }
+  };
 
-  if (!logged)
-  {
-    return <Welcome/>;
+  if (!logged) {
+    return <Welcome />;
   }
   if (loading) {
     return <Loading />;
   } else if (polls.length < 1) {
     return (
       <div>
-        <h2>
-          No polls found!
-        </h2>
-        <Link to='/'>
+        <h2>No polls found!</h2>
+        <Link to="/">
           <button>Go to home page</button>
         </Link>
 
         {/* DODALEM MOZLIWOSC WROCENIA ZE STRONA W RAZIE JAK SIE ZAPEDZIMY ZA DALEKO */}
         <Link
-          className={!id || id == 1 ? 'hidden' : ''}
+          className={!id || id === 1 ? 'hidden' : ''}
           to={`/page/${parseInt(id) - 1}`}
         >
           <button>previous page</button>
         </Link>
       </div>
-    )
+    );
   }
   return (
     <>
       {polls.map((item) => {
-        return <Poll key={item.id} {...item} />
+        return <Poll key={item.id} {...item} />;
       })}
       {/* TO PLAN A */}
       {/* EDIT: DOBRA SMIGA AZ MILO TO REZYGNUJEMY Z PLANU B */}
@@ -159,7 +144,7 @@ const PollList = () => {
         <button>next page</button>
       </Link> */}
     </>
-  )
+  );
 };
 
 export default PollList;

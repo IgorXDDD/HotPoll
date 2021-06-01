@@ -168,12 +168,6 @@ const SinglePollPage = () => {
     window.location.assign('/#');
   };
 
-  // TODO: TUTAJ AREK MOZESZ WRZUCIC POKAZYWANIE STATYSTK ANKIETY JAKBY CO, W SUMIE TO MOZNA TEZ ZAMIAST KLIKANIA NA PRZYCISK PO PROSTU WYRENDEROWAC
-  // (RETURNOWAC W FUNKCJI) STATYSTYKI OD TAK WPROST
-  const showStats = () => {
-    console.log('pokazywanie statystyk');
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -267,7 +261,7 @@ const SinglePollPage = () => {
 
                       <BarGraph
                         aid={'aid' + question.id + answer.id}
-                        percentage={Math.round(
+                        inputPercentage={Math.round(
                           (answer.votes / timesFilled) * 100
                         )}
                       />
@@ -316,11 +310,9 @@ const SinglePollPage = () => {
         <button
           className="poll-button"
           type="submit"
-          onClick={() => {
-            alreadyCompleted ? showStats() : sendPoll();
-          }}
+          onClick={() => sendPoll()}
         >
-          {alreadyCompleted ? 'See results' : 'Submit'}
+          Submit
         </button>
       )}
 

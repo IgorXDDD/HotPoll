@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import gsap from 'gsap';
 
-const BarGraph = (props) => {
+const BarGraph = ({ aid, inputPercentage }) => {
   const [finalPercentage, setFinalPercentage] = useState(0);
 
   useEffect(() => {
@@ -9,14 +9,12 @@ const BarGraph = (props) => {
       percentage: 0,
     };
     const targetValue = {
-      percentage: props.percentage,
+      percentage: inputPercentage,
     };
 
     let tl = gsap.timeline({ defaults: { ease: 'Power4.easeOut' } });
-    let barGraphIndicator = document.getElementById(props.aid);
-    tl.to(barGraphIndicator, 3, {
-      width: props.percentage + '%',
-    }).to(
+    let barGraphIndicator = document.getElementById(aid);
+    tl.to(barGraphIndicator, { duration: 3, width: inputPercentage + '%' }).to(
       initialValue,
       {
         percentage: targetValue.percentage,
@@ -31,7 +29,7 @@ const BarGraph = (props) => {
 
   return (
     <div className="bar-graph-wrapper">
-      <div id={props.aid} className="bar-graph-indicator"></div>
+      <div id={aid} className="bar-graph-indicator"></div>
       <p className="bar-graph-percentage">{Math.round(finalPercentage)}%</p>
     </div>
   );

@@ -1,33 +1,28 @@
-import React, {useEffect,useState} from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Poll = ({ id, title, date, author, tags, questions, timesFilled }) => {
-  // w domyśle te dwie wartości powinny przychodzić
-  // z ankiety albo skądś indziej
-  // mamy to B)
-  const [alreadyCompleted,setAlreadyCompleted] = useState(false);
+  const [alreadyCompleted, setAlreadyCompleted] = useState(false);
   let creationDate = new Date(date);
-  const completed_url = 'http://localhost:4444/api/vote?pollID='
+  const completed_url = 'http://localhost:4444/api/vote?pollID=';
 
-  useEffect(() => 
-  {
+  useEffect(() => {
     fetch(`${completed_url}${id}`)
-      .then((response => response.text()))
-      .then((data)=>{
-        if(data=='YES')
-        {
-          setAlreadyCompleted(true)
+      .then((response) => response.text())
+      .then((data) => {
+        if (data === 'YES') {
+          setAlreadyCompleted(true);
         }
-        if (data == 'NO') {
-          setAlreadyCompleted(false)
+        if (data === 'NO') {
+          setAlreadyCompleted(false);
         }
-      })
-  }, [])
+      });
+  }, []);
 
   return (
-    <article className='poll-wrapper'>
-      <h1 className='poll-title'>{title}</h1>
-      <div className='poll-meta underline'>
+    <article className="poll-wrapper">
+      <h1 className="poll-title">{title}</h1>
+      <div className="poll-meta underline">
         <p>
           created:{' '}
           {creationDate.getDate() +
@@ -44,36 +39,40 @@ const Poll = ({ id, title, date, author, tags, questions, timesFilled }) => {
       </div>
       {questions.slice(0, 3).map((question) => {
         return (
-          <section className='question-wrapper' key={question.id}>
-            <h2 className='question question-simple'>
-              {`Q${(parseInt(question.id)+1)}) `}
+          <section className="question-wrapper" key={question.id}>
+            <h2 className="question question-simple">
+              {`Q${parseInt(question.id) + 1}) `}
               {question.text}
             </h2>
           </section>
-        )
+        );
       })}
-      {questions.length > 3 ? <h3>and {questions.length - 3} more...</h3> : null}
-      <Link to={`/poll/${id}`} className='poll-link'>
-        <button className='poll-button'>
+      {questions.length > 3 ? (
+        <h3>and {questions.length - 3} more...</h3>
+      ) : null}
+      <Link to={`/poll/${id}`} className="poll-link">
+        <button className="poll-button">
           {alreadyCompleted ? 'See results' : 'Complete now'}
         </button>
       </Link>
-      <div className='poll-meta'>
-        <p>Poll completed: {timesFilled} time{timesFilled !== 1 ? 's' : null}</p>
-        <div className='tags'>
+      <div className="poll-meta">
+        <p>
+          Poll completed: {timesFilled} time{timesFilled !== 1 ? 's' : null}
+        </p>
+        <div className="tags">
           {tags.map((tag, index) => {
             return tag ? (
               <p key={index}>
-                <Link to={`/tag/${tag}/0`} className='tagLink'>
+                <Link to={`/tag/${tag}/0`} className="tagLink">
                   <button>#{tag}</button>
                 </Link>
               </p>
-            ) : null
+            ) : null;
           })}
         </div>
       </div>
     </article>
-  )
+  );
 };
 
 export default Poll;

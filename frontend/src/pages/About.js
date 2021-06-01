@@ -1,14 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
-import Welcome from "./Welcome"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Welcome from './Welcome';
 
 const About = () => {
   return (
     <>
       <Welcome />
-      <section className='about'>
-        
+      <section className="about">
         <h1>About HotPoll</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
@@ -34,14 +32,14 @@ const About = () => {
           sint hic nobis ab, quasi aperiam tempora ducimus sed quaerat sunt
           quibusdam!
         </p>
-        {/* <p>
+        <p>
           <Link to="/" className="link-underline">
             Back Home
           </Link>
-        </p> */}
+        </p>
       </section>
     </>
-  )
+  );
 };
 
 export default About;
