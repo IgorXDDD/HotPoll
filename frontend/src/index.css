@@ -613,6 +613,59 @@ POLL CREATOR
   margin: 0px 1px;
 }
 
+
+/* 
+====== 
+BARGRAPH
+======
+*/
+
+.bar-graph-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 2rem;
+  margin: 0 1rem 1.5rem;
+  background-color: var(--bgColorLight);
+  border-radius: 2rem;
+  transition: var(--mainTransition);
+}
+
+.bar-graph-wrapper:hover {
+  background-color: var(--bgColorMain);
+  box-shadow: var(--lightShadow);
+}
+
+.bar-graph-wrapper:hover .bar-graph-indicator {
+  background-color: var(--accentColor1);
+}
+
+.bar-graph-wrapper:hover .bar-graph-percentage {
+  color: var(--accentColor1);
+}
+
+.bar-graph-indicator {
+  margin: 0 0.5rem;
+  height: 1rem;
+  border-radius: 1rem;
+  background-color: var(--accentColor2);
+  transition: var(--mainTransition);
+}
+
+.bar-graph-percentage {
+  font-size: 0.9em;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--accentColor2);
+  mix-blend-mode: difference;
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
 /* 
 ====== 
 MEDIA QUERIES
