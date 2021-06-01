@@ -31,44 +31,44 @@ function PollCreator() {
 
   let { logged, questions, tags, setQuestions, isGoogleLogged, googleInfo } =
     useGlobalContext()
-  const makeTen = () => {
-    let ten = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    let jwt = AuthService.getCurrentUser().jwt
-    ten.map((one) => {
-      fetch(API_URL, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${jwt}`,
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify({
-          id: null,
-          date: new Date().toISOString(),
-          author: {
-            id: AuthService.getCurrentUser().username,
-            nickname: AuthService.getCurrentUser().username,
-            email: null,
-            password: null,
-          },
-          title: one,
-          questions: questions,
-          tags: tags,
-          timesFilled: 0,
-        }), // body data type must match "Content-Type" header
-      })
-    })
-  }
+  // const makeTen = () => {
+  //   let ten = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+  //   let jwt = AuthService.getCurrentUser().jwt
+  //   ten.map((one) => {
+  //     fetch(API_URL, {
+  //       method: 'POST', // *GET, POST, PUT, DELETE, etc.
+  //       mode: 'cors', // no-cors, *cors, same-origin
+  //       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  //       credentials: 'same-origin', // include, *same-origin, omit
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${jwt}`,
+  //         // 'Content-Type': 'application/x-www-form-urlencoded',
+  //       },
+  //       redirect: 'follow', // manual, *follow, error
+  //       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+  //       body: JSON.stringify({
+  //         id: null,
+  //         date: new Date().toISOString(),
+  //         author: {
+  //           id: AuthService.getCurrentUser().username,
+  //           nickname: AuthService.getCurrentUser().username,
+  //           email: null,
+  //           password: null,
+  //         },
+  //         title: one,
+  //         questions: questions,
+  //         tags: tags,
+  //         timesFilled: 0,
+  //       }), // body data type must match "Content-Type" header
+  //     })
+  //   })
+  // }
 
   async function postData() {
-    console.log('kliknieto submit')
-    console.log('TAKA JEST ANKIETA')
-    console.log(questions)
+    // console.log('kliknieto submit')
+    // console.log('TAKA JEST ANKIETA')
+    // console.log(questions)
 
     if (isGoogleLogged) 
     {
@@ -132,10 +132,12 @@ function PollCreator() {
         }), // body data type must match "Content-Type" header
       })
     }
-    console.log("PRZENOSIMY NA STRONE GLOWNA");
-    console.log("TAKA LOKALIZACJA: "); 
-    console.log(window.location);
-    window.location.assign('/#');
+    // console.log("PRZENOSIMY NA STRONE GLOWNA");
+    // console.log("TAKA LOKALIZACJA: "); 
+    // console.log(window.location);
+
+    
+    window.location.assign('/#/page/0');
     // window.location.href='/#'
     // window.location.reload();
     return false;
@@ -149,7 +151,7 @@ function PollCreator() {
   }
   return (
     <div className='poll-wrapper'>
-      <button onClick={makeTen}>dodaj 11</button>
+      {/* <button onClick={makeTen}>dodaj 11</button> */}
       <h3>Poll name</h3>
       <input
         type='text'
@@ -186,20 +188,20 @@ function PollCreator() {
           // e.preventDefault()
           // console.log(questions)
           postData();
-          window.setTimeout(()=>{window.location.assign('/#')}, 350); 
-          window.location.assign('/#');
+          window.setTimeout(()=>{window.location.assign('/#/page/0')}, 50); 
+          // window.location.assign('/#/page/0')
         }}
       >
         <button className='submit-btn'>Submit new poll</button>
       </form>
 
-      <button
+      {/* <button
         onClick={() => {
           console.log(questions)
         }}
       >
         DEBUG KLIK
-      </button>
+      </button> */}
 
       {/* Przycisk do prostego debugowania tutaj wstawilem */}
     </div>

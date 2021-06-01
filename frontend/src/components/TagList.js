@@ -5,13 +5,27 @@ import ReactPaginate from 'react-paginate'
 import { useParams, Link } from 'react-router-dom'
 import { useGlobalContext } from '../context'
 const poll_url = 'http://localhost:4444/api/poll?tags='
+const poll_stat = 'http://localhost:4444/api/statistics?tags='
+
 
 const TagList = () => {
-  const { id,page } = useParams()
-  const { polls, setPolls, loading, setLoading, logged } = useGlobalContext()
+  const { id,page } = useParams();
+  const { polls, setPolls, loading, setLoading, logged } = useGlobalContext();
+  const [numberOfPages, setNumberOfPages] = useState(1);
+
+    async function getPagesNumber() {
+      fetch(`${poll_stat}${id}`)
+        .then((response) => response.text())
+        .then((data) => {
+          if (!isNaN(data)) {
+            setNumberOfPages(Math.ceil(parseFloat(data) / 10))
+          }
+        })
+    }
+
 
   useEffect(() => {
-    console.log('probojemy pobrac ankiety')
+    window.scrollTo(0, 0);
     if(isNaN(page))
     {
      console.log("zly adres :((");
@@ -21,7 +35,6 @@ const TagList = () => {
     } 
     else 
     {
-      console.log('ID TAKIE: ' + id)
       fetch(`${poll_url}${id}&page=${page?(parseInt(page)):0}`)
         .then((response) => response.json())
         .then((data) => {
@@ -41,8 +54,8 @@ const TagList = () => {
               }
             })
             setPolls(newPolls)
-            console.log('udalo sie zdobyc takie:')
-            console.log(newPolls)
+            // console.log('udalo sie zdobyc takie:')
+            // console.log(newPolls)
           } else {
             setPolls([])
           }
@@ -93,7 +106,7 @@ const TagList = () => {
   } else if (polls.length < 1) {
     return (
       <div>
-        <h2>No polls with such tag: {id} or You've exceeded our page limit (we're still working on that)</h2>
+        <h2>No polls with such tag: {id}</h2>
         <h2>Oraz {page}</h2>
         <Link to='/'>
           <button>Go to home page</button>
@@ -113,7 +126,7 @@ const TagList = () => {
         nextLabel={'next'}
         breakLabel={'...'}
         breakClassName={'break-me'}
-        pageCount={10}
+        pageCount={numberOfPages}
         marginPagesDisplayed={3}
         pageRangeDisplayed={3}
         onPageChange={pageChange}

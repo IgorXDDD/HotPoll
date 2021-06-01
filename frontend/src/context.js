@@ -47,51 +47,33 @@ const AppProvider = ({ children }) => {
   ]);
   const [googleInfo, setGoogleInfo] = useState({});
   const [tags, setTags] = useState(["IT", "FOOD"]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // const fetchPolls = () => {
-  //   setLoading(true);
-  //   try {
-  //     fetch(url)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log("data: ", data);
-  //         let polls = data;
-  //         if (polls) {
-  //           const newPolls = polls.map((poll) => {
-  //             const {
-  //               id,
-  //               title,
-  //               date,
-  //               author,
-  //               tags,
-  //               questions,
-  //               timesFilled
-  //             } = poll;
-  //             return {
-  //               id,
-  //               title,
-  //               date,
-  //               author,
-  //               tags,
-  //               questions,
-  //               timesFilled
-  //             };
-  //           });
-  //           setPolls(newPolls);
-  //         } else {
-  //           setPolls([]);
-  //         }
-  //         setLoading(false);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //     setLoading(false);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   fetchPolls();
-  // }, []);
+  // const fetchPollByName = async ()=>
+  // {
+  //   const response = await fetch(`${search_url}${searchTerm}`)
+  //   const data = await response.json()
+  //   console.log(data)
+  //   const { Polls } = data
+  //   if (Polls) 
+  //   {
+  //     const newPolls = Polls.map((item) => {
+  //       const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strGlass } =
+  //         item
+
+  //       return {
+  //         id: idDrink,
+  //         name: strDrink,
+  //         image: strDrinkThumb,
+  //         info: strAlcoholic,
+  //         glass: strGlass,
+  //       }
+  //     })
+  //     setCocktails(newCocktails)
+  //   } 
+  // }
+
 
   return (
     <AppContext.Provider
@@ -113,11 +95,13 @@ const AppProvider = ({ children }) => {
         setQuestions,
         tags,
         setTags,
+        // SZUKANIE ANKIET
+        setSearchTerm
       }}
     >
       {children}
     </AppContext.Provider>
-  );
+  )
 };
 
 export const useGlobalContext = () => {
