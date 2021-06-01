@@ -49,17 +49,17 @@ const Poll = ({ id, title, date, author, tags, questions, timesFilled }) => {
               {`Q${(parseInt(question.id)+1)}) `}
               {question.text}
             </h2>
-            {questions.length > 3 ? <h2>and more...</h2> : null}
           </section>
         )
       })}
+      {questions.length > 3 ? <h3>and {questions.length - 3} more...</h3> : null}
       <Link to={`/poll/${id}`} className='poll-link'>
         <button className='poll-button'>
           {alreadyCompleted ? 'See results' : 'Complete now'}
         </button>
       </Link>
       <div className='poll-meta'>
-        <p>Poll completed: {timesFilled} times</p>
+        <p>Poll completed: {timesFilled} time{timesFilled !== 1 ? 's' : null}</p>
         <div className='tags'>
           {tags.map((tag, index) => {
             return tag ? (

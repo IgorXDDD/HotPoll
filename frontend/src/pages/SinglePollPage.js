@@ -275,7 +275,7 @@ const handleSubmit = (event) => {
         return (
           <fieldset className='question-wrapper' key={question.id}>
             <legend className='question'>
-              {`Q${question.id}) `}
+              {`Q${(parseInt(question.id)+1)}) `}
               {question.text}
             </legend>
 
@@ -315,7 +315,7 @@ const handleSubmit = (event) => {
         {alreadyCompleted ? 'See results' : 'Submit'}
       </button>
       <div className='poll-meta'>
-        <p>Poll completed: {timesFilled} times</p>
+        <p>Poll completed: {timesFilled} time{timesFilled !== 1 ? 's' : null}</p>
         <div className='tags'>
           {tags.map((tag, index) => {
             return tag ? (
