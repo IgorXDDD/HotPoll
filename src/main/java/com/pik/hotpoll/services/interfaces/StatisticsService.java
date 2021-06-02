@@ -2,12 +2,13 @@ package com.pik.hotpoll.services.interfaces;
 
 import com.pik.hotpoll.domain.Vote;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface StatisticsService {
-    boolean userVoted(Vote vote, String username);
+    boolean userVoted(Vote vote, Principal principal);
 
-    boolean hasUserVotedOnPoll(String pollId, String name);
+    boolean hasUserVotedOnPoll(String pollId, Principal principal);
 
     Long getPollsNum();
 

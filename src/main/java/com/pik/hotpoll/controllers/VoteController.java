@@ -34,7 +34,7 @@ public class VoteController {
 //        System.out.println(principal.getName());
         Poll poll = pollService.addVote(vote);
 //        return ResponseEntity.ok(poll);
-        if(statisticsService.userVoted(vote, principal.getName())){
+        if(statisticsService.userVoted(vote, principal)){
             return ResponseEntity.ok(poll);
         }else {
             return ResponseEntity.badRequest().build();
@@ -44,7 +44,7 @@ public class VoteController {
     @GetMapping(name = "")
     public ResponseEntity<?> hasVoted(@RequestParam(value = "pollID" )String pollId, Principal principal) {
         try {
-            if (statisticsService.hasUserVotedOnPoll(pollId, principal.getName()))
+            if (statisticsService.hasUserVotedOnPoll(pollId, principal))
                 return ResponseEntity.ok("YES");
             return ResponseEntity.ok("NO");
         } catch (Exception e) {
