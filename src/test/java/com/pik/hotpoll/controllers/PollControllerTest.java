@@ -269,7 +269,7 @@ class PollControllerTest {
         headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer "+jwt);
-        User user = User.builder().nickname("user1").id("60b73e86aa34c81c4f9d849b").password("$2a$10$vv4k26qrzaQE3ov8vxsKOOZd5ll8dZ6jCcODAJCvSJYQZ6ATVJmvy").email("user1@com").build();
+        User user = userRepository.findByNickname("user1").get(0);
         List<String> tags = new ArrayList<>();
         List<Question> questions = new ArrayList<>();
         List<Answer> answers = new ArrayList<>();
