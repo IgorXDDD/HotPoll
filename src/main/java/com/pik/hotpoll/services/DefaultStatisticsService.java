@@ -36,28 +36,7 @@ public class DefaultStatisticsService implements StatisticsService {
     }
 
     @Override
-    public boolean userVoted(Vote vote, Principal principal) {
-        List<User> userList = userRepository.findByNickname(principal.getName());
-        User user;
-
-        if(userList.isEmpty()){
-            String username = StringUtils.substringBetween(principal.toString(), "name=", ",");
-            userList = userRepository.findByNickname(username);
-
-
-            if(userList.isEmpty()){
-                String email = StringUtils.substringBetween(principal.toString(), "email=", "}");
-                String password = StringUtils.substringBetween(principal.toString(), "sub=", ",");
-
-
-                user = User.builder().nickname(username).email(email).password(password).build();
-                userRepository.save(user);
-            }else {
-                user = userList.get(0);
-            }
-        }else {
-            user = userList.get(0);
-        }
+    public boolean userVoted(Vote vote, User user) {
 
         Optional<Poll> poll = pollRepository.findById(vote.getPollID());
         if(!poll.isPresent()){
@@ -68,20 +47,9 @@ public class DefaultStatisticsService implements StatisticsService {
     }
 
     @Override
-    public boolean hasUserVotedOnPoll(String pollId, Principal principal) {
-        List<User> userList = userRepository.findByNickname(principal.getName());
+    public boolean hasUserVotedOnPoll(String pollId, User user) {
 
-        if(userList.isEmpty()) {
-            String username = StringUtils.substringBetween(principal.toString(), "name=", ",");
-            userList = userRepository.findByNickname(username);
-
-        }
-
-        if(userList.isEmpty()){
-            return false;
-        }
-
-            List<UserVote> userVotes = userVoteRepository.findByUser(userList.get(0));
+        List<UserVote> userVotes = userVoteRepository.findByUser(user);
         for (UserVote vote:
              userVotes) {
             if(vote.getPoll() != null) {

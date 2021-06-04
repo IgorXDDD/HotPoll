@@ -3,11 +3,14 @@ package com.pik.hotpoll.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pik.hotpoll.domain.Poll;
+import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.domain.search.BasicPredicateBuilder;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.services.DefaultPollService;
 import com.pik.hotpoll.services.interfaces.PollService;
+import com.pik.hotpoll.services.interfaces.UserService;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +29,14 @@ public class PollController {
 
     private final PollService pollService;
     private final ObjectMapper objectMapper;
+    private final UserService userService;
 
 @Autowired
-public PollController(DefaultPollService pollService, ObjectMapper objectMapper){
+public PollController(DefaultPollService pollService, ObjectMapper objectMapper,
+                      UserService userService){
     this.objectMapper = objectMapper;
     this.pollService = pollService;
+    this.userService = userService;
 
 }
 
@@ -66,13 +72,15 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
 
     @PostMapping(name = "",  consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> createPoll(@RequestBody Poll poll, Principal principal) throws ConstraintsViolationException {
-            Poll p = pollService.create(poll, principal);
-            return ResponseEntity.ok(p);
+
+
+        Poll p = pollService.create(poll, User.fromPrincipal(principal,userService));
+        return ResponseEntity.ok(p);
     }
 
     @PutMapping(name = "",  consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> updatePoll(@RequestBody Poll poll, Principal principal) throws ConstraintsViolationException {
-        Poll p = pollService.create(poll, principal);
+        Poll p = pollService.create(poll, User.fromPrincipal(principal,userService));
         return ResponseEntity.ok(p);
     }
 
@@ -85,5 +93,6 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
             return new ResponseEntity<String>("no such poll", HttpStatus.BAD_REQUEST);
         }
     }
+
 
 }

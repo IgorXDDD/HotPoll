@@ -45,30 +45,8 @@ public class DefaultPollService implements PollService {
     }
 
 
-    public Poll create(Poll poll, Principal principal) throws ConstraintsViolationException {
+    public Poll create(Poll poll, User user) throws ConstraintsViolationException {
         Poll pollNew;
-
-        List<User> userList = userRepository.findByNickname(principal.getName());
-        User user;
-
-        if(userList.isEmpty()){
-            String username = StringUtils.substringBetween(principal.toString(), "name=", ",");
-            userList = userRepository.findByNickname(username);
-
-            if(userList.isEmpty()){
-                String email = StringUtils.substringBetween(principal.toString(), "email=", "}");
-                String password = StringUtils.substringBetween(principal.toString(), "sub=", ",");
-
-
-                user = User.builder().nickname(username).email(email).password(password).build();
-                userRepository.save(user);
-            }else {
-                user = userList.get(0);
-            }
-        }else {
-            user = userList.get(0);
-        }
-
 
         Poll toSave = Poll.builder().id(poll.getId()).date(poll.getDate()).tags(poll.getTags())
                 .questions(poll.getQuestions()).timesFilled(poll.getTimesFilled()).title(poll.getTitle()).author(user).build();

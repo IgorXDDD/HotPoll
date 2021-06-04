@@ -19,10 +19,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,10 +129,18 @@ class StatisticsControllerTest {
         questions.add(Question.builder().type("radio").id("1").text("student?").answers(answers).build());
         questions.add(Question.builder().type("radio").id("2").text("debil?").answers(answers).build());
         poll = Poll.builder().title("poll").author(user).date(LocalDateTime.now()).tags(tags).questions(questions).build();
-        request = new HttpEntity<>(objectMapper.writeValueAsString(poll), headers);
-
+        Principal principal = new Principal() {
+            @Override
+            public String getName() {
+                return "igor";
+            }
+        };
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+        body.add("poll",objectMapper.writeValueAsString(poll));
+        body.add("principal", principal.toString());
+        HttpEntity<?> request1 = new HttpEntity<Object>(body, headers);
         for (int i = 0; i<100; ++i){
-            Poll ret = restTemplate.postForObject(createPollUrl, request, Poll.class);
+            Poll ret = restTemplate.postForObject(createPollUrl, request1, Poll.class);
             assertNotNull(ret);
         }
         addedCount += 100;
