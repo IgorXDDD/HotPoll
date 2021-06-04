@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import com.querydsl.core.types.Predicate;
 import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public interface PollService {
 
     Poll find(String id) throws EntityNotFoundException;
 
-    Poll create(Poll poll) throws ConstraintsViolationException;
+    Poll create(Poll poll, Principal principal) throws ConstraintsViolationException;
 
     void delete(String id) throws EntityNotFoundException, ConstraintsViolationException;
 
@@ -29,4 +30,5 @@ public interface PollService {
 
     List<Poll> search(Predicate p);
 
+    Iterable<Poll> findByUsername(String username, int page, int size, Boolean newest);
 }

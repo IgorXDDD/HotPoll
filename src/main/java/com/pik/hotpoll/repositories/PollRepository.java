@@ -1,5 +1,6 @@
 package com.pik.hotpoll.repositories;
 
+import com.pik.hotpoll.domain.User;
 import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,6 +29,6 @@ public interface PollRepository extends MongoRepository<Poll, String>, QuerydslP
 
     List<Poll> findByDate(@Param("date") LocalDateTime date);
 
-
+    List<Poll> findByAuthor(@Param("author") User author, Pageable paging);
 }
 

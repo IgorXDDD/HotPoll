@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -40,7 +41,7 @@ public class DefaultPollServiceTest {
             questions.add(Question.builder().type("radio").id("1").text("student?").answers(answers).build());
             questions.add(Question.builder().type("radio").id("2").text("debil?").answers(answers).build());
             Poll poll = Poll.builder().title("poll").author(user).date(LocalDateTime.now()).tags(tags).questions(questions).timesFilled(random.nextInt(100000)).build();
-            pollService.create(poll);
+            pollService.create(poll, (Principal) user);
         }
         Iterable<Poll> polls = pollService.findAll(0, 10, false);
         int prev = Integer.MAX_VALUE;
@@ -92,7 +93,7 @@ public class DefaultPollServiceTest {
             questions.add(Question.builder().type("radio").id("1").text("student?").answers(answers).build());
             questions.add(Question.builder().type("radio").id("2").text("debil?").answers(answers).build());
             Poll poll = Poll.builder().title("poll").author(user).date(LocalDateTime.now()).tags(tags).questions(questions).timesFilled(random.nextInt(100000)).build();
-            pollService.create(poll);
+            pollService.create(poll, (Principal) user);
         }
         List<String> tags = new ArrayList<>();
         tags.add("tag1");
@@ -156,7 +157,7 @@ public class DefaultPollServiceTest {
             questions.add(Question.builder().type("radio").id("1").text("student?").answers(answers).build());
             questions.add(Question.builder().type("radio").id("2").text("debil?").answers(answers).build());
             Poll poll = Poll.builder().title(names.get(random.nextInt(names.size()))).author(user).date(LocalDateTime.now()).tags(tags).questions(questions).timesFilled(random.nextInt(100000)).build();
-            pollService.create(poll);
+            pollService.create(poll, (Principal) user);
         }
         Iterable<Poll> polls = pollService.findByName("soczek", 0, 10, false);
         int prev = Integer.MAX_VALUE;

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -41,7 +42,8 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
     @GetMapping("")
     public ResponseEntity<?> getPoll( @RequestParam(value = "pollID", required = false) String pollID, @RequestParam(value = "tags", required = false) List<String> tags,
         @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
-        @RequestParam(value = "newest", required = false) Boolean newest, @RequestParam(value = "name", required = false) String name ) {
+        @RequestParam(value = "newest", required = false) Boolean newest, @RequestParam(value = "name", required = false) String name
+            , @RequestParam(value = "username", required = false) String username ) {
         if(newest == null)
             newest = false;
 
@@ -55,19 +57,22 @@ public PollController(DefaultPollService pollService, ObjectMapper objectMapper)
         if(tags != null){
             return ResponseEntity.ok(pollService.findByTags(tags, page, size, newest));
         }
+        if(username != null){
+            return ResponseEntity.ok(pollService.findByUsername(username, page, size, newest));
+        }
         return ResponseEntity.ok(pollService.findAll(page, size, newest));
 
     }
 
     @PostMapping(name = "",  consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> createPoll(@RequestBody Poll poll) throws ConstraintsViolationException {
-            Poll p = pollService.create(poll);
+    public ResponseEntity<?> createPoll(@RequestBody Poll poll, Principal principal) throws ConstraintsViolationException {
+            Poll p = pollService.create(poll, principal);
             return ResponseEntity.ok(p);
     }
 
     @PutMapping(name = "",  consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> updatePoll(@RequestBody Poll poll) throws ConstraintsViolationException {
-        Poll p = pollService.create(poll);
+    public ResponseEntity<?> updatePoll(@RequestBody Poll poll, Principal principal) throws ConstraintsViolationException {
+        Poll p = pollService.create(poll, principal);
         return ResponseEntity.ok(p);
     }
 

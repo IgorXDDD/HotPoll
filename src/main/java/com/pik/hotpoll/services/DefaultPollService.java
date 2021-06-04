@@ -2,11 +2,14 @@ package com.pik.hotpoll.services;
 
 import com.google.common.collect.Lists;
 import com.pik.hotpoll.domain.Poll;
+import com.pik.hotpoll.domain.User;
 import com.pik.hotpoll.domain.Vote;
 import com.pik.hotpoll.exceptions.ConstraintsViolationException;
 import com.pik.hotpoll.repositories.PollRepository;
+import com.pik.hotpoll.repositories.UserRepository;
 import com.pik.hotpoll.services.interfaces.PollService;
 import com.querydsl.core.types.Predicate;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +29,15 @@ public class DefaultPollService implements PollService {
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultPollService.class);
 
     private final PollRepository pollRepository;
+    private final UserRepository userRepository;
 
 
     @Autowired
-    public DefaultPollService(final PollRepository pollRepository){
+    public DefaultPollService(final PollRepository pollRepository,
+                              final UserRepository userRepository){
         this.pollRepository = pollRepository;
         pollRepository.deleteAll();
+        this.userRepository = userRepository;
     }
 
     public Poll find(String id) throws EntityNotFoundException {
@@ -37,10 +45,35 @@ public class DefaultPollService implements PollService {
     }
 
 
-    public Poll create(Poll poll) throws ConstraintsViolationException {
+    public Poll create(Poll poll, Principal principal) throws ConstraintsViolationException {
         Poll pollNew;
+
+        List<User> userList = userRepository.findByNickname(principal.getName());
+        User user;
+
+        if(userList.isEmpty()){
+            String username = StringUtils.substringBetween(principal.toString(), "name=", ",");
+            userList = userRepository.findByNickname(username);
+
+            if(userList.isEmpty()){
+                String email = StringUtils.substringBetween(principal.toString(), "email=", "}");
+                String password = StringUtils.substringBetween(principal.toString(), "sub=", ",");
+
+
+                user = User.builder().nickname(username).email(email).password(password).build();
+                userRepository.save(user);
+            }else {
+                user = userList.get(0);
+            }
+        }else {
+            user = userList.get(0);
+        }
+
+
+        Poll toSave = Poll.builder().id(poll.getId()).date(poll.getDate()).tags(poll.getTags())
+                .questions(poll.getQuestions()).timesFilled(poll.getTimesFilled()).title(poll.getTitle()).author(user).build();
         try {
-            pollNew = pollRepository.save(poll);
+            pollNew = pollRepository.save(toSave);
         } catch (DataIntegrityViolationException e) {
             LOG.warn("Some constraints are thrown due to driver creation", e);
             throw new ConstraintsViolationException(e.getMessage());
@@ -86,6 +119,24 @@ public class DefaultPollService implements PollService {
 
     public List<Poll> search(Predicate p) {
         return Lists.newArrayList(pollRepository.findAll(p));
+    }
+
+    @Override
+    public Iterable<Poll> findByUsername(String username, int page, int size, Boolean newest) {
+        List<User> userList = userRepository.findByNickname(username);
+
+        if(userList.isEmpty()){
+            return new ArrayList<Poll>();
+        }
+        User user = userList.get(0);
+
+        Pageable paging;
+        if(newest){
+            paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+            return pollRepository.findByAuthor(user, paging);
+        }
+        paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "timesFilled"));
+        return pollRepository.findByAuthor(user, paging);
     }
 
     private Poll findPollChecked(String id) throws EntityNotFoundException {
