@@ -41,23 +41,29 @@ export const Search = (searchTerm) => {
   }, [searchTerm]);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <section className="min-height-100vh">
+        <Loading />;
+      </section>
+    );
   } else if (polls.length < 1) {
     return (
-      <div className="info">
-        <h2>No polls found!</h2>
-        <h3>Change your search criteria</h3>
-        {/* <Link to='/'>
+      <section className="min-height-100vh">
+        <div className="info">
+          <h2>No polls found!</h2>
+          <h3>Change your search criteria</h3>
+          {/* <Link to='/'>
            <button>Go to home page</button>
          </Link> */}
-      </div>
+        </div>
+      </section>
     );
   }
   return (
-    <>
+    <section className="min-height-100vh">
       {polls.map((item) => {
         return <Poll key={item.id} {...item} />;
       })}
-    </>
+    </section>
   );
 };

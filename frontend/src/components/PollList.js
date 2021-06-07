@@ -89,23 +89,21 @@ const PollList = () => {
     return <Welcome />;
   }
   if (loading) {
-    return <Loading />;
+    return (
+      <section className="min-height-100vh">
+        <Loading />
+      </section>
+    );
   } else if (polls.length < 1) {
     return (
-      <div>
-        <h2>No polls found!</h2>
-        <Link to="/">
-          <button>Go to home page</button>
-        </Link>
-
-        {/* DODALEM MOZLIWOSC WROCENIA ZE STRONA W RAZIE JAK SIE ZAPEDZIMY ZA DALEKO */}
-        <Link
-          className={!id || id === 1 ? 'hidden' : ''}
-          to={`/page/${parseInt(id) - 1}`}
-        >
-          <button>previous page</button>
-        </Link>
-      </div>
+      <section className="min-height-100vh">
+        <div className="info">
+          <h2>No polls found!</h2>
+          <Link to="/" className="link-underline">
+            Go to home page
+          </Link>
+        </div>
+      </section>
     );
   }
   return (
@@ -118,18 +116,29 @@ const PollList = () => {
       {/* TRZEBA ZMIENIC PAGECOUNT NA TAKI, KTORY JEST ZALEZNY OD LICZBY ANKIET CALKOWITEJ */}
       {/* tutaj zrodlo: https://github.com/AdeleD/react-paginate */}
       <ReactPaginate
+        // classNames
+        breakClassName={'breakClassName'}
+        breakLinkClassName={'breakLinkClassName'}
+        containerClassName={'containerClassName'}
+        pageClassName={'pageClassName'}
+        pageLinkClassName={'pageLinkClassName'}
+        activeClassName={'activeClassName'}
+        activeLinkClassName={'activeLinkClassName'}
+        previousClassName={'previousClassName'}
+        nextClassName={'nextClassName'}
+        previousLinkClassName={'previousLinkClassName'}
+        nextLinkClassName={'nextLinkClassName'}
+        disabledClassName={'disabledClassName'}
+        // the rest
         previousLabel={'previous'}
         nextLabel={'next'}
         breakLabel={'...'}
-        breakClassName={'break-me'}
         pageCount={numberOfPages}
         marginPagesDisplayed={3}
         pageRangeDisplayed={3}
         onPageChange={pageChange}
-        containerClassName={'pagination'}
-        activeClassName={'active'}
         initialPage={id ? parseInt(id) : 0}
-        previousLabel={<button>previous</button>}
+        previousLabel={<button>prev</button>}
         nextLabel={<button>next</button>}
       />
       {/* TO NASZ PLAN B 

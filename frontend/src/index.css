@@ -254,6 +254,16 @@ NAVBAR
   opacity: 1;
 }
 
+.link-hidden {
+  visibility: hidden;
+  width: 0px;
+}
+
+.google-btn {
+  text-decoration: none;
+  color: var(--buttonTextColor);
+}
+
 /* MODAL */
 .ReactModal__Overlay {
   opacity: 0;
@@ -670,26 +680,123 @@ BARGRAPH
 
 /* 
 ====== 
+REACT PAGINATE
+======
+*/
+
+/* The classname on tag li of the ellipsis element */
+.breakClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on tag a of the ellipsis element */
+.breakLinkClassName {
+  margin: 0.5rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+/* The classname of the pagination container. */
+.containerClassName {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The classname on tag li of each page element. */
+.pageClassName {
+  margin: 0.5rem;
+  padding: 0.2rem;
+  border-radius: var(--mainBorderRadius);
+  display: flex;
+  cursor: pointer;
+  transition: var(--mainTransition);
+}
+.pageClassName:hover {
+  box-shadow: var(--accentColor2) var(--insetBorder);
+}
+
+/* The classname on tag a of each page element. */
+.pageLinkClassName {
+  padding: 0 0.5rem;
+  color: var(--textColorLight);
+}
+
+/* The classname for the active page. */
+.activeClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on the active tag a. */
+.activeLinkClassName {
+  font-weight: 900;
+  color: var(--buttonTextColor);
+}
+
+/* The classname on tag li of the previous button. */
+.previousClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on tag li of the next button. */
+.nextClassName {
+  margin: 0.5rem;
+  display: flex;
+}
+
+/* The classname on tag a of the previous button. */
+.previousLinkClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on tag a of the next button. */
+.nextLinkClassName {
+  margin: 0.5rem;
+}
+
+/* The classname for disabled previous and next buttons. */
+.disabledClassName {
+  margin: 0.5rem;
+  display: flex;
+}
+
+/* 
+====== 
 OTHER
 ======
 */
 .search-form {
   margin: auto;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.search-form-label {
-  margin-right: 1rem;
-}
 .search-form input[type='text'] {
   background-color: var(--bgColorLight);
+  width: 50%;
 }
 .info {
+  background-color: var(--bgColorLight);
+  box-shadow: var(--lightShadow);
+  max-width: 70ch;
+  width: max-content;
   margin: auto;
-  padding: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
   border-radius: var(--mainBorderRadius);
   border: 2px solid var(--bgColorLighter);
+}
+.info h1,
+.info h2,
+.info h3 {
+  margin-bottom: 0;
+}
+
+.min-height-100vh {
+  min-height: 100vh;
 }
 
 /* 

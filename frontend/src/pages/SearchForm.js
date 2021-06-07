@@ -22,20 +22,20 @@ export default function SearchForm() {
   }
 
   return !logged ? (
-    <div className="info">
-      <h2>Plase sign in first!</h2>
-      <Link to="/" className="link-underline">
-        <button>Go to home page</button>
-      </Link>
-    </div>
+    <section className="min-height-100vh">
+      <div className="info">
+        <h2>Plase sign in first!</h2>
+        <Link to="/" className="link-underline">
+          Go to home page
+        </Link>
+      </div>
+    </section>
   ) : (
     <section>
       <form className="search-form" onSubmit={handleSubmit}>
-        <label className="search-form-label" htmlFor="name">
-          search poll name
-        </label>
         <input
           className="search-form-input"
+          placeholder="Search"
           type="text"
           name="name"
           id="name"
