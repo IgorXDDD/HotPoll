@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
 import SingleQuestion from '../components/pollsUtilities/SingleQuestionCreator';
 import { useGlobalContext } from '../context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Tag from '../components/pollsUtilities/Tags';
 import AuthService from '../services/user.service.js';
 const API_URL = 'http://localhost:4444/api/poll/';
@@ -144,16 +146,19 @@ function PollCreator() {
     );
   }
   return (
-    <div className="poll-wrapper">
+    <div className="poll-wrapper poll-creator-wrapper">
       {/* <button onClick={makeTen}>dodaj 11</button> */}
-      <h3>Poll name</h3>
-      <input
-        type="text"
-        required
-        placeholder="enter poll name"
-        value={pollName}
-        onChange={(e) => setPollName(e.target.value)}
-      />
+      <div className="poll-name-wrapper">
+        <h1 className="poll-creator-heading">POLL CREATOR</h1>
+        <input
+          className="poll-name-input"
+          type="text"
+          required
+          placeholder="enter poll name"
+          value={pollName}
+          onChange={(e) => setPollName(e.target.value)}
+        />
+      </div>
 
       {/* tutaj  wyswietlanie kazdego z pytan w ankiecie - jak na razie zostawilem domyslnie
              2 pytania */}
@@ -162,6 +167,7 @@ function PollCreator() {
       })}
 
       <button
+        className="add-new-question-button"
         onClick={() => {
           let newQuestion = {};
           Object.assign(newQuestion, questionTemplate);
@@ -169,14 +175,13 @@ function PollCreator() {
           setQuestions([...questions, newQuestion]);
         }}
       >
-        Add new Question
+        <FontAwesomeIcon icon={faPlus} className="fa-icon" /> Add new Question
       </button>
-      <br />
-      <br />
+
       <Tag />
-      <br />
-      <h2>Submit Poll</h2>
+
       <form
+        className="submit-create-poll-form"
         action=""
         onSubmit={(e) => {
           // e.preventDefault()
@@ -188,7 +193,7 @@ function PollCreator() {
           // window.location.assign('/#/page/0')
         }}
       >
-        <button className="submit-btn">Submit new poll</button>
+        <button className="submit-btn">Create</button>
       </form>
 
       {/* <button
