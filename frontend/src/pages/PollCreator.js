@@ -64,7 +64,6 @@ function PollCreator() {
   //     })
   //   })
   // }
-
   async function postData() {
     // console.log('kliknieto submit')
     // console.log('TAKA JEST ANKIETA')
@@ -129,9 +128,7 @@ function PollCreator() {
         }), // body data type must match "Content-Type" header
       });
     }
-    // console.log("PRZENOSIMY NA STRONE GLOWNA");
-    // console.log("TAKA LOKALIZACJA: ");
-    // console.log(window.location);
+
 
     window.location.assign('/#/page/0');
     // window.location.href='/#'

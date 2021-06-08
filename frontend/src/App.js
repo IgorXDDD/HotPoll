@@ -16,6 +16,7 @@ import PollList from "./components/PollList";
 import TagList from "./components/TagList";
 import { Search } from "./components/Search";
 import SearchForm from "./pages/SearchForm";
+import UserPage from "./pages/UserPage";
 // ...
 
 const App = () => {
@@ -41,12 +42,17 @@ const App = () => {
           <Route path='/tag/:id/:page'>
             <TagList />
           </Route>
+
           <Route path='/tag/:id'>
             <TagList />
           </Route>
 
           <Route path='/page/:id'>
             <PollList />
+          </Route>
+
+          <Route path='/user'>
+            <UserPage />
           </Route>
 
           <Route path='/search'>

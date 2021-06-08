@@ -48,6 +48,7 @@ const TagList = () => {
               };
             });
             setPolls(newPolls);
+            getPagesNumber();
             // console.log('udalo sie zdobyc takie:')
             // console.log(newPolls)
           } else {
@@ -105,32 +106,41 @@ const TagList = () => {
     );
   }
   return (
-    <section className="min-height-100vh">
-      <div className="info">
+    <section className='min-height-100vh'>
+      <div className='info'>
         <h2>Exploring {id} polls</h2>
       </div>
 
       {polls.map((item) => {
-        return <Poll key={item.id} {...item} />;
+        return <Poll key={item.id} {...item} />
       })}
       {/* TUTAJ TRZEBA UZUPELNIC STYLE ORAZ SZTYWNO WPISANE WARTOSCI NA TO, CO OTRZYMUJEMY Z API */}
       <ReactPaginate
         previousLabel={'previous'}
-        nextLabel={'next'}
+        breakClassName={'breakClassName'}
+        breakLinkClassName={'breakLinkClassName'}
+        containerClassName={'containerClassName'}
+        pageClassName={'pageClassName'}
+        pageLinkClassName={'pageLinkClassName'}
+        activeClassName={'activeClassName'}
+        activeLinkClassName={'activeLinkClassName'}
+        previousClassName={'previousClassName'}
+        nextClassName={'nextClassName'}
+        previousLinkClassName={'previousLinkClassName'}
+        nextLinkClassName={'nextLinkClassName'}
+        disabledClassName={'disabledClassName'}
         breakLabel={'...'}
         breakClassName={'break-me'}
         pageCount={numberOfPages}
         marginPagesDisplayed={3}
         pageRangeDisplayed={3}
         onPageChange={pageChange}
-        containerClassName={'pagination'}
-        activeClassName={'active'}
         initialPage={page ? parseInt(page) : 0}
-        previousLabel={<button>previous</button>}
-        nextLabel={<button>next</button>}
+        // nextLabel={<button>next</button>}
+        // previousLabel={<button>prev</button>}
       />
     </section>
-  );
+  )
 };
 
 export default TagList;
