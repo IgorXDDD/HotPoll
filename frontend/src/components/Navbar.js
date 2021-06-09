@@ -167,34 +167,36 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className='navbar'>
-        <div className='nav-center'>
-          <Link to='/'>
-            <img src={logo} alt='hotpoll logo' className='logo' />
+      <nav className="navbar">
+        <div className="nav-center">
+          <Link to="/">
+            <img src={logo} alt="hotpoll logo" className="logo" />
           </Link>
-          <ul className='nav-links'>
+          <ul className="nav-links">
             <li>
-              {/* TO SIE POWINNO CHOWAC KIEDY JESTSMY NIEZALOGOWANI */}
               <Link
                 className={logged ? 'link-underline' : 'link-hidden'}
-                to='/createpoll'
+                to="/createpoll"
               >
                 Create new poll
               </Link>
             </li>
             <li>
-              <Link to='/about' className='link-underline'>
+              <Link to="/about" className="link-underline">
                 About
               </Link>
             </li>
             <li>
-              <Link to='/Search' className='link-underline'>
+              <Link to="/Search" className="link-underline">
                 Search
               </Link>
             </li>
 
-            <li className={logged? 'link-underline': 'hidden'}>
-              <Link to='/user' className='link-underline'>
+            <li>
+              <Link
+                className={logged ? 'link-underline' : 'link-hidden'}
+                to="/user"
+              >
                 User
               </Link>
             </li>
@@ -224,49 +226,49 @@ const Navbar = () => {
         onRequestClose={closeModal}
         closeTimeoutMS={300}
         style={customStyles}
-        contentLabel='Sign in Modal'
+        contentLabel="Sign in Modal"
       >
         <h2>Sign in</h2>
-        <Link to='#' className='link-underline' onClick={closeModal}>
+        <Link to="#" className="link-underline" onClick={closeModal}>
           close
         </Link>
 
-        <div className='login-or-create-account'>
+        <div className="login-or-create-account">
           <h1>Login or Create Account for Free!</h1>
           <form
             onSubmit={isRegistration ? handleRegisterSubmit : handleLoginSubmit}
-            className='loginForm'
+            className="loginForm"
           >
             <input
               className={isRegistration ? 'registration-form' : 'hidden'}
-              type='email'
-              placeholder='email'
+              type="email"
+              placeholder="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              type='text'
-              placeholder='login'
+              type="text"
+              placeholder="login"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
             />
             <input
-              type='password'
-              placeholder='password'
+              type="password"
+              placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <input
               className={isRegistration ? 'registration-form' : 'hidden'}
-              type='password'
-              placeholder='confirm password'
+              type="password"
+              placeholder="confirm password"
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />
             {loading ? (
               <Loading />
             ) : (
-              <button type='submit'>
+              <button type="submit">
                 {isRegistration ? 'Register' : 'Log in'}
               </button>
             )}
@@ -276,17 +278,17 @@ const Navbar = () => {
               ? 'Already have an account?'
               : "Don't Have an Account?"}
           </h1>
-          <div className='create-acc-or-guest'>
+          <div className="create-acc-or-guest">
             <button
-              id='register-btn'
+              id="register-btn"
               onClick={() => {
-                setIsRegistration(!isRegistration)
+                setIsRegistration(!isRegistration);
               }}
             >
               {isRegistration ? 'Log in' : 'sign up'}
             </button>
-            <button id='enter-as-guest-btn'>
-              <a className='google-btn' href={OAUTH_URL}>
+            <button id="enter-as-guest-btn">
+              <a className="google-btn" href={OAUTH_URL}>
                 Sign in with Google
               </a>
             </button>
@@ -294,7 +296,7 @@ const Navbar = () => {
         </div>
       </Modal>
     </>
-  )
+  );
 };
 
 export default Navbar;
