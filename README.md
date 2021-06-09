@@ -33,6 +33,39 @@ $ ./mvnw clean install
 $ ./mvnw spring-boot:run
 ```
 
+## Architecture summary
+
+Architecure seen from modules perspective.
+
+![Architecture](architecture.png)
+
+### Modules:
+#### PollModule
+
+![ArchitecturePoll](architecturePoll.png)
+
+#### VoteModule
+
+![ArchitectureVote](architectureVote.png)
+
+#### UserModule
+
+![ArchitectureUser](architectureUser.png)
+
+#### StatisticsModule
+
+![ArchitectureStatistics](architectureStatistics.png)
+
+### C4 Diagram
+
+* [Link to the diagram](https://structurizr.com/workspace/65807)
+
+![C4](structurizr.png)
+![C41](structurizr1.png)
+![C42](structurizr2.png)
+![C43](structurizr3.png)
+![C44](structurizr4.png)
+
 ## Tutorials
 ### Frontend
 * [Tutorial 1](https://youtu.be/4UZrsTqkcW4)
