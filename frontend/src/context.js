@@ -1,99 +1,102 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useCallback } from "react";
+import React, { useState, useContext, useEffect } from 'react';
+import { useCallback } from 'react';
 
-const url = "http://localhost:4444/poll";
+const url = 'http://localhost:4444/api/poll';
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [polls, setPolls] = useState([]);
-  const [logged,setLogged] = useState(false);
+  const [logged, setLogged] = useState(false);
+  const [isGoogleLogged, setIsGoogleLogged] = useState(false);
+  const [questions, setQuestions] = useState([
+    {
+      id: '0',
+      text: 'pytanie checkbox',
+      type: 'multiple',
+      answers: [
+        {
+          id: '0',
+          text: 'ans 1',
+          votes: 0,
+        },
+        {
+          id: '1',
+          text: 'ans 2',
+          votes: 0,
+        },
+      ],
+    },
+    {
+      id: '1',
+      text: 'pytanie radio button',
+      type: 'radio',
+      answers: [
+        {
+          id: '0',
+          text: 'tak',
+          votes: 0,
+        },
+        {
+          id: '1',
+          text: 'nie',
+          votes: 0,
+        },
+      ],
+    },
+  ]);
+  const [googleInfo, setGoogleInfo] = useState({});
+  const [tags, setTags] = useState(['IT', 'FOOD']);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const fetchPolls = () => {
-    setLoading(true);
+  // const fetchPollByName = async ()=>
+  // {
+  //   const response = await fetch(`${search_url}${searchTerm}`)
+  //   const data = await response.json()
+  //   console.log(data)
+  //   const { Polls } = data
+  //   if (Polls)
+  //   {
+  //     const newPolls = Polls.map((item) => {
+  //       const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strGlass } =
+  //         item
 
-    const newPolls = [
-      {
-        id: 2137,
-        title: "Pineapple and Pizza?",
-        date: "16.04.2021",
-        author: "Demongo",
-        timesCompleted: 38,
-        tags: ["food", "pineapple", "pizza"],
-        alreadyCompleted: false,
-        questions: [
-          {
-            qid: 1,
-            question: "Does pineapple belong on pizza?",
-            type: "radio",
-            answers: [
-              {
-                aid: 1,
-                answer: "Hell Yeah!",
-              },
-              {
-                aid: 2,
-                answer: "Eww!",
-              },
-            ],
-          },
-        ],
-      },
-    ];
-
-    setPolls(newPolls);
-    setLoading(false);
-
-    // To co wyzej jest do szybszego testowania na lokalnym serwerze localhost:3000
-    // trzeba odkomentowac gore i zakomentowac dol
-
-    // try {
-    //   fetch(url)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log("data: ", data);
-    //       let polls = [data];
-    //       if (polls) {
-    //         const newPolls = polls.map((poll) => {
-    //           const {
-    //             id,
-    //             title,
-    //             date,
-    //             author,
-    //             timesCompleted,
-    //             tags,
-    //             alreadyCompleted,
-    //             questions,
-    //           } = poll;
-    //           return {
-    //             id,
-    //             title,
-    //             date,
-    //             author,
-    //             timesCompleted,
-    //             tags,
-    //             alreadyCompleted,
-    //             questions,
-    //           };
-    //         });
-    //         setPolls(newPolls);
-    //       } else {
-    //         setPolls([]);
-    //       }
-    //       setLoading(false);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    //   setLoading(false);
-    // }
-  };
-
-  useEffect(() => {
-    fetchPolls();
-  }, []);
+  //       return {
+  //         id: idDrink,
+  //         name: strDrink,
+  //         image: strDrinkThumb,
+  //         info: strAlcoholic,
+  //         glass: strGlass,
+  //       }
+  //     })
+  //     setCocktails(newCocktails)
+  //   }
+  // }
 
   return (
-    <AppContext.Provider value={{ loading, polls, logged, setLogged }}>
+    <AppContext.Provider
+      value={{
+        loading,
+        setLoading,
+        //WYSWIETLANIE ANKIET
+        polls,
+        setPolls,
+        //INFO O ZALOGOWANIU
+        logged,
+        setLogged,
+        isGoogleLogged,
+        setIsGoogleLogged,
+        googleInfo,
+        setGoogleInfo,
+        //TWORZENIE ANKIET
+        questions,
+        setQuestions,
+        tags,
+        setTags,
+        // SZUKANIE ANKIET
+        setSearchTerm,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

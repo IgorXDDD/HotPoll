@@ -1,6 +1,5 @@
 package com.pik.hotpoll.controllers;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,5 +13,11 @@ public class IndexController {
     public ModelAndView frontend(ModelMap model) {
         model.addAttribute("attribute", "frontend");
         return new ModelAndView("forward:/frontend/index.html", model);
+    }
+
+    @GetMapping("icon")
+    public ModelAndView icon(ModelMap model) {
+        model.addAttribute("attribute", "frontend");
+        return new ModelAndView("forward:/frontend/google_button.png", model);
     }
 }

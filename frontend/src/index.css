@@ -5,6 +5,7 @@ Variables
 */
 :root {
   --bgColorMain: #1b1b1e;
+  --creatorInputBGColor: #202024;
   --bgColorLight: #2e2e30;
   --bgColorLighter: #424245;
   --textColorMain: #ffc;
@@ -23,9 +24,9 @@ Variables
   --insetBorder: inset 0px 0px 0px 1.5px;
   --mainBorderRadius: 0.5em;
 
-  --sansSerifFont: "Montserrat", sans-serif;
-  --serifFont: "Roboto Slab", serif;
-  --logoFont: "Lobster", cursive;
+  --sansSerifFont: 'Montserrat', sans-serif;
+  --serifFont: 'Roboto Slab', serif;
+  --logoFont: 'Lobster', cursive;
 
   --mainGradient: linear-gradient(
     45deg,
@@ -84,7 +85,7 @@ ul {
 }
 
 .link-underline::after {
-  content: "";
+  content: '';
   display: block;
   transform: scale(0, 1);
   height: 2px;
@@ -103,20 +104,83 @@ ul {
   opacity: 1;
   color: var(--accentColor2);
 }
-
-/* input {
-  padding: 0.5rem;
+input[type='email'],
+input[type='text'],
+input[type='password'] {
+  background-color: var(--bgColorMain);
+  font-family: var(--sansSerifFont);
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--textColorMain);
   border: none;
-  background-color: var(--bgColorLighter);
-  color: var(--textColorLight);
+  height: 2rem;
+  padding: 0.5rem;
   border-radius: var(--mainBorderRadius);
-  box-shadow: var(--lightShadow);
+  margin: 0.5rem;
+}
+input[type='email']:focus,
+input[type='text']:focus,
+input[type='password']:focus {
+  box-shadow: var(--insetBorder) var(--accentColor2), var(--lightShadow);
+}
+
+/* radio and checkbox button styles */
+input[type='checkbox'],
+input[type='radio'] {
+  display: none;
+}
+
+input[type='checkbox'] + label,
+input[type='radio'] + label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type='checkbox'] + label:last-child,
+input[type='radio'] + label:last-child {
   margin-bottom: 1rem;
 }
 
-input:focus {
-  box-shadow: var(--insetBorder) var(--accentColor2);
-} */
+input[type='checkbox'] + label:before,
+input[type='radio'] + label:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accentColor1);
+  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+  -webkit-transition: all 0.3s, border-color 0.18s;
+  transition: all 0.3s, border-color 0.18s;
+}
+
+input[type='radio'] + label:before {
+  border-radius: 50%;
+}
+
+input[type='checkbox']:checked + label:before,
+input[type='radio']:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  border: 2px solid var(--accentColor2);
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 
 img {
   width: 100%;
@@ -191,6 +255,16 @@ NAVBAR
   opacity: 1;
 }
 
+.link-hidden {
+  visibility: hidden;
+  width: 0px;
+}
+
+.google-btn {
+  text-decoration: none;
+  color: var(--buttonTextColor);
+}
+
 /* MODAL */
 .ReactModal__Overlay {
   opacity: 0;
@@ -203,6 +277,9 @@ NAVBAR
 
 .ReactModal__Overlay--before-close {
   opacity: 0;
+}
+.hidden {
+  display: none;
 }
 
 /* 
@@ -221,13 +298,13 @@ HOME
   gap: 2rem;
   padding-top: 10vh;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: "welcome loginOrCreateAccount";
+  grid-template-areas: 'welcome loginOrCreateAccount';
   justify-items: stretch;
   min-height: 60vh;
 }
 
 .welcome {
-  grid-area: "welcome";
+  grid-area: 'welcome';
   border-radius: var(--mainBorderRadius);
   text-align: center;
 }
@@ -263,7 +340,7 @@ HOME
 }
 
 .login-or-create-account {
-  grid-area: "loginOrCreateAccount";
+  grid-area: 'loginOrCreateAccount';
   place-self: end;
   padding: 1rem 3rem 2rem 3rem;
   max-width: 60ch;
@@ -289,6 +366,9 @@ HOME
 
 .loginForm input {
   width: 100%;
+  margin: auto;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
 }
 
 .loginForm button {
@@ -299,17 +379,17 @@ HOME
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  grid-template-areas: "register enterAsGuest";
+  grid-template-areas: 'register enterAsGuest';
   justify-items: center;
 }
 
 #register-btn {
-  grid-area: "register";
+  grid-area: 'register';
   width: 100%;
 }
 
 #enter-as-guest-btn {
-  grid-area: "enterAsGuest";
+  grid-area: 'enterAsGuest';
   width: 100%;
 }
 
@@ -352,35 +432,6 @@ ERROR
 
 /* 
 ====== 
-MEDIA QUERIES
-======
-*/
-
-@media (max-width: 1100px) {
-  .homescreen-content {
-    margin-top: 1rem;
-    padding-top: 0;
-    gap: 5rem;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "welcome"
-      "loginOrCreateAccount";
-  }
-  .login-or-create-account {
-    margin-bottom: 2rem;
-    place-self: center;
-  }
-  .welcome h1 {
-    font-size: 6rem;
-  }
-  .welcome h2 {
-    font-size: 1.2rem;
-  }
-}
-
-/* 
-====== 
 POLL
 ======
 */
@@ -418,7 +469,7 @@ POLL
 }
 
 .underline::after {
-  content: "";
+  content: '';
   /* display: block; */
   width: 200%;
   height: 2px;
@@ -514,9 +565,376 @@ svg rect {
 FOOTER
 ======
 */
+
 .footer {
   background-color: var(--bgColorLight);
   height: 2rem;
   display: flex;
   align-items: center;
+}
+
+.footer p {
+  margin: auto;
+  color: var(--textColorLight);
+}
+
+/* 
+====== 
+POLL CREATOR
+======
+*/
+
+.poll-creator-wrapper {
+  padding: 2rem;
+}
+
+.poll-name-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.poll-creator-heading {
+  font-size: 3rem;
+  font-family: var(--serifFont);
+  text-transform: capitalize;
+}
+
+.poll-name-input[type='text'] {
+  height: 3rem;
+  font-size: 1.5rem;
+  margin: 0 0 2rem;
+  width: 100%;
+}
+
+.question-creator-wrapper {
+  background-color: var(--bgColorLighter);
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: var(--mainBorderRadius);
+  box-shadow: var(--lightShadow);
+}
+
+/* SINGLE QUESTION */
+
+.single-question-top {
+  position: relative;
+}
+
+.poll-creator-question-heading {
+  position: absolute;
+  top: -2rem;
+  padding: 0 0.5rem;
+  border-radius: var(--mainBorderRadius);
+  background-color: var(--bgColorLight);
+  font-family: var(--serifFont);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.remove-question-button {
+  position: absolute;
+  top: -2rem;
+  right: 0;
+  padding: 0 0.5rem;
+  border-radius: var(--mainBorderRadius);
+  background-color: var(--bgColorLight);
+  font-family: var(--sansSerifFont);
+  font-size: 1.5rem;
+  margin: 0;
+  width: 2.5rem;
+  text-align: center;
+  color: var(--accentColor1);
+  cursor: pointer;
+  transition: var(--mainTransition);
+}
+
+.remove-question-button:hover {
+  color: var(--accentColor2);
+  box-shadow: var(--accentColor2) var(--insetBorder), var(--buttonGlow);
+}
+
+.single-question-text[type='text'] {
+  width: 100%;
+  margin: 1rem 0;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  background-color: var(--creatorInputBGColor);
+}
+
+.single-answer-wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.answer-nr-text {
+  width: 9ch;
+  margin: 0;
+}
+
+.single-answer-input[type='text'] {
+  margin: 0;
+  width: 75%;
+  background-color: var(--creatorInputBGColor);
+}
+
+.fa-icon {
+  height: 1rem;
+  margin: 0px 1px;
+}
+
+.single-answer-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.add-answer-button {
+  margin: 1rem 0;
+}
+
+.allow-multiple-checkbox {
+  margin-top: 1rem;
+  left: 0;
+}
+
+.add-new-question-button {
+  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+
+.add-tag-input[type='text'] {
+  margin: 0 0.5rem 0.5rem 0;
+  background-color: var(--bgColorMain);
+}
+
+.tag-list {
+  display: flex;
+  align-items: baseline;
+}
+
+.tag {
+  margin-right: 0.5rem;
+}
+
+.submit-create-poll-form {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* 
+====== 
+BARGRAPH
+======
+*/
+
+.bar-graph-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 2rem;
+  margin: 0 1rem 1.5rem;
+  background-color: var(--bgColorLight);
+  border-radius: 2rem;
+  transition: var(--mainTransition);
+}
+
+.bar-graph-wrapper:hover {
+  background-color: var(--bgColorMain);
+  box-shadow: var(--lightShadow);
+}
+
+.bar-graph-wrapper:hover .bar-graph-indicator {
+  background-color: var(--accentColor1);
+}
+
+.bar-graph-wrapper:hover .bar-graph-percentage {
+  color: var(--accentColor1);
+}
+
+.bar-graph-indicator {
+  margin: 0 0.5rem;
+  height: 1rem;
+  border-radius: 1rem;
+  background-color: var(--accentColor2);
+  transition: var(--mainTransition);
+}
+
+.bar-graph-percentage {
+  font-size: 0.9em;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--accentColor2);
+  mix-blend-mode: difference;
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 
+====== 
+REACT PAGINATE
+======
+*/
+
+/* The classname on tag li of the ellipsis element */
+.breakClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on tag a of the ellipsis element */
+.breakLinkClassName {
+  margin: 0.5rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+/* The classname of the pagination container. */
+.containerClassName {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The classname on tag li of each page element. */
+.pageClassName {
+  margin: 0.5rem;
+  padding: 0.2rem;
+  border-radius: var(--mainBorderRadius);
+  display: flex;
+  cursor: pointer;
+  transition: var(--mainTransition);
+}
+.pageClassName:hover {
+  box-shadow: var(--accentColor2) var(--insetBorder);
+}
+
+/* The classname on tag a of each page element. */
+.pageLinkClassName {
+  padding: 0 0.5rem;
+  color: var(--textColorLight);
+}
+
+/* The classname for the active page. */
+.activeClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on the active tag a. */
+.activeLinkClassName {
+  font-weight: 900;
+  color: var(--buttonTextColor);
+}
+
+/* The classname on tag li of the previous button. */
+.previousClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on tag li of the next button. */
+.nextClassName {
+  margin: 0.5rem;
+  display: flex;
+}
+
+/* The classname on tag a of the previous button. */
+.previousLinkClassName {
+  margin: 0.5rem;
+}
+
+/* The classname on tag a of the next button. */
+.nextLinkClassName {
+  margin: 0.5rem;
+}
+
+/* The classname for disabled previous and next buttons. */
+.disabledClassName {
+  margin: 0.5rem;
+  display: flex;
+}
+
+/* 
+====== 
+OTHER
+======
+*/
+.search-form {
+  margin: auto;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-form input[type='text'] {
+  background-color: var(--bgColorLight);
+  width: 50%;
+}
+.info {
+  background-color: var(--bgColorLight);
+  box-shadow: var(--lightShadow);
+  max-width: 70ch;
+  width: max-content;
+  margin: auto;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: var(--mainBorderRadius);
+  border: 2px solid var(--bgColorLighter);
+}
+.info h1,
+.info h2,
+.info h3 {
+  margin-bottom: 0;
+}
+
+.min-height-100vh {
+  min-height: 100vh;
+}
+
+/* 
+====== 
+MEDIA QUERIES
+======
+*/
+
+@media (max-width: 1100px) {
+  .homescreen-content {
+    margin-top: 1rem;
+    padding-top: 0;
+    gap: 5rem;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'welcome'
+      'loginOrCreateAccount';
+  }
+  .login-or-create-account {
+    margin-bottom: 2rem;
+    place-self: center;
+  }
+  .welcome h1 {
+    font-size: 6rem;
+  }
+  .welcome h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 790px) {
+  .poll-wrapper {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }

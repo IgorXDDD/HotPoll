@@ -1,13 +1,14 @@
 package com.pik.hotpoll.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import lombok.AllArgsConstructor;
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,46 +16,21 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-//        JSONObject jo = new JSONObject()
-//                .appendField("id",2137)
-//                .appendField("title","Pineapple and Pizza?")
-//                .appendField("date","16.04.2021")
-//                .appendField("author","Demongo")
-//                .appendField("timesCompleted",38)
-//                .appendField("tags",new JSONArray()
-//                        .appendElement("food")
-//                        .appendElement("pineapple")
-//                        .appendElement("pizza"))
-//                .appendField("alreadyCompleted",false)
-//                .appendField("questions",new JSONArray()
-//                        .appendElement(new JSONObject()
-//                        .appendField("qid",1)
-//                        .appendField("question", "Does pineapple belong on pizza?")
-//                        .appendField("type","radio")
-//                        .appendField("answers", new JSONArray()
-//                                .appendElement(new JSONObject()
-//                                        .appendField("aid",1)
-//                                        .appendField("answer","Hell Yeah!"))
-//                                .appendElement(new JSONObject()
-//                                        .appendField("aid",2)
-//                                        .appendField("answer", "Eww!"))))
-//        );
-
 
 
 
 @Data
+@TypeAlias("poll")
 @Document(collection = "polls")
-//@NoArgsConstructor
-//@AllArgsConstructor
+@QueryEntity
 @Builder(builderClassName = "PollBuilder")
 @JsonDeserialize(builder = Poll.PollBuilder.class)
 public class Poll {
     @Id
-//    @JsonIgnore
-    private final String id;
+    private String id;
     @NotNull
     private final String title;
+    @Indexed(direction = IndexDirection.DESCENDING)
     @DateTimeFormat(pattern="dd-MM-yyyy HH:mm")
     @NotNull
     private final LocalDateTime date;
@@ -64,9 +40,20 @@ public class Poll {
     @NotNull
     private final List<Question> questions;
 
+    @Indexed(direction = IndexDirection.DESCENDING)
+    @NotNull
+    private int timesFilled;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class PollBuilder {
 
+    }
+
+    public void addVote(Vote vote){
+        ++timesFilled;
+        for (Vote.AnswerID id : vote.getAnswers()){
+            questions.get(id.getQuestionID()).getAnswers().get(id.getAnswerID()).addVote();
+        }
     }
 
 }

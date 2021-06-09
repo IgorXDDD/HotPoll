@@ -1,10 +1,5 @@
 package com.pik.hotpoll.controllers;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 
 import com.pik.hotpoll.config.JwtUtils;
@@ -15,14 +10,9 @@ import com.pik.hotpoll.payload.JwtResponse;
 import com.pik.hotpoll.payload.LoginRequest;
 import com.pik.hotpoll.payload.MessageResponse;
 import com.pik.hotpoll.payload.SignupRequest;
-import com.pik.hotpoll.repositories.UserRepository;
-import com.pik.hotpoll.services.DefaultUserService;
-
 
 import com.pik.hotpoll.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -101,4 +91,6 @@ public class AuthController {
 
         return ResponseEntity.ok(MessageResponse.builder().message("User registered successfully!").build());
     }
+
+
 }
