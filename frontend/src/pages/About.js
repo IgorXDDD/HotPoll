@@ -8,7 +8,7 @@ const About = () => {
       <Welcome />
       <section className="about">
         <p>
-          HotPoll offers the best of Reditt and Twitter - the ability to stay up
+          HotPoll offers the best of Reddit and Twitter - the ability to stay up
           to date with the latest polls posted by users around the world, as
           well as access to a list of the most interesting and popular questions
           of the day. In addition, the service allows you to search for
