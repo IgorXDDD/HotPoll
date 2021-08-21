@@ -7,6 +7,7 @@ Platform for hottest polls. Created in Java and React/Js.
 
 ## General info
 HotPoll is a voting platform inspired by Reditt and Twitter. The main goal of this app is to quickly share polls all around the world. It also allows to vote and check whether your side of conflict is winning :)
+Presentation in Polish, but still shows some features :) : https://docs.google.com/presentation/d/1oQKEjgV1RYYWndP-S99Chps1ihloGFnK273yiFtYrJM/edit?usp=sharing
 	
 ## Technologies
 Project is created with:
